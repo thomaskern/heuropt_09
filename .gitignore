@@ -1,2 +1,5 @@
-.idea/
+.idea/*
 *.iml
+*.xml
+test-output/
+out/
