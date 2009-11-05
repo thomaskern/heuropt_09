@@ -7,7 +7,7 @@ public class Tool {
     public static HashMap<Integer, Tool> tools = new HashMap<Integer, Tool>();
     public Integer id;
 
-    public Tool(Integer id) {
+    private Tool(Integer id) {
         this.id = id;
     }
 

@@ -55,4 +55,8 @@ public class Fixtures {
     public HashMap<Integer, Job> getJobs() {
         return jobs;
     }
+
+    public Integer capacity() {
+        return capacity;
+    }
 }
