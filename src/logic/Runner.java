@@ -1,9 +1,8 @@
 package logic;
 
 import data.Fixtures;
+import data.Solution;
 
-public class Runner {
-    public void run(Fixtures f) {
-        f.capacity();
-    }
+public abstract class Runner {
+    public abstract Solution run();    
 }

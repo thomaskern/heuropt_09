@@ -8,7 +8,7 @@ public class TestJob {
     @Test
     public void method1() {
         Job j = new Job(2);
-        assert j.id == 3;
+        assert j.id == 2;
     }
 
 

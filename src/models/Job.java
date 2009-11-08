@@ -14,4 +14,7 @@ public class Job {
         this.tools = tools;
     }
 
+    public ArrayList<Tool> getTools() {
+        return tools;
+    }
 }

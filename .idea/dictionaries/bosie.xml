@@ -2,6 +2,7 @@
   <dictionary name="bosie">
     <words>
       <w>fstream</w>
+      <w>jobsequence</w>
     </words>
   </dictionary>
 </component>

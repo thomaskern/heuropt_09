@@ -14,9 +14,7 @@ public class Main {
         Fixtures f = new Fixtures("matrices/matrix_10j_9to_NSS_0.txt", "matrices/capacities.txt", "9_10");
         f.parse_file();
 
-        Runner r = new Runner();
-        r.run(f);
-
+        
     }
 
 }

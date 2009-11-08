@@ -11,13 +11,24 @@ public class Fixtures {
     private String filename;
     private HashMap<Integer, Job> jobs;
     private Integer capacity;
+    private ArrayList<Tool> tools;
 
 
-    public Fixtures(String filename, String capacity_filename, String capacity_id) {
+    public Fixtures(String filename) {
+        prepare(filename, null, null);
+    }
+
+    private void prepare(String filename, String capacity_filename, String capacity_id) {
         this.filename = filename;
         this.jobs = new HashMap<Integer, Job>();
-        Capacity.load(capacity_filename);
-        this.capacity = Capacity.get(capacity_id);
+        if (capacity_filename != null) {
+            Capacity.load(capacity_filename);
+            this.capacity = Capacity.get(capacity_id);
+        }
+    }
+
+    public Fixtures(String filename, String capacity_filename, String capacity_id) {
+        prepare(filename, capacity_filename, capacity_id);
     }
 
     public void parse_file() {
@@ -58,5 +69,15 @@ public class Fixtures {
 
     public Integer capacity() {
         return capacity;
+    }
+
+    public ArrayList<Tool> getTools() {
+        if(tools == null){
+            tools = new ArrayList<Tool>();
+            for(Job j : jobs.values()){
+                tools.addAll(j.getTools());
+            }
+        }
+        return tools;
     }
 }
