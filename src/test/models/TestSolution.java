@@ -8,17 +8,22 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 
-import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.*;
 
 public class TestSolution extends TestHelper {
 
     Solution s;
+
     @BeforeMethod
     public void load_fixtures() {
-        this.f = new Fixtures("fixtures/matrix_3j_3to_NSS_0.txt");
+        load_file("fixtures/matrix_3j_3to_NSS_0.txt");
+        s.tool_switch(create_toollist(new int[]{1}), create_toollist(new int[]{1, 2, 0}));
+    }
+
+    private void load_file(String filename) {
+        this.f = new Fixtures(filename);
         f.parse_file();
         s = new Solution(get_jobs());
-        s.tool_switch(create_toollist(new int[]{1}), create_toollist(new int[]{1, 2, 0}));
     }
 
     @Test
@@ -37,13 +42,31 @@ public class TestSolution extends TestHelper {
 
     @Test
     public void should_remove_tool_and_add_a_new_one_by_switch_tool_config_with_current() {
-        s.tool_switch(create_toollist(new int[]{1}), create_toollist(new int[]{4,5}));
+        s.tool_switch(create_toollist(new int[]{1, 2}), create_toollist(new int[]{4}));
+        assertEquals(s.current_config().size(), 2);
+        assertEquals((Object) s.current_config().get(0).id, 4);
+    }
 
-        System.out.println(create_toollist(new int[]{4,5}));
+    @Test
+    public void should_check_validity_of_solution_for_incomplete_solution() {
+        load_file("fixtures/matrix_2j_2to_NSS_0.txt");
+        s.tool_switch(create_toollist(new int[]{1, 0}), create_toollist(new int[]{0}));
+        assertFalse(s.is_valid());
+    }
 
-        assertEquals(s.tool_sequence.size(), 2);
-        System.out.println(s.current_config());
-        assertEquals(s.current_config().size(), 4);
+    @Test
+    public void should_check_validity_of_solution_for_correct_and_complete_solution() {
+        load_file("fixtures/matrix_2j_2to_NSS_0.txt");
+        s.tool_switch(create_toollist(new int[]{}), create_toollist(new int[]{0, 1}));
+        s.tool_switch(create_toollist(new int[]{0}), create_toollist(new int[]{}));
+
+        assertTrue(s.is_valid());
+    }
+
+    @Test
+    public void should_check_validity_of_solution_for_incorrect_and_complete_solution() {
+        load_file("fixtures/matrix_2j_2to_NSS_0.txt");
+        assertFalse(s.is_valid());
     }
 
     private ArrayList<Tool> create_toollist(int[] tool_ids) {

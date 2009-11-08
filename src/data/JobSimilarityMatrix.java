@@ -4,7 +4,6 @@ import models.Job;
 import models.Tool;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class JobSimilarityMatrix {
     private ArrayList<Job> jobs;
@@ -31,10 +30,10 @@ public class JobSimilarityMatrix {
     private Integer calculate_same_tools(Job first, Job second) {
         Integer i = 0;
 
-        for(Tool f : first.getTools()){
-            for(Tool s : second.getTools()){
-                if(s == f)
-                   i++;
+        for (Tool f : first.getTools()) {
+            for (Tool s : second.getTools()) {
+                if (s == f)
+                    i++;
             }
         }
 
@@ -42,7 +41,7 @@ public class JobSimilarityMatrix {
     }
 
     public Integer[] get(int id) {
-                   return similarity[id];
+        return similarity[id];
     }
 
     public Integer similarity_between(int from, int to) {

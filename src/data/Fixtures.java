@@ -4,6 +4,7 @@ import models.Job;
 import models.Tool;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class Fixtures {
@@ -72,12 +73,16 @@ public class Fixtures {
     }
 
     public ArrayList<Tool> getTools() {
-        if(tools == null){
+        if (tools == null) {
             tools = new ArrayList<Tool>();
-            for(Job j : jobs.values()){
-                tools.addAll(j.getTools());
+            for (Job j : jobs.values()) {
+                for (Tool t : j.getTools())
+                    if (!tools.contains(t))
+                        tools.add(t);
             }
+            Collections.sort(tools);
         }
         return tools;
     }
+
 }

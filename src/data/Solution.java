@@ -12,35 +12,48 @@ public class Solution {
     public ArrayList<Job> jobsequence;
 
     public Solution(ArrayList<Job> jobs) {
-        tool_sequence = new ArrayList<ToolConfiguration>(jobs.size());
+        this.tool_sequence = new ArrayList<ToolConfiguration>(jobs.size());
         this.jobs = jobs;
-        jobsequence = new ArrayList<Job>(jobs.size());
+        this.jobsequence = new ArrayList<Job>(jobs.size());
     }
 
     public void tool_switch(ArrayList<Tool> from, ArrayList<Tool> to) {
         ToolConfiguration tc = new ToolConfiguration();
 
-        for(Tool t : current_config()){
-            if(!from.contains(t))
-                tc.add(t);
-        }
-        for(Tool t : to)
-            if(!tc.contains(t))
-                tc.add(t);
+        add_to_tc(from, tc, current_config());
+        add_to_tc(tc, tc, to);
 
         tool_sequence.add(tc);
     }
 
-    public ToolConfiguration current_config(){
-        if(tool_sequence.size() == 0)
+
+    public ToolConfiguration current_config() {
+        if (tool_sequence.size() == 0)
             return new ToolConfiguration();
         else
             return tool_sequence.get(tool_sequence.size() - 1);
     }
 
     public boolean is_valid() {
+        if (tool_sequence.size() != jobs.size())
+            return false;
 
-        return false;
+        for (int i = 0; i < jobsequence.size(); i++) {
+            Job j = jobsequence.get(i);
+            ToolConfiguration tc = tool_sequence.get(i);
+            for (Tool t : j.getTools()) {
+                if (!tc.contains(t))
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
+    private void add_to_tc(ArrayList<Tool> ban, ToolConfiguration tc, ArrayList<Tool> tool_list) {
+        for (Tool t : tool_list)
+            if (!ban.contains(t))
+                tc.add(t);
     }
 
 }
