@@ -10,6 +10,7 @@ public class Solution {
     public ArrayList<ToolConfiguration> tool_sequence;
     public ArrayList<Job> jobs;
     public ArrayList<Job> jobsequence;
+    public static final int cost_factor = 5;
 
     public Solution(ArrayList<Job> jobs) {
         this.tool_sequence = new ArrayList<ToolConfiguration>(jobs.size());
@@ -23,7 +24,7 @@ public class Solution {
         add_to_tc(from, tc, current_config());
         add_to_tc(tc, tc, to);
 
-        tool_sequence.add(tc);
+        tool_sequence.add(tool_sequence.size(),tc);
     }
 
 
@@ -56,4 +57,13 @@ public class Solution {
                 tc.add(t);
     }
 
+    public Integer calculate_costs() {
+        int cost = 0;
+
+        for (int i = 0; i < tool_sequence.size()-1; i++) {
+            cost += tool_sequence.get(i).dissimilarity(tool_sequence.get(i+1));
+        }
+
+        return cost * Solution.cost_factor;
+    }
 }

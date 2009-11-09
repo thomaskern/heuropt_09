@@ -31,6 +31,6 @@ public class TestJobSimilarityMatrix extends TestHelper {
 
     @Test
     public void should_return_all_similarities_to_other_jobs_for_a_specific_job() {
-        assertEquals(m.get(get_jobs().get(0).id), new Integer[]{3, 1, 2});
+        assertEquals(m.get(get_jobs().get(0).id), new Integer[]{4, 1, 2});
     }
 }

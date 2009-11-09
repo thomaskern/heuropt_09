@@ -10,6 +10,10 @@ public class Job {
         this.id = id;
     }
 
+    public String toString() {
+        return "job@" + id;
+    }
+
     public void add_tools(ArrayList<Tool> tools) {
         this.tools = tools;
     }

@@ -11,6 +11,10 @@ public class Tool implements Comparable {
         this.id = id;
     }
 
+    public String toString() {
+        return "tool@" + id;
+    }
+
     public static Tool find_or_create(String tool) {
         return find_or_create(Integer.parseInt(tool));
     }
@@ -27,6 +31,6 @@ public class Tool implements Comparable {
     }
 
     public int compareTo(Object o) {
-        return id < ((Tool) o).id ? 1 : -1;
+        return id < ((Tool) o).id ? -1 : 1;
     }
 }
