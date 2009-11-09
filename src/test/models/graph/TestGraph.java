@@ -27,7 +27,7 @@ public class TestGraph extends TestHelper {
     @Test
     public void should_return_optimal_configuration() {
         Graph g = new Graph(f.get_jobs_as_arraylist(), f);
-        assertEquals((Object) g.generate_solution().calculate_costs(), 1);
+        assertEquals((Object) g.generate_solution().calculate_costs(), 5);
 
     }
 

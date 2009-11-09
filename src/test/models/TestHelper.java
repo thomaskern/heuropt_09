@@ -3,9 +3,6 @@ package test.models;
 import data.Fixtures;
 import data.Solution;
 import data.ToolList;
-import models.Tool;
-
-import java.util.ArrayList;
 
 public class TestHelper {
 

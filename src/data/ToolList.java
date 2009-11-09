@@ -1,6 +1,6 @@
 package data;
 
-import models.Tool;
+import data.Tool;
 
 import java.util.ArrayList;
 

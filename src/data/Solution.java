@@ -1,7 +1,7 @@
 package data;
 
-import models.Job;
-import models.Tool;
+import data.Job;
+import data.Tool;
 
 import java.util.ArrayList;
 

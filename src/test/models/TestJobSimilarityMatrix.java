@@ -2,7 +2,6 @@ package test.models;
 
 import data.Fixtures;
 import data.JobSimilarityMatrix;
-import models.Job;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -32,5 +31,15 @@ public class TestJobSimilarityMatrix extends TestHelper {
     @Test
     public void should_return_all_similarities_to_other_jobs_for_a_specific_job() {
         assertEquals(m.get(f.get_jobs_as_arraylist().get(0).id), new Integer[]{4, 1, 2});
+    }
+
+    @Test
+    public void should_return_correct_similarities() {
+        assertEquals(m.get(2), new Integer[]{2, 2, 3});
+    }
+
+    @Test
+    public void should_(){
+
     }
 }

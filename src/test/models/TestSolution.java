@@ -1,12 +1,8 @@
 package test.models;
 
-import data.Fixtures;
 import data.Solution;
-import models.Tool;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.util.ArrayList;
 
 import static org.testng.Assert.*;
 

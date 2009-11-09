@@ -1,12 +1,9 @@
 package logic.graph;
 
-import data.Fixtures;
-import data.Solution;
-import data.ToolConfiguration;
-import data.ToolList;
+import data.*;
 import logic.CombinationGenerator;
-import models.Job;
-import models.Tool;
+import data.Job;
+import data.Tool;
 
 import java.util.ArrayList;
 import java.util.Collections;

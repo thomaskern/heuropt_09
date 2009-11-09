@@ -1,6 +1,6 @@
 package test.models;
 
-import models.Job;
+import data.Job;
 import org.testng.annotations.Test;
 
 public class TestJob {

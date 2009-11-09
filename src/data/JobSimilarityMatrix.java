@@ -1,7 +1,7 @@
 package data;
 
-import models.Job;
-import models.Tool;
+import data.Job;
+import data.Tool;
 
 import java.util.ArrayList;
 
@@ -37,9 +37,12 @@ public class JobSimilarityMatrix {
             }
         }
 
+        
+
         return i;
     }
 
+// id has to start from 0 and go up to the max in one steps   
     public Integer[] get(int id) {
         return similarity[id];
     }
