@@ -13,6 +13,7 @@ public class Fixtures {
     private HashMap<Integer, Job> jobs;
     private Integer capacity;
     private ArrayList<Tool> tools;
+    private JobSimilarityMatrix jobmatrix;
 
 
     public Fixtures(String filename) {
@@ -22,6 +23,7 @@ public class Fixtures {
     private void prepare(String filename, String capacity_filename, String capacity_id) {
         this.filename = filename;
         this.jobs = new HashMap<Integer, Job>();
+
         if (capacity_filename != null) {
             Capacity.load(capacity_filename);
             this.capacity = Capacity.get(capacity_id);
@@ -64,7 +66,7 @@ public class Fixtures {
         return s.substring(0, s.length() - 1);
     }
 
-    public HashMap<Integer, Job> getJobs() {
+    public HashMap<Integer, Job> get_jobs() {
         return jobs;
     }
 
@@ -72,7 +74,21 @@ public class Fixtures {
         return capacity;
     }
 
-    public ArrayList<Tool> getTools() {
+    public JobSimilarityMatrix get_job_similarity_matrix(){
+        if(jobmatrix == null)
+        jobmatrix = new JobSimilarityMatrix(get_jobs_as_arraylist());
+        return jobmatrix; 
+    }
+
+     public ArrayList<Job> get_jobs_as_arraylist() {
+        ArrayList<Job> j = new ArrayList<Job>();
+        for(Job job : get_jobs().values())
+            j.add(job);
+
+        return j;
+    }
+
+    public ArrayList<Tool> get_tools() {
         if (tools == null) {
             tools = new ArrayList<Tool>();
             for (Job j : jobs.values()) {
@@ -85,4 +101,12 @@ public class Fixtures {
         return tools;
     }
 
+    public ToolList remaining_tools(ToolList list) {
+        ToolList tools = new ToolList();
+        for(Tool t : this.get_tools()){
+            if(!list.contains(t))
+                tools.add(t);
+        }
+        return tools;
+    }
 }

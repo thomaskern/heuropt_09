@@ -12,18 +12,10 @@ import static org.testng.Assert.*;
 
 public class TestSolution extends TestHelper {
 
-    Solution s;
-
     @BeforeMethod
     public void load_fixtures() {
         load_file("fixtures/matrix_3j_3to_NSS_0.txt");
         s.tool_switch(create_toollist(new int[]{}), create_toollist(new int[]{1, 2, 0}));
-    }
-
-    private void load_file(String filename) {
-        this.f = new Fixtures(filename);
-        f.parse_file();
-        s = new Solution(get_jobs());
     }
 
     @Test
@@ -82,18 +74,6 @@ public class TestSolution extends TestHelper {
     public void should_check_validity_of_solution_for_incorrect_and_complete_solution() {
         load_file("fixtures/matrix_2j_2to_NSS_0.txt");
         assertFalse(s.is_valid());
-    }
-
-    private ArrayList<Tool> create_toollist(int[] tool_ids) {
-        ArrayList<Tool> ret = new ArrayList<Tool>();
-        for (int i : tool_ids) {
-            ret.add(get_tools().get(i));
-        }
-        return ret;
-    }
-
-    private ArrayList<Tool> get_tools() {
-        return f.getTools();
     }
 
 }
