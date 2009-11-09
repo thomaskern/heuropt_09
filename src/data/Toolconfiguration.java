@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class ToolConfiguration extends ArrayList<Tool> {
 
     public String toString() {
-        String ret = "";
+        String ret = " ";
         for (Tool t : this) {
             ret += t.id+",";
 
@@ -30,7 +30,7 @@ public class ToolConfiguration extends ArrayList<Tool> {
             if(!found)
                 cost += 1;
         }
-        
+
         return cost;
     }
 }

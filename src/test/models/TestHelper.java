@@ -2,6 +2,7 @@ package test.models;
 
 import data.Fixtures;
 import data.Solution;
+import data.ToolList;
 import models.Tool;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public class TestHelper {
     protected Fixtures f;
     Solution s;
 
-    protected ArrayList<Tool> get_tools() {
+    protected ToolList get_tools() {
         return f.get_tools();
     }
 
@@ -21,8 +22,8 @@ public class TestHelper {
         s = new Solution(f.get_jobs_as_arraylist());
     }
 
-    protected ArrayList<Tool> create_toollist(int[] tool_ids) {
-        ArrayList<Tool> ret = new ArrayList<Tool>();
+    protected ToolList create_toollist(int[] tool_ids) {
+        ToolList ret = new ToolList();
         for (int i : tool_ids) {
             ret.add(get_tools().get(i));
         }

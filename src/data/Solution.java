@@ -18,7 +18,7 @@ public class Solution {
         this.jobsequence = new ArrayList<Job>(jobs.size());
     }
 
-    public void tool_switch(ArrayList<Tool> from, ArrayList<Tool> to) {
+    public void tool_switch(ToolList from, ToolList to) {
         ToolConfiguration tc = new ToolConfiguration();
 
         add_to_tc(from, tc, current_config());
@@ -65,5 +65,13 @@ public class Solution {
         }
 
         return cost * Solution.COST_FACTOR;
+    }
+
+    public void clear_sequences() {
+        this.tool_sequence.clear();
+    }
+
+    public void add_sequence(ToolConfiguration tc) {
+        this.tool_sequence.add(tc);
     }
 }

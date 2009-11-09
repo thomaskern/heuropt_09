@@ -2,7 +2,7 @@ package models;
 
 import java.util.HashMap;
 
-public class Tool implements Comparable {
+public class Tool implements Comparable<Tool> {
 
     public static HashMap<Integer, Tool> tools = new HashMap<Integer, Tool>();
     public Integer id;
@@ -30,7 +30,7 @@ public class Tool implements Comparable {
         }
     }
 
-    public int compareTo(Object o) {
-        return id < ((Tool) o).id ? -1 : 1;
+    public int compareTo(Tool o) {
+        return id - o.id;
     }
 }

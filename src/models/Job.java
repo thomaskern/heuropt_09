@@ -1,9 +1,11 @@
 package models;
 
+import data.ToolList;
+
 import java.util.ArrayList;
 
 public class Job {
-    private ArrayList<Tool> tools;
+    private ToolList tools;
     public int id;
 
     public Job(int id) {
@@ -14,11 +16,11 @@ public class Job {
         return "job@" + id;
     }
 
-    public void add_tools(ArrayList<Tool> tools) {
+    public void add_tools(ToolList tools) {
         this.tools = tools;
     }
 
-    public ArrayList<Tool> getTools() {
+    public ToolList getTools() {
         return tools;
     }
 }
