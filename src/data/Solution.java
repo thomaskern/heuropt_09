@@ -27,6 +27,13 @@ public class Solution {
         tool_sequence.add(tool_sequence.size(),tc);
     }
 
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("job sequence: ").append(jobsequence);
+
+        return sb.toString();
+    }
 
     public ToolConfiguration current_config() {
         if (tool_sequence.size() == 0)

@@ -24,6 +24,10 @@ public class Graph {
         create(jobs, f, null);
     }
 
+    public Graph(ArrayList<Job> jobs, Fixtures f, Solution s) {
+        create(jobs, f, s);
+    }
+
     private void create(ArrayList<Job> jobs, Fixtures f, Solution solution) {
         this.jobs = jobs;
         this.fixtures = f;
