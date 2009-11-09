@@ -75,7 +75,7 @@ public class TestSolution extends TestHelper {
         s.tool_switch(create_toollist(new int[]{0,2}), create_toollist(new int[]{1,4}));
         s.tool_switch(create_toollist(new int[]{4}), create_toollist(new int[]{2}));
         s.tool_switch(create_toollist(new int[]{1,2}), create_toollist(new int[]{0,3}));
-        assertEquals((Object) s.calculate_costs(),6 * Solution.cost_factor);
+        assertEquals((Object) s.calculate_costs(),6 * Solution.COST_FACTOR);
     }
 
     @Test

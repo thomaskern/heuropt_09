@@ -10,7 +10,7 @@ public class Solution {
     public ArrayList<ToolConfiguration> tool_sequence;
     public ArrayList<Job> jobs;
     public ArrayList<Job> jobsequence;
-    public static final int cost_factor = 5;
+    public static final int COST_FACTOR = 5;
 
     public Solution(ArrayList<Job> jobs) {
         this.tool_sequence = new ArrayList<ToolConfiguration>(jobs.size());
@@ -64,6 +64,6 @@ public class Solution {
             cost += tool_sequence.get(i).dissimilarity(tool_sequence.get(i+1));
         }
 
-        return cost * Solution.cost_factor;
+        return cost * Solution.COST_FACTOR;
     }
 }
