@@ -70,6 +70,7 @@ public class Graph {
 
     private void generate_graph() {
         for (Job j : jobs) {
+            System.out.println(j);
             this.graph.put(j.id, new ArrayList<Vertex>());
 
             for (ToolConfiguration tc : generate_toolconfigs_for_job(j)) {
@@ -137,13 +138,18 @@ public class Graph {
         if (perm == 0)
             return default_toolconfig(tc, job);
 
+        System.out.println(toollist.size());
+        System.out.println("perm"+perm);
         CombinationGenerator cg = new CombinationGenerator(toollist.size(), perm);
 
+        int i = 0;
         while (cg.hasMore()) {
-            ToolConfiguration tmp_tc = new ToolConfiguration();
-            add_combinations(toollist, tmp_tc, cg.getNext());
-            add_base_config(tmp_tc, job);
-            tc.add(tmp_tc);
+            System.out.println(i);
+            i++;
+//            ToolConfiguration tmp_tc = new ToolConfiguration();
+//            add_combinations(toollist, tmp_tc, cg.getNext());
+//            add_base_config(tmp_tc, job);
+//            tc.add(tmp_tc);
         }
 
         return tc;

@@ -30,12 +30,27 @@ public class ConstructionHeuristicTest extends TestHelper {
 //        assertTrue(c.create_solution(this.f.get_jobs_as_arraylist(),f).is_valid());
 //    }
 
-        @Test
-    public void should_create_valid_solution_huge() {
-        this.f = new Fixtures("matrices/matrix_40j_30to_NSS_0.txt","matrices/capacities.txt","40_30");
-        f.parse_file();
+//        @Test
+//    public void should_create_valid_solution_huge() {
+//        this.f = new Fixtures("matrices/matrix_40j_30to_NSS_0.txt","matrices/capacities.txt","40_30");
+//        f.parse_file();
+//
+//        ConstructionHeuristic c = new ConstructionHeuristic();
+//        assertTrue(c.create_solution(this.f.get_jobs_as_arraylist(),f).is_valid());
+//    }
 
-        ConstructionHeuristic c = new ConstructionHeuristic();
-        assertTrue(c.create_solution(this.f.get_jobs_as_arraylist(),f).is_valid());
+    @Test
+    public void should(){
+
+        int[][] data = new int[1500000][];
+
+        for(int i =0; i < 1500000;i++){
+            data[i] = new int[30];
+            for(int z = 0; z < 30;z++){
+
+                data[i][z] = z;
+            }
+        }
+
     }
 }
