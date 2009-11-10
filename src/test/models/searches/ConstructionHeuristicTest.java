@@ -21,9 +21,18 @@ public class ConstructionHeuristicTest extends TestHelper {
 //        assertTrue(c.create_solution(this.f.get_jobs_as_arraylist(),f).is_valid());
 //    }
 
-    @Test
-    public void should_create_valid_solution_big() {
-        this.f = new Fixtures("matrices/matrix_10j_10to_NSS_0.txt","matrices/capacities.txt","10_10");
+//    @Test
+//    public void should_create_valid_solution_big() {
+//        this.f = new Fixtures("matrices/matrix_10j_10to_NSS_0.txt","matrices/capacities.txt","10_10");
+//        f.parse_file();
+//
+//        ConstructionHeuristic c = new ConstructionHeuristic();
+//        assertTrue(c.create_solution(this.f.get_jobs_as_arraylist(),f).is_valid());
+//    }
+
+        @Test
+    public void should_create_valid_solution_huge() {
+        this.f = new Fixtures("matrices/matrix_40j_30to_NSS_0.txt","matrices/capacities.txt","40_30");
         f.parse_file();
 
         ConstructionHeuristic c = new ConstructionHeuristic();
