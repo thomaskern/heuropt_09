@@ -15,11 +15,11 @@ public class ConstructionHeuristicTest extends TestHelper {
         f.parse_file();
     }
 
-//    @Test
-//    public void should_create_valid_solution() {
-//        ConstructionHeuristic c = new ConstructionHeuristic();
-//        assertTrue(c.create_solution(this.f.get_jobs_as_arraylist(),f).is_valid());
-//    }
+    @Test
+    public void should_create_valid_solution() {
+        ConstructionHeuristic c = new ConstructionHeuristic();
+        assertTrue(c.create_solution(this.f.get_jobs_as_arraylist(),f).is_valid());
+    }
 
 //    @Test
 //    public void should_create_valid_solution_big() {
@@ -30,14 +30,14 @@ public class ConstructionHeuristicTest extends TestHelper {
 //        assertTrue(c.create_solution(this.f.get_jobs_as_arraylist(),f).is_valid());
 //    }
 
-        @Test
-    public void should_create_valid_solution_huge() {
-        this.f = new Fixtures("matrices/matrix_40j_60to_NSS_0.txt","matrices/capacities.txt","40_60");
-        f.parse_file();
-
-        ConstructionHeuristic c = new ConstructionHeuristic();
-        assertTrue(c.create_solution(this.f.get_jobs_as_arraylist(),f).is_valid());
-    }
+//        @Test
+//    public void should_create_valid_solution_huge() {
+//        this.f = new Fixtures("matrices/matrix_40j_60to_NSS_0.txt","matrices/capacities.txt","40_60");
+//        f.parse_file();
+//
+//        ConstructionHeuristic c = new ConstructionHeuristic();
+//        assertTrue(c.create_solution(this.f.get_jobs_as_arraylist(),f).is_valid());
+//    }
 
 //    @Test
 //    public void should(){

@@ -5,6 +5,7 @@ import data.Job;
 import data.JobSimilarityMatrix;
 import data.Solution;
 import logic.graph.Graph;
+import test.models.ToolSequences.GraphToolSequencer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,21 +27,9 @@ public class ConstructionHeuristic {
                 break;
         }
 
-        
-        Graph g = new Graph(s.jobsequence, f,s);
-        s = g.generate_solution();
-        
-//        for(Job j : jobs){
-//            if(s.jobsequence.contains(j))
-//                continue;
-
-
-
-
-
-//        }
-
-
+        GraphToolSequencer gts = new GraphToolSequencer(s.jobsequence,f,s);
+        s = gts.run();
+ 
         System.out.println(s.calculate_costs());
         System.out.println(s);
 
