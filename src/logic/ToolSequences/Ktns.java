@@ -68,15 +68,7 @@ public class Ktns implements IToolSequencer {
     }
 
     private void add_from_previous_job(ToolConfiguration tc, int i) {
-        if (free_space_left(tc) && i + 1 == jobs.size()) {
-            for (Tool t : calculate_unused_toollist_from_tools(tc, previous_tool_sequence(i))) {
-                if (!tc.includes_tool(t))
-                    tc.add(t);
-
-                if (!free_space_left(tc))
-                    break;
-            }
-        }
+        add_unused_tool_to_tc(calculate_unused_toollist_from_tools(tc, previous_tool_sequence(i)), tc, tc, false);
     }
 
     private void add_tool_from_toollist(ToolList next_tools_job, ToolConfiguration tc, int i) {
