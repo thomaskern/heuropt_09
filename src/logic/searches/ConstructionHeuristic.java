@@ -4,11 +4,9 @@ import data.Fixtures;
 import data.Job;
 import data.JobSimilarityMatrix;
 import data.Solution;
-import logic.graph.Graph;
-import test.models.ToolSequences.GraphToolSequencer;
+import logic.ToolSequences.GraphToolSequencer;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ConstructionHeuristic {
 

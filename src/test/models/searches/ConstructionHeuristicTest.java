@@ -11,14 +11,14 @@ import static org.testng.Assert.assertTrue;
 public class ConstructionHeuristicTest extends TestHelper {
     @BeforeTest
     public void setUp() {
-        this.f = new Fixtures("fixtures/graph_matrix_3_3.txt","fixtures/capacities.txt","3_3");
+        this.f = new Fixtures("fixtures/graph_matrix_3_3.txt", "fixtures/capacities.txt", "3_3");
         f.parse_file();
     }
 
     @Test
     public void should_create_valid_solution() {
         ConstructionHeuristic c = new ConstructionHeuristic();
-        assertTrue(c.create_solution(this.f.get_jobs_as_arraylist(),f).is_valid());
+        assertTrue(c.create_solution(this.f.get_jobs_as_arraylist(), f).is_valid());
     }
 
 //    @Test

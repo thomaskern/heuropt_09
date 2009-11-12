@@ -1,4 +1,4 @@
-package test.models.ToolSequences;
+package logic.ToolSequences;
 
 import data.Fixtures;
 import data.Job;
