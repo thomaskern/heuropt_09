@@ -87,7 +87,6 @@ public class Ktns implements IToolSequencer {
         }
     }
 
-
     private boolean free_space_left(ToolConfiguration tc) {
         return tc.size() < fixtures.capacity();
     }
