@@ -4,7 +4,6 @@ import data.Fixtures;
 import data.Solution;
 import logic.ToolSequences.Ktns;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import test.models.TestHelper;
 

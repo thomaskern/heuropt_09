@@ -39,7 +39,7 @@ public class TestJobSimilarityMatrix extends TestHelper {
     }
 
     @Test
-    public void should_(){
+    public void should_() {
 
     }
 }
