@@ -2,8 +2,6 @@ package logic.graph;
 
 import data.*;
 import logic.CombinationGenerator;
-import data.Job;
-import data.Tool;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -133,7 +131,7 @@ public class Graph {
         ArrayList<ToolConfiguration> tc = new ArrayList<ToolConfiguration>();
 
         ToolList toollist = this.fixtures.remaining_tools(job.getTools());
-        
+
         int perm = Math.min(fixtures.capacity() - job.getTools().size(), toollist.size());
         if (perm == 0)
             return default_toolconfig(tc, job);

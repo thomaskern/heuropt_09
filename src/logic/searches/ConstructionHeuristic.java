@@ -11,23 +11,22 @@ import java.util.ArrayList;
 public class ConstructionHeuristic {
 
     public Solution create_solution(ArrayList<Job> jobs, Fixtures f) {
-        JobSimilarityMatrix jsm = new  JobSimilarityMatrix(jobs);
+        JobSimilarityMatrix jsm = new JobSimilarityMatrix(jobs);
         Solution s = new Solution(jobs);
         Job job = smallest_job(jobs);
         s.jobsequence.add(job);
 
 
-
-        while(true){
-            job = smallest_neighbourhood_job(jobs,job,jsm, s.jobsequence);
+        while (true) {
+            job = smallest_neighbourhood_job(jobs, job, jsm, s.jobsequence);
             s.jobsequence.add(job);
-            if(s.jobsequence.size() == jobs.size())
+            if (s.jobsequence.size() == jobs.size())
                 break;
         }
 
-        GraphToolSequencer gts = new GraphToolSequencer(s.jobsequence,f,s);
+        GraphToolSequencer gts = new GraphToolSequencer(s.jobsequence, f, s);
         s = gts.run();
- 
+
         System.out.println(s.calculate_costs());
         System.out.println(s);
 
@@ -38,8 +37,8 @@ public class ConstructionHeuristic {
 
         int count = -1;
         Integer[] c = jsm.get(job.id);
-        for(int i = 0; i < c.length;i++){
-            if(!jobsequence.contains(jobs.get(i)) && job.id != i && c[i] > count){
+        for (int i = 0; i < c.length; i++) {
+            if (!jobsequence.contains(jobs.get(i)) && job.id != i && c[i] > count) {
                 count = i;
             }
         }
@@ -47,10 +46,10 @@ public class ConstructionHeuristic {
 
     }
 
-    private Job smallest_job(ArrayList<Job> jobs){
+    private Job smallest_job(ArrayList<Job> jobs) {
         Job job = jobs.get(0);
-        for(Job j : jobs){
-            if(j.getTools().size() < job.getTools().size()){
+        for (Job j : jobs) {
+            if (j.getTools().size() < job.getTools().size()) {
                 job = j;
             }
         }

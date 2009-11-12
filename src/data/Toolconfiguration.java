@@ -1,7 +1,5 @@
 package data;
 
-import data.Tool;
-
 import java.util.ArrayList;
 
 public class ToolConfiguration extends ArrayList<Tool> {
@@ -9,10 +7,10 @@ public class ToolConfiguration extends ArrayList<Tool> {
     public String toString() {
         String ret = " ";
         for (Tool t : this) {
-            ret += t.id+",";
+            ret += t.id + ",";
 
         }
-        return ret.substring(0,ret.length()-1);
+        return ret.substring(0, ret.length() - 1);
     }
 
 
@@ -27,10 +25,14 @@ public class ToolConfiguration extends ArrayList<Tool> {
                     break;
                 }
             }
-            if(!found)
+            if (!found)
                 cost += 1;
         }
 
         return cost;
+    }
+
+    public boolean includes_tool(Tool t) {
+        return this.contains(t);
     }
 }

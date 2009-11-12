@@ -17,53 +17,102 @@ public class Ktns implements IToolSequencer {
         create(jobs, fixtures, solution);
     }
 
-    private void create(ArrayList<Job> jobs, Fixtures fixtures, Solution solution) {
-        this.jobs = jobs;
-        this.fixtures = fixtures;
-        if (solution == null) {
-            this.solution = new Solution(jobs);
-            this.solution.jobs.addAll(jobs);
-        } else
-            this.solution = solution;
-    }
-
-
     public Solution run() {
+        solution.clear_sequences();
 
         for (int i = 0; i < jobs.size(); i++) {
-            Job j = jobs.get(i);
-
             ToolConfiguration tc = new ToolConfiguration();
-            add_base_tools(tc, j);
-
-            if (free_space_left(tc))
-                fill_up_that_free_space(tc, i);
+            add_base_tools(tc, jobs.get(i));
+            fill_up_that_free_space(tc, i);
 
             solution.add_sequence(tc);
         }
 
         System.out.println(solution.tool_sequence);
-        System.out.println("NICE: "+solution.calculate_costs());
         return solution;
     }
 
-    private void fill_up_that_free_space(ToolConfiguration tc, int i) {
+    private void create(ArrayList<Job> jobs, Fixtures fixtures, Solution solution) {
+        this.jobs = jobs;
+        this.fixtures = fixtures;
+        if (solution == null) {
+            this.solution = new Solution(jobs);
+        } else
+            this.solution = solution;
+    }
 
+
+    private void fill_up_that_free_space(ToolConfiguration tc, int i) {
         int z = i;
-        while(tc.size() < fixtures.capacity()){
-            for(Tool t : next_job(z).getTools()){
-                
-            }
+
+        while (free_space_left(tc) && z < jobs.size()) {
+            add_tool_from_toollist(calculate_toollist_from_job(next_job(z), tc), tc, i);
+            z++;
         }
 
+        add_from_previous_job(tc, i);
     }
 
-    private Job next_job(int i) {
-        return jobs.get(i+1);
+    private ToolList calculate_toollist_from_job(Job job, ToolConfiguration tc) {
+        return calculate_toollist_from_tools(tc, job.getTools());
+
     }
+
+    private ToolList calculate_toollist_from_tools(ToolConfiguration tc, ArrayList<Tool> tools) {
+        ToolList toollist = new ToolList();
+        for (Tool t : tools) {
+            if (!tc.includes_tool(t)) {
+                toollist.add(t);
+            }
+        }
+        return toollist;
+    }
+
+    private void add_from_previous_job(ToolConfiguration tc, int i) {
+        if (free_space_left(tc) && i + 1 == jobs.size()) {
+            for (Tool t : calculate_toollist_from_tools(tc, previous_tool_sequence(i))) {
+                if (!tc.includes_tool(t))
+                    tc.add(t);
+
+                if (!free_space_left(tc))
+                    break;
+            }
+        }
+    }
+
+    private void add_tool_from_toollist(ToolList next_tools_job, ToolConfiguration tc, int i) {
+        add_unused_tool_to_tc(next_tools_job, tc, previous_tool_sequence(i), true);
+        add_unused_tool_to_tc(next_tools_job, tc, tc, false);
+    }
+
+    private void add_unused_tool_to_tc(ToolList next_tools_job, ToolConfiguration tc, ToolConfiguration banned_tools, boolean add_banned_tools) {
+        for (Tool t : next_tools_job) {
+            if (!free_space_left(tc))
+                break;
+
+            if (banned_tools.includes_tool(t) == add_banned_tools) {
+                tc.add(t);
+            }
+        }
+    }
+
 
     private boolean free_space_left(ToolConfiguration tc) {
         return tc.size() < fixtures.capacity();
+    }
+
+    private ToolConfiguration previous_tool_sequence(int i) {
+        if (solution.tool_sequence.size() < i - 1 || i - 1 < 0)
+            return new ToolConfiguration();
+        else
+            return solution.tool_sequence.get(i - 1);
+    }
+
+    private Job next_job(int i) {
+        if (jobs.size() <= i + 1)
+            return new Job(-1);
+        else
+            return jobs.get(i + 1);
     }
 
     private void add_base_tools(ToolConfiguration tc, Job j) {

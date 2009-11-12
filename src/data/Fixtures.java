@@ -1,8 +1,5 @@
 package data;
 
-import data.Job;
-import data.Tool;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;

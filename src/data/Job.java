@@ -1,9 +1,5 @@
 package data;
 
-import data.ToolList;
-
-import java.util.ArrayList;
-
 public class Job {
     private ToolList tools;
     public int id;
@@ -21,6 +17,9 @@ public class Job {
     }
 
     public ToolList getTools() {
-        return tools;
+        if (tools == null)
+            return new ToolList();
+        else
+            return tools;
     }
 }

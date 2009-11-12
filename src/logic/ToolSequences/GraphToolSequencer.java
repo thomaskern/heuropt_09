@@ -7,7 +7,7 @@ import logic.graph.Graph;
 
 import java.util.ArrayList;
 
-public class GraphToolSequencer implements IToolSequencer{
+public class GraphToolSequencer implements IToolSequencer {
     private ArrayList<Job> jobsequence;
     private Fixtures f;
     private Solution solution;

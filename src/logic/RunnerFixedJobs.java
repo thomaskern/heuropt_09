@@ -1,7 +1,7 @@
 package logic;
 
-import data.Solution;
 import data.Job;
+import data.Solution;
 
 import java.util.ArrayList;
 
