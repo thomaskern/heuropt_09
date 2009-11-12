@@ -54,23 +54,22 @@ public class Ktns implements IToolSequencer {
     }
 
     private ToolList calculate_toollist_from_job(Job job, ToolConfiguration tc) {
-        return calculate_toollist_from_tools(tc, job.getTools());
+        return calculate_unused_toollist_from_tools(tc, job.getTools());
 
     }
 
-    private ToolList calculate_toollist_from_tools(ToolConfiguration tc, ArrayList<Tool> tools) {
+    private ToolList calculate_unused_toollist_from_tools(ToolConfiguration tc, ArrayList<Tool> tools) {
         ToolList toollist = new ToolList();
         for (Tool t : tools) {
-            if (!tc.includes_tool(t)) {
+            if (!tc.includes_tool(t))
                 toollist.add(t);
-            }
         }
         return toollist;
     }
 
     private void add_from_previous_job(ToolConfiguration tc, int i) {
         if (free_space_left(tc) && i + 1 == jobs.size()) {
-            for (Tool t : calculate_toollist_from_tools(tc, previous_tool_sequence(i))) {
+            for (Tool t : calculate_unused_toollist_from_tools(tc, previous_tool_sequence(i))) {
                 if (!tc.includes_tool(t))
                     tc.add(t);
 
