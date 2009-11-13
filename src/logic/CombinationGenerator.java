@@ -28,7 +28,6 @@ public class CombinationGenerator {
         BigInteger rFact = getFactorial(r);
         BigInteger nminusrFact = getFactorial(n - r);
         total = nFact.divide(rFact.multiply(nminusrFact));
-        System.out.println("TOTAL: " + total);
         reset();
     }
 
