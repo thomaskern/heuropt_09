@@ -28,7 +28,6 @@ public class Ktns implements IToolSequencer {
             solution.add_sequence(tc);
         }
 
-        System.out.println(solution.tool_sequence);
         return solution;
     }
 

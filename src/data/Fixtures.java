@@ -10,7 +10,7 @@ public class Fixtures {
     private HashMap<Integer, Job> jobs;
     private Integer capacity;
     private ToolList tools;
-    private JobSimilarityMatrix jobmatrix;
+    private ArrayList<Job> job_arraylist;
 
 
     public Fixtures(String filename) {
@@ -34,18 +34,15 @@ public class Fixtures {
         return capacity;
     }
 
-    public JobSimilarityMatrix get_job_similarity_matrix() {
-        if (jobmatrix == null)
-            jobmatrix = new JobSimilarityMatrix(get_jobs_as_arraylist());
-        return jobmatrix;
-    }
-
     public ArrayList<Job> get_jobs_as_arraylist() {
-        ArrayList<Job> j = new ArrayList<Job>();
-        for (Job job : get_jobs().values())
-            j.add(job);
+        if (job_arraylist == null) {
+            job_arraylist = new ArrayList<Job>();
+            for (Job job : get_jobs().values())
+                job_arraylist.add(job);
+        }
 
-        return j;
+
+        return job_arraylist;
     }
 
     public ToolList get_tools() {
@@ -61,14 +58,14 @@ public class Fixtures {
         return tools;
     }
 
-    public ToolList remaining_tools(ToolList list) {
-        ToolList tools = new ToolList();
-        for (Tool t : this.get_tools()) {
-            if (!list.contains(t))
-                tools.add(t);
-        }
-        return tools;
-    }
+//    public ToolList remaining_tools(ToolList list) {
+//        ToolList tools = new ToolList();
+//        for (Tool t : this.get_tools()) {
+//            if (!list.contains(t))
+//                tools.add(t);
+//        }
+//        return tools;
+//    }
 
 
     // private methods
