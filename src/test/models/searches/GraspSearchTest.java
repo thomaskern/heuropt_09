@@ -2,10 +2,8 @@ package test.models.searches;
 
 import data.Fixtures;
 import data.Solution;
-import logic.construction.Greedy;
 import logic.searches.GraspSearch;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import test.models.TestHelper;
 
@@ -23,7 +21,7 @@ public class GraspSearchTest extends TestHelper {
 
 
     @Test
-    public void should_return_valid_solution_for_big_instances(){
+    public void should_return_valid_solution_for_big_instances() {
         f = new Fixtures("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60");
         f.parse_file();
         GraspSearch gs = new GraspSearch("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60");
@@ -38,7 +36,6 @@ public class GraspSearchTest extends TestHelper {
         System.out.println(cal2.getTimeInMillis() - t);
 
         assertTrue(s.is_valid());
-
 
 
     }

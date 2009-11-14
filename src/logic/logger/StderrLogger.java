@@ -1,12 +1,12 @@
 package logic.logger;
 
-class StderrLogger extends Logger
-{
+class StderrLogger extends Logger {
 
-    public StderrLogger( int mask ) { this.mask = mask; }
+    public StderrLogger(int mask) {
+        this.mask = mask;
+    }
 
-    protected void writeMessage( String msg )
-    {
-        System.err.println( "Sending to stderr: " + msg );
+    protected void writeMessage(String msg) {
+        System.err.println("Sending to stderr: " + msg);
     }
 }

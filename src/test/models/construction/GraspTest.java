@@ -25,7 +25,7 @@ public class GraspTest extends TestHelper {
 
 
     @Test
-    public void should_create_random_solutions(){
+    public void should_create_random_solutions() {
         Grasp g = new Grasp(f);
         Solution s = g.create_solution();
         Solution s1 = g.create_solution();

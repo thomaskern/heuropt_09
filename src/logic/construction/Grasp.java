@@ -9,7 +9,7 @@ import logic.Utility;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Grasp extends ConstructionHeuristic implements Runnable, Comparable<Grasp>{
+public class Grasp extends ConstructionHeuristic implements Runnable, Comparable<Grasp> {
     private int id;
     private Solution best_solution;
 
@@ -74,7 +74,7 @@ public class Grasp extends ConstructionHeuristic implements Runnable, Comparable
                 max = j.get_cost();
         }
 
-        return min + Math.round(Math.round((max - min) * 0));
+        return min;
     }
 
     private ArrayList<JobCost> calculate_costs(ArrayList<Job> cl, Solution solution) {
@@ -105,14 +105,14 @@ public class Grasp extends ConstructionHeuristic implements Runnable, Comparable
 
     public void run() {
         best_solution = create_solution();
-        for (int i = 0; i < 100; i++){
+        for (int i = 0; i < 100; i++) {
             Solution tmp = create_solution();
-            if(tmp.calculate_costs() < best_solution.calculate_costs()){
+            if (tmp.calculate_costs() < best_solution.calculate_costs()) {
                 best_solution = tmp;
             }
         }
 
-        System.out.println("BEST: "+best_solution.calculate_costs()+", id: "+id);
+        System.out.println("BEST: " + best_solution.calculate_costs() + ", id: " + id);
 
 
     }

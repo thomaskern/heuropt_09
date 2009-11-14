@@ -6,7 +6,7 @@ public class JobCost implements Comparable<JobCost> {
     private Job job;
     private Integer cost;
 
-    public JobCost(Job j, Integer cost){
+    public JobCost(Job j, Integer cost) {
         this.job = j;
         this.cost = cost;
     }

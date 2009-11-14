@@ -23,16 +23,16 @@ public class GreedyTest extends TestHelper {
 
     @Test
     public void should_create_valid_solution_big() {
-        this.f = new Fixtures("matrices/matrix_10j_10to_NSS_0.txt","matrices/capacities.txt","10_10");
+        this.f = new Fixtures("matrices/matrix_10j_10to_NSS_0.txt", "matrices/capacities.txt", "10_10");
         f.parse_file();
 
         Greedy c = new Greedy(f);
         assertTrue(c.create_solution().is_valid());
     }
 
-        @Test
+    @Test
     public void should_create_valid_solution_huge() {
-        this.f = new Fixtures("matrices/matrix_40j_60to_NSS_0.txt","matrices/capacities.txt","40_60");
+        this.f = new Fixtures("matrices/matrix_40j_60to_NSS_0.txt", "matrices/capacities.txt", "40_60");
         f.parse_file();
 
         Greedy c = new Greedy(f);

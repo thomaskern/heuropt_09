@@ -1,13 +1,14 @@
 package logic.logger;
 
-class FileLogger extends Logger
-{
+class FileLogger extends Logger {
     private String filename;
 
-    public FileLogger(String filename, int mask) { this.filename = filename; this.mask = mask; }
+    public FileLogger(String filename, int mask) {
+        this.filename = filename;
+        this.mask = mask;
+    }
 
-    protected void writeMessage( String msg )
-    {
-        System.out.println( "Sending via email: " + msg );
+    protected void writeMessage(String msg) {
+        System.out.println("Sending via email: " + msg);
     }
 }
