@@ -67,14 +67,6 @@ public class TestSolution extends TestHelper {
     }
 
     @Test
-    public void should_invalid_solution_if_capacity_overexceeds() {
-
-
-        assertTrue(s.is_valid());
-    }
-
-
-    @Test
     public void should_check_validity_of_solution_for_incorrect_and_complete_solution() {
         load_file("fixtures/matrix_2j_2to_NSS_0.txt");
         assertFalse(s.is_valid());

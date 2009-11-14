@@ -1,10 +1,10 @@
-package logic.searches;
+package logic.construction;
 
 import data.Fixtures;
 import data.Job;
 import data.JobSimilarityMatrix;
 import data.Solution;
-import logic.ToolSequences.GraphToolSequencer;
+import logic.ToolSequences.Ktns;
 
 import java.util.ArrayList;
 
@@ -24,8 +24,8 @@ public class ConstructionHeuristic {
                 break;
         }
 
-        GraphToolSequencer gts = new GraphToolSequencer(s.jobsequence, f, s);
-        s = gts.run();
+        Ktns k = new Ktns(s.jobsequence,f,s);
+        k.run();
 
         System.out.println(s.calculate_costs());
         System.out.println(s);
