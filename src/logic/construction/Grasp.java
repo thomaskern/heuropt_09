@@ -8,12 +8,19 @@ import logic.Utility;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
-public class Grasp extends ConstructionHeuristic {
+public class Grasp extends ConstructionHeuristic implements Runnable, Comparable<Grasp>{
+    private int id;
+    private Solution best_solution;
+
+    public Grasp(Fixtures f, int id) {
+        super(f);
+        this.id = id;
+    }
 
     public Grasp(Fixtures f) {
         super(f);
+        this.id = 0;
     }
 
     @Override
@@ -21,10 +28,10 @@ public class Grasp extends ConstructionHeuristic {
         Solution s = new Solution(fixtures.get_jobs_as_arraylist());
 
         while (is_invalid(s)) {
-            s.jobsequence.add(select_random(create_rcl(create_cl(s),s)));
+            s.jobsequence.add(select_random(create_rcl(create_cl(s), s)));
         }
 
-        Ktns k = new Ktns(s.jobsequence,fixtures, s);
+        Ktns k = new Ktns(s.jobsequence, fixtures, s);
         return k.run();
     }
 
@@ -33,7 +40,7 @@ public class Grasp extends ConstructionHeuristic {
     }
 
     private ArrayList<Job> create_rcl(ArrayList<Job> cl, Solution solution) {
-        ArrayList<JobCost> jc =  calculate_costs(cl, solution);
+        ArrayList<JobCost> jc = calculate_costs(cl, solution);
         return filter_jobs(jc);
     }
 
@@ -47,8 +54,8 @@ public class Grasp extends ConstructionHeuristic {
         ArrayList<Job> jobs = new ArrayList<Job>();
         int limit = calculate_limit(jc);
 
-        for(JobCost j : jc){
-            if(j.get_cost() <= limit)
+        for (JobCost j : jc) {
+            if (j.get_cost() <= limit)
                 jobs.add(j.get_job());
         }
 
@@ -59,25 +66,25 @@ public class Grasp extends ConstructionHeuristic {
         int min = jc.get(0).get_cost();
         int max = 0;
 
-        for(JobCost j : jc){
-            if(min > j.get_cost())
+        for (JobCost j : jc) {
+            if (min > j.get_cost())
                 min = j.get_cost();
 
-            if(max < j.get_cost())
+            if (max < j.get_cost())
                 max = j.get_cost();
         }
-        
-        return min + Math.round(Math.round((max - min) * 0.8));
+
+        return min + Math.round(Math.round((max - min) * 0));
     }
 
     private ArrayList<JobCost> calculate_costs(ArrayList<Job> cl, Solution solution) {
         ArrayList<JobCost> jcs = new ArrayList<JobCost>();
-        for(Job j : cl){
-            Integer cost = create_costs_for_partial_solution(j,solution);
-            jcs.add(new JobCost(j,cost));
+        for (Job j : cl) {
+            Integer cost = create_costs_for_partial_solution(j, solution);
+            jcs.add(new JobCost(j, cost));
         }
 
-        Collections.sort(jcs);                
+        Collections.sort(jcs);
         return jcs;
     }
 
@@ -94,5 +101,27 @@ public class Grasp extends ConstructionHeuristic {
 
     private boolean is_invalid(Solution s) {
         return s.jobsequence.size() < s.jobs.size();
+    }
+
+    public void run() {
+        best_solution = create_solution();
+        for (int i = 0; i < 100; i++){
+            Solution tmp = create_solution();
+            if(tmp.calculate_costs() < best_solution.calculate_costs()){
+                best_solution = tmp;
+            }
+        }
+
+        System.out.println("BEST: "+best_solution.calculate_costs()+", id: "+id);
+
+
+    }
+
+    public int compareTo(Grasp o) {
+        return best_solution.calculate_costs() - o.get_best_solution().calculate_costs();
+    }
+
+    public Solution get_best_solution() {
+        return best_solution;
     }
 }
