@@ -24,7 +24,6 @@ public class Grasp extends ConstructionHeuristic {
             s.jobsequence.add(select_random(create_rcl(create_cl(s),s)));
         }
 
-        System.out.println(s.jobsequence);
         Ktns k = new Ktns(s.jobsequence,fixtures, s);
         return k.run();
     }
