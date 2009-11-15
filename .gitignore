@@ -3,3 +3,4 @@
 *.xml
 test-output/
 out/
+logs/

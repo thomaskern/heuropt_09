@@ -1,12 +1,11 @@
 package logic.logger;
 
-abstract class Logger {
+public abstract class Logger {
     public static int ERR = 3;
     public static int NOTICE = 5;
     public static int DEBUG = 7;
     protected int mask;
 
-    // The next element in the chain of responsibility
     protected Logger next;
 
     public Logger setNext(Logger l) {
@@ -25,6 +24,9 @@ abstract class Logger {
 
     abstract protected void writeMessage(String msg);
 
+    public void message(String s){
+        message(s, 0);   
+    }
 }
 
 

@@ -3,6 +3,8 @@ package logic.searches;
 import data.Fixtures;
 import data.Solution;
 import logic.construction.Grasp;
+import logic.logger.Logger;
+import logic.logger.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,10 +22,13 @@ public class GraspSearch {
 
     public Solution run() {
 
+        Logger li = LoggerFactory.create_or_get("1", "graspsearch.txt");
+
         int c = Runtime.getRuntime().availableProcessors();
 
         if (c > 8)
             c = 8;
+
         ArrayList<Thread> threads = new ArrayList<Thread>(c);
         ArrayList<Grasp> grasps = new ArrayList<Grasp>(c);
 
@@ -48,8 +53,13 @@ public class GraspSearch {
 
         Collections.sort(grasps);
 
-        System.out.println("BEST SOLUTION: " + grasps.get(0).get_best_solution().calculate_costs());
+        li.message("Best solution after Grasp: " + grasps.get(0).get_best_solution().calculate_costs());
 
+        LoggerFactory.get().message("START LOCAL SEARCH");
+
+        LoggerFactory.get().message("END LOCAL SEARCH");
+
+        LoggerFactory.get().message("Best Solution: "+grasps.get(0).get_best_solution());
 
         return grasps.get(0).get_best_solution();
 
