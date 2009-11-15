@@ -13,7 +13,7 @@ import java.util.Random;
  *
  * @author Christian
  */
-public class localSearch {
+public class LocalSearch {
 
     public Solution randomNeighbor(ArrayList<ArrayList<Job>> jobsequences) {
         int selJobSq = new Random().nextInt(jobsequences.size());

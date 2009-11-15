@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  * @author Christian
  */
-public class twotoolswitchNeighborhood {
+public class TwoToolSwitchNeighborhood {
 
     public ArrayList<Solution> nhFunction(Solution solution) {
         ArrayList<Solution> neighbors = new ArrayList<Solution>();
