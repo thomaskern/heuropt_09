@@ -4,51 +4,31 @@
  */
 package logic.searches;
 
-import data.Job;
 import data.Solution;
-import java.util.ArrayList;
-import java.util.Random;
+import logic.searches.neighborhoods.INeighborhood;
+import logic.searches.stepfunctions.IStepFunction;
 
 /**
- *
  * @author Christian
  */
+
+
 public class LocalSearch {
 
-    public Solution randomNeighbor(ArrayList<ArrayList<Job>> jobsequences) {
-        int selJobSq = new Random().nextInt(jobsequences.size());
-        return new Solution(jobsequences.get(selJobSq));
-    }
 
-    public Solution nextImprovement(ArrayList<ArrayList<Job>> jobsequences, Solution solution) {
-        Integer oldCost = solution.calculate_costs();
-        Solution nextImprovement = solution;
+    public Solution search(IStepFunction fs, INeighborhood n) {
+        GraspSearch gs = new GraspSearch("", "", "");
+        Solution s = gs.run();
 
-        for (ArrayList<Job> sequence : jobsequences){
-            nextImprovement = new Solution(sequence);
-            if(nextImprovement.calculate_costs() < oldCost ){
-                return nextImprovement;
-            }
-        }
+        do {
+            Solution tmp = fs.run(s, n);
 
-        return solution;
-    }
+            if (s.calculate_costs() > tmp.calculate_costs())
+                s = tmp;
+        } while (fs.breakup());
 
-    public Solution bestImprovement(ArrayList<Solution> neighbors, Solution solution) {
-        Integer bestCost = solution.calculate_costs();
-        Integer tempCost = null;
-        Solution bestSolution = solution;
-        
 
-         for (Solution neighbor : neighbors){
-            tempCost = neighbor.calculate_costs();
-            if(tempCost < bestCost){
-                bestCost = tempCost;
-                bestSolution = neighbor;
-            }
-        }
-
-        return bestSolution;
+        return s;
     }
 
 }
