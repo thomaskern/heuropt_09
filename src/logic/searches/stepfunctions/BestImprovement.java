@@ -4,7 +4,7 @@ import data.Solution;
 import logic.searches.neighborhoods.INeighborhood;
 
 public class BestImprovement implements IStepFunction {
-    public Solution run(Solution solution, INeighborhood n) {
+    public Solution select(Solution solution, INeighborhood n) {
 //        Integer bestCost = solution.calculate_costs();
 //        Integer tempCost = null;
 //        Solution bestSolution = solution;
