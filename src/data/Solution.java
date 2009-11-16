@@ -1,5 +1,7 @@
 package data;
 
+import logic.SolutionCostCache;
+
 import java.util.ArrayList;
 
 public class Solution {
@@ -62,13 +64,8 @@ public class Solution {
     }
 
     public Integer calculate_costs() {
-        int cost = 0;
-
-        for (int i = 0; i < tool_sequence.size() - 1; i++) {
-            cost += tool_sequence.get(i).dissimilarity(tool_sequence.get(i + 1));
-        }
-
-        return cost * Solution.COST_FACTOR;
+        SolutionCostCache scc = SolutionCostCache.getInstance();
+        return scc.get_cost(this);
     }
 
     public void clear_sequences() {

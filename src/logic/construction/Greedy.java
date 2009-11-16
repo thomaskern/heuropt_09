@@ -30,9 +30,6 @@ public class Greedy extends ConstructionHeuristic {
         Ktns k = new Ktns(s.jobsequence, fixtures, s);
         k.run();
 
-        System.out.println(s.calculate_costs());
-        System.out.println(s);
-
         return s;
     }
 
