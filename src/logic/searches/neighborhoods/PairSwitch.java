@@ -5,17 +5,36 @@
 
 package logic.searches.neighborhoods;
 
+import data.Job;
 import data.Solution;
+import java.util.ArrayList;
 
 /**
  *
  * @author Christian
  */
 public class PairSwitch implements INeighborhood {
+
+    private ArrayList<Solution> neighborhood;
+    private int i;
+    private int j;
+
+    public PairSwitch() {
+        neighborhood = new ArrayList<Solution>();
+
+    }
+
+    public ArrayList<Solution> getNeighborhood(){
+        return this.neighborhood;
+    }
+
+    public void init(Solution solution){
+       i = 0;
+       j = i;
+       ArrayList<Job> jobsequence = solution.jobs;
+    }
 //
-//    public ArrayList<Solution> nhFunction(Solution solution) {
-//        ArrayList<Solution> neighbors = new ArrayList<Solution>();
-//        ArrayList<Job> jobsequence = solution.jobs;
+//     ArrayList<Job> jobsequence = solution.jobs;
 //        Job jJob;
 //        Job iJob;
 //
@@ -27,16 +46,10 @@ public class PairSwitch implements INeighborhood {
 //                    iJob = newJobSequence.get(i);
 //                    newJobSequence.set(j, iJob);
 //                    newJobSequence.set(i, jJob);
-//                    neighbors.add(new Solution(newJobSequence));
+//                    neighborhood.add(new Solution(newJobSequence));
 //                }
 //            }
 //        }
-//        return neighbors;
-//    }
-
-    public void start(Solution solution) {
-// berechnung der totals etc
-    }
 
     public Solution next() {
         return null;

@@ -32,7 +32,5 @@ public class BestImprovement implements IStepFunction {
         return best;        
     }
 
-    public boolean breakup() {
-        return false;
-    }
+   
 }
