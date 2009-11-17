@@ -16,18 +16,27 @@ import logic.searches.stepfunctions.IStepFunction;
 public class LocalSearch {
 
 
-    public Solution search(IStepFunction fs, INeighborhood n) {
+    /**
+     * public search(IStepFunction fs, INeighborhood n, int iStop), conducts a
+     * local Search with the bound iStop which defines the number of solutions
+     * generated that do not constitute an improvement.
+     */
+
+    public Solution search(IStepFunction fs, INeighborhood n, int iStop) {
         GraspSearch gs = new GraspSearch("", "", "");
         Solution s = gs.run();
+        int iBadCount = 0;
 
         do {
             Solution tmp = fs.select(s, n);
 
-            if (s.calculate_costs() > tmp.calculate_costs())
+            if (s.calculate_costs() > tmp.calculate_costs()){
                 s = tmp;
-        } while (false);
-
-
+                iBadCount = 0;
+            }else{
+                iBadCount++;
+            }
+        } while (iBadCount <= iStop);
         return s;
     }
 
