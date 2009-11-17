@@ -21,11 +21,11 @@ public class LocalSearch {
         Solution s = gs.run();
 
         do {
-            Solution tmp = fs.run(s, n);
+            Solution tmp = fs.select(s, n);
 
             if (s.calculate_costs() > tmp.calculate_costs())
                 s = tmp;
-        } while (fs.breakup());
+        } while (false);
 
 
         return s;
