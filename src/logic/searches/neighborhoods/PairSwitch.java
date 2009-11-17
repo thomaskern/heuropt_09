@@ -8,6 +8,7 @@ package logic.searches.neighborhoods;
 import data.Job;
 import data.Solution;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -23,6 +24,7 @@ public class PairSwitch implements INeighborhood {
     public PairSwitch() {
         super();
     }
+
 
     public ArrayList<Solution> getNeighborhood(Solution solution){
         ArrayList<Solution> neighborhood = new ArrayList<Solution>();
@@ -51,7 +53,7 @@ public class PairSwitch implements INeighborhood {
 
     public void init(Solution solution){
        this.i = 0;
-       this.j = i;
+       this.j = 1;
        this.jobsequence = solution.jobsequence;
        this.n = this.jobsequence.size();
     }
@@ -74,13 +76,38 @@ public class PairSwitch implements INeighborhood {
             newJobSequence.set(i, jJob);
             if(j == (n-1)){
                 i++;
-                j = 0;
+                j = i+1;
             }else{
                 j++;
             }
-             return new Solution(newJobSequence);
+           
+            return new Solution(newJobSequence);
+
         }else{
             return null;
         }
+    }
+
+    public Solution random(){
+        int a = 0;
+        int b = 0;
+        Job aJob;
+        Job bJob;
+
+        while(a == b){
+            a = (new Random()).nextInt(n-1);
+            b = (new Random()).nextInt(n-1);
+        }
+
+        ArrayList<Job> newJobSequence = new ArrayList<Job>();
+        for (Job job : jobsequence){
+            newJobSequence.add(job);
+        }
+
+        bJob = newJobSequence.get(b);
+        aJob = newJobSequence.get(a);
+        newJobSequence.set(j, aJob);
+        newJobSequence.set(i, bJob);
+        return new Solution(newJobSequence);
     }
 }

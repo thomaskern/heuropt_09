@@ -3,34 +3,32 @@ package logic.searches.stepfunctions;
 import data.Solution;
 import logic.searches.neighborhoods.INeighborhood;
 
+import java.util.ArrayList;
+
 public class BestImprovement implements IStepFunction {
+
+    
     public Solution select(Solution solution, INeighborhood n) {
-//        Integer bestCost = solution.calculate_costs();
-//        Integer tempCost = null;
-//        Solution bestSolution = solution;
-//
-//
-//        for (Solution neighbor : neighbors) {
-//            tempCost = neighbor.calculate_costs();
-//            if (tempCost < bestCost) {
-//                bestCost = tempCost;
-//                bestSolution = neighbor;
-//            }
-//        }
-//
-//        return bestSolution;
+        Solution neighbor;
+        ArrayList<Solution> neighbors = n.getNeighborhood(solution);
+        Solution bestSolution = neighbors.get(0);
+        Integer bestCost = bestSolution.calculate_costs();
 
+        Integer tempCost = null;
 
-        n.init(solution);
-        
-        Solution best = n.next();
-        Solution tmp = null;
-          while((tmp = n.next()) != null){
-            if(best.calculate_costs() > tmp.calculate_costs())
-                best = tmp;
+        for (int i=1;i<neighbors.size();i++) {
+            neighbor = neighbors.get(i);
+
+            tempCost = neighbor.calculate_costs();
+            if (tempCost < bestCost) {
+                bestCost = tempCost;
+                bestSolution = neighbor;
+            }
         }
 
-        return best;        
+        return bestSolution;
+
+           
     }
 
    

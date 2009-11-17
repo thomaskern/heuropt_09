@@ -7,4 +7,5 @@ public interface INeighborhood {
     public void init(Solution solution);
     public ArrayList<Solution> getNeighborhood(Solution solution);
     public Solution next();
+    public Solution random();
 }

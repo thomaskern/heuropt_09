@@ -4,18 +4,9 @@ import data.Solution;
 import logic.searches.neighborhoods.INeighborhood;
 
 public class NextImprovement implements IStepFunction {
+
+
     public Solution select(Solution solution, INeighborhood n) {
-//        Integer oldCost = solution.calculate_costs();
-//        Solution nextImprovement = solution;
-//
-//        for (ArrayList<Job> sequence : jobsequences) {
-//            nextImprovement = new Solution(sequence);
-//            if (nextImprovement.calculate_costs() < oldCost) {
-//                return nextImprovement;
-//            }
-//        }
-//
-//        return solution;
 
         Solution tmp;
         n.init(solution);
@@ -27,7 +18,5 @@ public class NextImprovement implements IStepFunction {
         return null;
     }
 
-    public boolean breakup() {
-        return false;
-    }
+   
 }
