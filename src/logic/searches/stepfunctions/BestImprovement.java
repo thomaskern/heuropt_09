@@ -20,7 +20,8 @@ public class BestImprovement implements IStepFunction {
 //
 //        return bestSolution;
 
-        n.start(solution);
+
+        n.init(solution);
         
         Solution best = n.next();
         Solution tmp = null;

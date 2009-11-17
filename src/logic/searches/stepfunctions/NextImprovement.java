@@ -18,7 +18,7 @@ public class NextImprovement implements IStepFunction {
 //        return solution;
 
         Solution tmp;
-        n.start(solution);
+        n.init(solution);
         while((tmp = n.next()) != null){
             if(solution.calculate_costs() > tmp.calculate_costs())
                 return tmp;
