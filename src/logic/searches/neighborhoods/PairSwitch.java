@@ -34,6 +34,8 @@ public class PairSwitch implements INeighborhood {
             }
         }
 
+//        System.out.println("SIZE: "+neighborhood.size());
+
         return neighborhood;
     }
 

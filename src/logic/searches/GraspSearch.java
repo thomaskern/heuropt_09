@@ -26,15 +26,15 @@ public class GraspSearch {
 
         Logger li = LoggerFactory.create_or_get("1", "graspsearch.txt");
 
-//        ArrayList<Grasp> grasps = multi_start();
-        ArrayList<Grasp> grasps  = single_start();
+        ArrayList<Grasp> grasps = multi_start();
+//        ArrayList<Grasp> grasps  = single_start();
 
         LocalSearch ls = new LocalSearch();
 
-        System.out.println("best grasp:" + grasps.get(0).get_best_solution());
-        System.out.println("best grasp cost: "+grasps.get(0).get_best_solution().calculate_costs());
+        System.out.println("best grasp:" + grasps.get(5).get_best_solution());
+        System.out.println("best grasp cost: "+grasps.get(5).get_best_solution().calculate_costs());
 
-        Solution best = ls.search(grasps.get(0).get_best_solution(), step, hood, 100);
+        Solution best = ls.search(grasps.get(5).get_best_solution(), step, hood, 1000);
 
 //        write_results_to_log(li, best, grasps);
 

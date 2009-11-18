@@ -7,6 +7,7 @@ import logic.searches.neighborhoods.INeighborhood;
 import logic.searches.neighborhoods.PairSwitch;
 import logic.searches.stepfunctions.BestImprovement;
 import logic.searches.stepfunctions.IStepFunction;
+import logic.searches.stepfunctions.RandomImprovement;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import test.models.TestHelper;
