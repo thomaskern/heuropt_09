@@ -24,8 +24,8 @@ public abstract class Logger {
 
     abstract protected void writeMessage(String msg);
 
-    public void message(String s){
-        message(s, 0);   
+    public void message(String s) {
+        message(s, 0);
     }
 }
 

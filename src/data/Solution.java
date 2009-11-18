@@ -9,7 +9,7 @@ public class Solution {
     public ArrayList<ToolConfiguration> tool_sequence;
     public ArrayList<Job> jobs;
     public ArrayList<Job> jobsequence;
-    public static final int COST_FACTOR = 5;
+    public static final int COST_FACTOR = 1;
 
     public Solution(ArrayList<Job> jobs) {
         this.tool_sequence = new ArrayList<ToolConfiguration>(jobs.size());
@@ -28,9 +28,7 @@ public class Solution {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-
         sb.append("job sequence: ").append(jobsequence);
-
         return sb.toString();
     }
 
@@ -42,7 +40,7 @@ public class Solution {
     }
 
     public boolean is_valid() {
-        if (tool_sequence.size() != jobs.size())
+        if (tool_sequence.size() != jobsequence.size())
             return false;
 
         for (int i = 0; i < jobsequence.size(); i++) {

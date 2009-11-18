@@ -7,20 +7,20 @@ package test.models.searches.neighborhoods;
 
 import data.Job;
 import data.Solution;
-import java.util.ArrayList;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+
 /**
- *
  * @author Christian
  */
 public class PairSwitchTest {
     private Solution solution;
     public ArrayList<Job> jobs;
 
-    @BeforeClass
+    @BeforeMethod
     public void setUp() {
         // code that will be invoked before this test starts
         Job job1 = new Job(1);
@@ -40,7 +40,7 @@ public class PairSwitchTest {
         System.out.println("Test");
     }
 
-    @AfterClass
+    @AfterMethod
     public void cleanUp() {
         // code that will be invoked after this test ends
     }

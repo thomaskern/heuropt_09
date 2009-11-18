@@ -5,7 +5,6 @@ import data.Job;
 import data.Solution;
 import logic.ToolSequences.Ktns;
 import logic.Utility;
-import logic.logger.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -101,19 +100,20 @@ public class Grasp extends ConstructionHeuristic implements Runnable, Comparable
     }
 
     private boolean is_invalid(Solution s) {
-        return s.jobsequence.size() < s.jobs.size();
+        return s.jobsequence.size() < fixtures.get_jobs().size();
     }
 
     public void run() {
         best_solution = create_solution();
-        for (int i = 0; i < 200; i++) {
+        
+        for (int i = 0; i < 20; i++) {
             Solution tmp = create_solution();
             if (tmp.calculate_costs() < best_solution.calculate_costs()) {
                 best_solution = tmp;
             }
         }
 
-        LoggerFactory.get().message("BEST: " + best_solution.calculate_costs() + ", id: " + id);
+//        LoggerFactory.get().message("BEST: " + best_solution.calculate_costs() + ", id: " + id);
     }
 
     public int compareTo(Grasp o) {

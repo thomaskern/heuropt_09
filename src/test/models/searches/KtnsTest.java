@@ -30,7 +30,7 @@ public class KtnsTest extends TestHelper {
     public void should_create_best_sequence() {
         Ktns k = new Ktns(f.get_jobs_as_arraylist(), f);
         Solution s = k.run();
-        assertEquals((Object) s.calculate_costs(), 35);
+        assertEquals((Object) s.calculate_costs(), 7);
         assertEquals(s.tool_sequence.toString(), "[ 5,3,9,6,  6,3,0,7,  0,6,7,3,  2,0,7,3,  0,4,1,6,  4,6,8,1]");
     }
 
@@ -39,7 +39,7 @@ public class KtnsTest extends TestHelper {
         f.get_jobs().get(5).getTools().remove(3);
         Ktns k = new Ktns(f.get_jobs_as_arraylist(), f);
         Solution s = k.run();
-        assertEquals((Object) s.calculate_costs(), 35);
+        assertEquals((Object) s.calculate_costs(), 7);
         assertEquals(s.tool_sequence.toString(), "[ 5,3,9,6,  6,3,0,7,  0,6,7,3,  2,0,7,3,  0,4,1,6,  4,6,8,0]");
     }
 
@@ -52,7 +52,7 @@ public class KtnsTest extends TestHelper {
 
         Ktns k = new Ktns(f.get_jobs_as_arraylist(), f);
         Solution s = k.run();
-        assertEquals((Object) s.calculate_costs(), 1495);
+        assertEquals((Object) s.calculate_costs(), 299);
     }
 
 }

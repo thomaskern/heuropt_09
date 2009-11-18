@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class BestImprovement implements IStepFunction {
 
-    
+
     public Solution select(Solution solution, INeighborhood n) {
         Solution neighbor;
         ArrayList<Solution> neighbors = n.getNeighborhood(solution);
@@ -16,7 +16,7 @@ public class BestImprovement implements IStepFunction {
 
         Integer tempCost = null;
 
-        for (int i=1;i<neighbors.size();i++) {
+        for (int i = 1; i < neighbors.size(); i++) {
             neighbor = neighbors.get(i);
 
             tempCost = neighbor.calculate_costs();
@@ -28,8 +28,8 @@ public class BestImprovement implements IStepFunction {
 
         return bestSolution;
 
-           
+
     }
 
-   
+
 }

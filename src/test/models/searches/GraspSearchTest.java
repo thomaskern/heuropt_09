@@ -1,6 +1,12 @@
 package test.models.searches;
 
+import data.Fixtures;
+import data.Solution;
 import logic.searches.GraspSearch;
+import logic.searches.neighborhoods.INeighborhood;
+import logic.searches.neighborhoods.PairSwitch;
+import logic.searches.stepfunctions.BestImprovement;
+import logic.searches.stepfunctions.IStepFunction;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import test.models.TestHelper;
@@ -36,11 +42,42 @@ public class GraspSearchTest extends TestHelper {
 //
 //    }
 
+    @Test
+    public void should_return_valid_multi_search_solution() {
+        GraspSearch gs = new GraspSearch("matrices/matrix_10j_10to_NSS_2.txt", "matrices/capacities.txt", "10_10");
+        IStepFunction step = new BestImprovement();
+        INeighborhood hood = new PairSwitch(f);
+
+        Solution s = gs.run(step, hood);
+
+
+        assertTrue(s.is_valid());
+    }
+
+    @Test
+    public void should_return_valid_multi_search_solution_for_big_instance() {
+        get_fixtures("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60");
+        GraspSearch gs = new GraspSearch("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60");
+        IStepFunction step = new BestImprovement();
+        INeighborhood hood = new PairSwitch(f);
+
+        Solution s = gs.run(step, hood);
+
+
+        assertTrue(s.is_valid());
+    }
+
+    private Fixtures get_fixtures(String s, String s1, String s2) {
+        Fixtures f = new Fixtures(s, s1, s2);
+        f.parse_file();
+        return f;
+    }
+
 
     @Test
     public void should_return_valid_solution() {
         GraspSearch gs = new GraspSearch("matrices/matrix_10j_10to_NSS_2.txt", "matrices/capacities.txt", "10_10");
-        assertTrue(gs.run().is_valid());
+//        assertTrue(gs.run().is_valid());
     }
 
 }

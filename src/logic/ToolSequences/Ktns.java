@@ -36,10 +36,10 @@ public class Ktns implements IToolSequencer {
         this.fixtures = fixtures;
         if (solution == null) {
             this.solution = new Solution(jobs);
+            this.solution.jobsequence = jobs;
         } else
             this.solution = solution;
     }
-
 
     private void fill_up_that_free_space(ToolConfiguration tc, int i) {
         int z = i;

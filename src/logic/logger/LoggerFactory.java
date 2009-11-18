@@ -15,7 +15,7 @@ public class LoggerFactory {
         String filename = "";
         for (int i = 0; i < 12; i++)
             filename += Utility.get_random_int(150);
-        return filename+".txt";
+        return filename + ".txt";
     }
 
     public static Logger create_or_get(String key, String filename) {
@@ -26,7 +26,7 @@ public class LoggerFactory {
         }
     }
 
-    public static Logger get(){
+    public static Logger get() {
         return (Logger) loggers.values().toArray()[0];
     }
 
