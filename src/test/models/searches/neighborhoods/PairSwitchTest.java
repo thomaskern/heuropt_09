@@ -32,7 +32,7 @@ public class PairSwitchTest {
         jobs.add(job2);
         jobs.add(job3);
         jobs.add(job4);
-        solution = new Solution(jobs);
+        solution = new Solution();
     }
 
     @Test

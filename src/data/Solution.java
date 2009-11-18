@@ -7,14 +7,12 @@ import java.util.ArrayList;
 public class Solution {
 
     public ArrayList<ToolConfiguration> tool_sequence;
-    public ArrayList<Job> jobs;
     public ArrayList<Job> jobsequence;
     public static final int COST_FACTOR = 1;
 
-    public Solution(ArrayList<Job> jobs) {
-        this.tool_sequence = new ArrayList<ToolConfiguration>(jobs.size());
-        this.jobs = jobs;
-        this.jobsequence = new ArrayList<Job>(jobs.size());
+    public Solution() {
+        this.tool_sequence = new ArrayList<ToolConfiguration>();
+        this.jobsequence = new ArrayList<Job>();
     }
 
     public void tool_switch(ToolList from, ToolList to) {

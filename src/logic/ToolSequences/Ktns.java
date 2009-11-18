@@ -35,7 +35,7 @@ public class Ktns implements IToolSequencer {
         this.jobs = jobs;
         this.fixtures = fixtures;
         if (solution == null) {
-            this.solution = new Solution(jobs);
+            this.solution = new Solution();
             this.solution.jobsequence = jobs;
         } else
             this.solution = solution;

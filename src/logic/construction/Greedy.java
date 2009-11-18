@@ -15,7 +15,7 @@ public class Greedy extends ConstructionHeuristic {
 
     public Solution create_solution() {
         JobSimilarityMatrix jsm = new JobSimilarityMatrix(jobs());
-        Solution s = new Solution(jobs());
+        Solution s = new Solution();
         Job job = smallest_job(jobs());
         s.jobsequence.add(job);
 

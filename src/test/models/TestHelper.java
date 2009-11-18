@@ -16,7 +16,7 @@ public class TestHelper {
     protected void load_file(String filename) {
         this.f = new Fixtures(filename);
         f.parse_file();
-        s = new Solution(f.get_jobs_as_arraylist());
+        s = new Solution();
     }
 
     protected ToolList create_toollist(int[] tool_ids) {

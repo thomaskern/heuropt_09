@@ -25,7 +25,7 @@ public class Grasp extends ConstructionHeuristic implements Runnable, Comparable
 
     @Override
     public Solution create_solution() {
-        Solution s = new Solution(fixtures.get_jobs_as_arraylist());
+        Solution s = new Solution();
 
         while (is_invalid(s)) {
             s.jobsequence.add(select_random(create_rcl(create_cl(s), s)));
