@@ -46,8 +46,7 @@ public class GraspSearchTest extends TestHelper {
     public void should_return_valid_multi_search_solution() {
         GraspSearch gs = new GraspSearch("matrices/matrix_10j_10to_NSS_2.txt", "matrices/capacities.txt", "10_10");
         IStepFunction step = new BestImprovement();
-        INeighborhood hood = new PairSwitch(f);
-
+        INeighborhood hood = new PairSwitch(get_fixtures("matrices/matrix_10j_10to_NSS_2.txt", "matrices/capacities.txt", "10_10"));
         Solution s = gs.run(step, hood);
 
 
@@ -59,7 +58,7 @@ public class GraspSearchTest extends TestHelper {
         get_fixtures("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60");
         GraspSearch gs = new GraspSearch("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60");
         IStepFunction step = new BestImprovement();
-        INeighborhood hood = new PairSwitch(f);
+        INeighborhood hood = new PairSwitch(get_fixtures("matrices/matrix_10j_10to_NSS_2.txt", "matrices/capacities.txt", "10_10"));
 
         Solution s = gs.run(step, hood);
 

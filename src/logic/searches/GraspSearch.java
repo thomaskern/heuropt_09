@@ -31,14 +31,12 @@ public class GraspSearch {
 
         LocalSearch ls = new LocalSearch();
 
-        System.out.println(grasps.get(0).get_best_solution());
-        System.out.println(grasps.get(0).get_best_solution().calculate_costs());
+        System.out.println("best grasp:" + grasps.get(0).get_best_solution());
+        System.out.println("best grasp cost: "+grasps.get(0).get_best_solution().calculate_costs());
 
         Solution best = ls.search(grasps.get(0).get_best_solution(), step, hood, 100);
 
 //        write_results_to_log(li, best, grasps);
-
-        System.out.println(grasps.get(0).get_best_solution());
 
         System.out.println(best);
         System.out.println(best.calculate_costs());

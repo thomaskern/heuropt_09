@@ -22,6 +22,7 @@ public class PairSwitch implements INeighborhood {
 
 
     public ArrayList<Solution> getNeighborhood(Solution solution) {
+        init(solution);
         ArrayList<Solution> neighborhood = new ArrayList<Solution>();
         ArrayList<Job> jobseq = solution.jobsequence;
 

@@ -9,7 +9,6 @@ public class SolutionCostCache {
 
     private volatile HashMap<String, Integer> hm;
 
-
     private SolutionCostCache() {
         hm = new HashMap<String, Integer>();
     }
