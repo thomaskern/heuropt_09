@@ -106,7 +106,7 @@ public class Grasp extends ConstructionHeuristic implements Runnable, Comparable
     public void run() {
         best_solution = create_solution();
         
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 1; i++) {
             Solution tmp = create_solution();
             if (tmp.calculate_costs() < best_solution.calculate_costs()) {
                 best_solution = tmp;
