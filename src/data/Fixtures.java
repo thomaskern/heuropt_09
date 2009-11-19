@@ -77,6 +77,8 @@ public class Fixtures {
             Capacity.load(capacity_filename);
             this.capacity = Capacity.get(capacity_id);
         }
+
+        parse_file();
     }
 
     private void parse_line(String strLine) {

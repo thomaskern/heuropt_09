@@ -2,7 +2,9 @@ package test.models.searches;
 
 import data.Fixtures;
 import data.Solution;
+import logic.ToolSequences.Ktns;
 import logic.searches.GraspSearch;
+import logic.searches.LocalSearch;
 import logic.searches.neighborhoods.INeighborhood;
 import logic.searches.neighborhoods.PairSwitch;
 import logic.searches.stepfunctions.BestImprovement;
@@ -42,6 +44,27 @@ public class GraspSearchTest extends TestHelper {
 //
 //
 //    }
+
+    @Test
+    public void should(){
+
+        Fixtures f = get_fixtures("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60");
+        LocalSearch ls = new LocalSearch();
+        Ktns k = new Ktns(f.get_jobs_as_arraylist(),f);
+        Solution s = k.run();
+
+        System.out.println(s);
+        System.out.println(s.calculate_costs());
+
+
+        IStepFunction step = new RandomImprovement();
+        INeighborhood hood = new PairSwitch(get_fixtures("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60"));
+
+        Solution s1 = ls.search(s,step, hood,100000);
+        System.out.println(s1);
+        System.out.println(s1.calculate_costs());
+
+    }
 
     @Test
     public void should_return_valid_multi_search_solution() {
