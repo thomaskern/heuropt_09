@@ -9,7 +9,4 @@ public class RandomImprovement implements IStepFunction {
         return n.random();
     }
 
-    public boolean breakup() {
-        return false;
-    }
 }
