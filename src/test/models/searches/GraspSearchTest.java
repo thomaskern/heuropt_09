@@ -3,10 +3,13 @@ package test.models.searches;
 import data.Fixtures;
 import data.Solution;
 import logic.ToolSequences.Ktns;
+import logic.logger.Logger;
+import logic.logger.LoggerFactory;
 import logic.searches.GraspSearch;
 import logic.searches.LocalSearch;
 import logic.searches.neighborhoods.INeighborhood;
 import logic.searches.neighborhoods.PairSwitch;
+import logic.searches.neighborhoods.Rotation;
 import logic.searches.stepfunctions.BestImprovement;
 import logic.searches.stepfunctions.IStepFunction;
 import logic.searches.stepfunctions.RandomImprovement;
@@ -57,10 +60,10 @@ public class GraspSearchTest extends TestHelper {
         System.out.println(s.calculate_costs());
 
 
-        IStepFunction step = new RandomImprovement();
-        INeighborhood hood = new PairSwitch(get_fixtures("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60"));
+        IStepFunction step = new BestImprovement();
+        INeighborhood hood = new Rotation(get_fixtures("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60"));
 
-        Solution s1 = ls.search(s,step, hood,100000);
+        Solution s1 = ls.search(s,step, hood,100);
         System.out.println(s1);
         System.out.println(s1.calculate_costs());
 
@@ -79,21 +82,17 @@ public class GraspSearchTest extends TestHelper {
 
     @Test
     public void should_return_valid_multi_search_solution_for_big_instance() {
+         Logger li = LoggerFactory.create_or_get("1", "graspsearch.txt");
+        Logger li2 = LoggerFactory.create_or_get("12", "graspsearch2.txt");
         get_fixtures("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60");
         GraspSearch gs = new GraspSearch("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60");
         IStepFunction step = new BestImprovement();
-        INeighborhood hood = new PairSwitch(get_fixtures("matrices/matrix_10j_10to_NSS_2.txt", "matrices/capacities.txt", "10_10"));
+        INeighborhood hood = new Rotation(get_fixtures("matrices/matrix_10j_10to_NSS_2.txt", "matrices/capacities.txt", "10_10"));
 
         Solution s = gs.run(step, hood);
 
 
         assertTrue(s.is_valid());
-    }
-
-    private Fixtures get_fixtures(String s, String s1, String s2) {
-        Fixtures f = new Fixtures(s, s1, s2);
-        f.parse_file();
-        return f;
     }
 
 

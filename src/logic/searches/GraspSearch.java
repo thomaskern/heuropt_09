@@ -24,7 +24,6 @@ public class GraspSearch {
 
     public Solution run(IStepFunction step, INeighborhood hood) {
 
-        Logger li = LoggerFactory.create_or_get("1", "graspsearch.txt");
 
         ArrayList<Grasp> grasps = multi_start();
 //        ArrayList<Grasp> grasps  = single_start();
@@ -38,7 +37,7 @@ public class GraspSearch {
 
             Solution best = ls.search(g.get_best_solution(), step, hood, 1000);
 
-//        write_results_to_log(li, best, grasps);
+            write_results_to_log(best, grasps);
 
             System.out.println(best);
             System.out.println(best.calculate_costs());
@@ -94,7 +93,8 @@ public class GraspSearch {
         return f;
     }
 
-    private void write_results_to_log(Logger li, Solution best, ArrayList<Grasp> grasps) {
+    private void write_results_to_log(Solution best, ArrayList<Grasp> grasps) {
+        Logger li = LoggerFactory.get();
         li.message("Best solution after Grasp: " + grasps.get(0).get_best_solution().calculate_costs());
 
         LoggerFactory.get().message("START LOCAL SEARCH");

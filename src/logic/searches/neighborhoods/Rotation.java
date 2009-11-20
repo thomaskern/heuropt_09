@@ -23,17 +23,16 @@ public class Rotation implements INeighborhood {
         this.fixtures = fixtures;
     }
 
-
     public ArrayList<Solution> getNeighborhood(Solution solution) {
         init(solution);
         ArrayList<Solution> neighborhood = new ArrayList<Solution>();
         ArrayList<Job> jobseq = solution.jobsequence;
 
         for (int k = 0; k < jobseq.size(); k++) {
-            if(k != (jobseq.size()-1)){
-                    neighborhood.add(get_solution(get_sequence(k, k+1)));
-            }else{
-                    neighborhood.add(get_solution(get_sequence(k, 0)));
+            if (k != (jobseq.size() - 1)) {
+                neighborhood.add(get_solution(get_sequence(k, k + 1)));
+            } else {
+                neighborhood.add(get_solution(get_sequence(k, 0)));
             }
         }
 
@@ -47,27 +46,27 @@ public class Rotation implements INeighborhood {
     }
 
     public Solution next() {
-        Solution s = null;
+        Solution s;
 
-        if(i < (n-1)){
-            s = get_solution(get_sequence(i, i+1));
-        }else if(i == (n-1)){
-            s = get_solution(get_sequence(i, i+1));
-        }else{
+        if (i < (n - 1)) {
+            s = get_solution(get_sequence(i, i + 1));
+        } else if (i == (n - 1)) {
+            s = get_solution(get_sequence(i, i + 1));
+        } else {
             s = null;
         }
-        
+
         i++;
         return s;
     }
 
     public Solution random() {
         int a = (new Random()).nextInt(n - 1);
-      
-        if(a != (n-1)){
-            return get_solution(get_sequence(a, a+1));
-        }else{
-             return get_solution(get_sequence(a, 0));
+
+        if (a != (n - 1)) {
+            return get_solution(get_sequence(a, a + 1));
+        } else {
+            return get_solution(get_sequence(a, 0));
         }
     }
 

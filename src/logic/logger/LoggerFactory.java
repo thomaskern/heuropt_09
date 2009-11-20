@@ -27,7 +27,7 @@ public class LoggerFactory {
     }
 
     public static Logger get() {
-        return (Logger) loggers.values().toArray()[0];
+        return (Logger) loggers.values().toArray()[loggers.values().toArray().length-1];
     }
 
     public static Logger get(String key) {

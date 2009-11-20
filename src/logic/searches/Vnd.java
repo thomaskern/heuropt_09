@@ -2,6 +2,7 @@ package logic.searches;
 
 import data.Solution;
 import logic.searches.neighborhoods.INeighborhood;
+import logic.searches.stepfunctions.IStepFunction;
 
 import java.util.ArrayList;
 
@@ -12,21 +13,20 @@ public class Vnd {
     *
      */
 
-    public Solution search(Solution s, ArrayList<INeighborhood> hoods) {
+    public Solution search(Solution s, IStepFunction step, ArrayList<INeighborhood> hoods) {
 
-        int miss = 0;
+        int l = 0;
 
         do {
-            Solution tmp = s;
+            Solution tmp = step.select(s, hoods.get(l));
+
             if (s.calculate_costs() > tmp.calculate_costs()) {
                 s = tmp;
-                miss = 0;
+                l = 0;
             } else {
-                miss++;
+                l++;
             }
-
-            miss++;
-        } while (miss < hoods.size());
+        } while (l < hoods.size());
 
         return s;
     }

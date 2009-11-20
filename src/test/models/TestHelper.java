@@ -26,4 +26,10 @@ public class TestHelper {
         }
         return ret;
     }
+
+    protected Fixtures get_fixtures(String s, String s1, String s2) {
+        Fixtures f = new Fixtures(s, s1, s2);
+        f.parse_file();
+        return f;
+    }
 }
