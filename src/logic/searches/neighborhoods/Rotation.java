@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /*
- *  Rotationsnachbarsschaft - Jobs werden paarweise rotiert
+ *  Rotation Neighborhood - Jobs are rotated triplet wise. The last job of the
+ *  triplet is moved to its beginning and the other two jobs are shifted right.
+ *
  **/
 
 public class Rotation implements INeighborhood {
@@ -29,10 +31,8 @@ public class Rotation implements INeighborhood {
         ArrayList<Job> jobseq = solution.jobsequence;
 
         for (int k = 0; k < jobseq.size(); k++) {
-            if (k != (jobseq.size() - 1)) {
-                neighborhood.add(get_solution(get_sequence(k, k + 1)));
-            } else {
-                neighborhood.add(get_solution(get_sequence(k, 0)));
+            if (k <= (jobseq.size()-3)) {
+                neighborhood.add(get_solution(get_rotation(k)));
             }
         }
 
@@ -48,11 +48,9 @@ public class Rotation implements INeighborhood {
     public Solution next() {
         Solution s;
 
-        if (i < (n - 1)) {
-            s = get_solution(get_sequence(i, i + 1));
-        } else if (i == (n - 1)) {
-            s = get_solution(get_sequence(i, i + 1));
-        } else {
+        if (i <= (n - 3)) {
+            s = get_solution(get_rotation(i));
+        }else{
             s = null;
         }
 
@@ -61,25 +59,28 @@ public class Rotation implements INeighborhood {
     }
 
     public Solution random() {
-        int a = (new Random()).nextInt(n - 1);
-
-        if (a != (n - 1)) {
-            return get_solution(get_sequence(a, a + 1));
-        } else {
-            return get_solution(get_sequence(a, 0));
+        if(n >= 3){
+            int a = (new Random()).nextInt(n - 3);
+            return get_solution(get_rotation(a));
+        }else{
+            return null;
         }
+     
     }
 
-    private ArrayList<Job> get_sequence(int j, int i) {
+    private ArrayList<Job> get_rotation(int i) {
         ArrayList<Job> newJobSequence = new ArrayList<Job>();
         for (Job job : jobsequence) {
             newJobSequence.add(job);
         }
 
-        Job jJob = newJobSequence.get(j);
-        Job iJob = newJobSequence.get(i);
-        newJobSequence.set(j, iJob);
-        newJobSequence.set(i, jJob);
+        Job i0Job = newJobSequence.get(i);
+        Job i1Job = newJobSequence.get(i+1);
+        Job i2Job = newJobSequence.get(i+2);
+        newJobSequence.set(i, i2Job);
+        newJobSequence.set(i+1, i0Job);
+        newJobSequence.set(i+2, i1Job);
+        
         return newJobSequence;
     }
 
