@@ -6,3 +6,4 @@ out/
 logs/
 manifest.mf
 nbproject/
+build/

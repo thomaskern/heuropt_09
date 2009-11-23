@@ -30,6 +30,7 @@ public class LocalSearch {
 
             if (s.calculate_costs() > tmp.calculate_costs()) {
                 s = tmp;
+                System.out.println("Cheaper solution: " + tmp.calculate_costs().toString());
                 iBadCount = 0;
             } else {
                 iBadCount++;

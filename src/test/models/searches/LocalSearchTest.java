@@ -14,6 +14,7 @@ import logic.searches.neighborhoods.PairSwitch;
 import logic.searches.neighborhoods.Rotation;
 import logic.searches.stepfunctions.BestImprovement;
 import logic.searches.stepfunctions.IStepFunction;
+import logic.searches.stepfunctions.RandomImprovement;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -31,7 +32,7 @@ public class LocalSearchTest extends TestHelper {
     }
 
     @Test
-    public void TestPairSwitchNeighborhood() {
+    public void TestPairSwitchNeighborhoodBestImprovement() {
         Fixtures f = get_fixtures("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60");
         LocalSearch ls = new LocalSearch();
         Ktns k = new Ktns(f.get_jobs_as_arraylist(),f);
@@ -44,12 +45,32 @@ public class LocalSearchTest extends TestHelper {
         IStepFunction step = new BestImprovement();
         INeighborhood hood = new PairSwitch(get_fixtures("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60"));
 
-        Solution s1 = ls.search(s,step, hood,100);
+        Solution s1 = ls.search(s,step, hood,200);
         System.out.println(s1);
         System.out.println(s1.calculate_costs());
     }
 
-     public void TestRotationNeighborhood() {
+    @Test
+    public void TestPairSwitchNeighborhoodRandomImprovement() {
+        Fixtures f = get_fixtures("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60");
+        LocalSearch ls = new LocalSearch();
+        Ktns k = new Ktns(f.get_jobs_as_arraylist(),f);
+        Solution s = k.run();
+
+        System.out.println(s);
+        System.out.println(s.calculate_costs());
+
+
+        IStepFunction step = new RandomImprovement();
+        INeighborhood hood = new PairSwitch(get_fixtures("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60"));
+
+        Solution s1 = ls.search(s,step, hood,100000);
+        System.out.println(s1);
+        System.out.println(s1.calculate_costs());
+    }
+
+    @Test
+     public void TestRotationNeighborhoodBestImprovement() {
         Fixtures f = get_fixtures("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60");
         LocalSearch ls = new LocalSearch();
         Ktns k = new Ktns(f.get_jobs_as_arraylist(),f);
@@ -62,7 +83,26 @@ public class LocalSearchTest extends TestHelper {
         IStepFunction step = new BestImprovement();
         INeighborhood hood = new Rotation(get_fixtures("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60"));
 
-        Solution s1 = ls.search(s,step, hood,100);
+        Solution s1 = ls.search(s,step, hood,200);
+        System.out.println(s1);
+        System.out.println(s1.calculate_costs());
+    }
+
+    @Test
+      public void TestRotationNeighborhoodRandomImprovement() {
+        Fixtures f = get_fixtures("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60");
+        LocalSearch ls = new LocalSearch();
+        Ktns k = new Ktns(f.get_jobs_as_arraylist(),f);
+        Solution s = k.run();
+
+        System.out.println(s);
+        System.out.println(s.calculate_costs());
+
+
+        IStepFunction step = new RandomImprovement();
+        INeighborhood hood = new Rotation(get_fixtures("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60"));
+
+        Solution s1 = ls.search(s,step, hood,100000);
         System.out.println(s1);
         System.out.println(s1.calculate_costs());
     }
