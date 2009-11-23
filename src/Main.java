@@ -5,6 +5,7 @@
  */
 
 import data.Fixtures;
+import test.models.searches.LocalSearchTest;
 
 public class Main {
 
@@ -13,7 +14,7 @@ public class Main {
         Fixtures f = new Fixtures("matrices/matrix_10j_9to_NSS_0.txt", "matrices/capacities.txt", "9_10");
         f.parse_file();
 
-
+        new LocalSearchTest().TestPairSwitchNeighborhood();
     }
 
 }
