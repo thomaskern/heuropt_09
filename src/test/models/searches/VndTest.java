@@ -43,7 +43,7 @@ public class VndTest extends TestHelper {
         System.out.println(s.calculate_costs());
 
 
-        IStepFunction step = new NextImprovement();
+        IStepFunction step = new BestImprovement();
         ArrayList<INeighborhood> hoods = new ArrayList<INeighborhood>();
         INeighborhood hood1 = new Rotation(get_fixtures("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60"));
         INeighborhood hood2 = new PairSwitch(get_fixtures("matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60"));

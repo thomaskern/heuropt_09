@@ -20,7 +20,8 @@ public class Vnd {
         do {
             Solution tmp = step.select(s, hoods.get(l));
 
-            if (s.calculate_costs() > tmp.calculate_costs()) {
+
+            if (tmp != null && s.calculate_costs() > tmp.calculate_costs()) {
                 s = tmp;
                 l = 0;
             } else {
