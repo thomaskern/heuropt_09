@@ -32,15 +32,12 @@ public class GraspSearch {
         for (Grasp g : grasps) {
             LocalSearch ls = new LocalSearch();
 
-            System.out.println("best grasp:" + g.get_best_solution());
-            System.out.println("best grasp cost: " + g.get_best_solution().calculate_costs());
-
             Solution best = ls.search(g.get_best_solution(), step, hood, 1000);
 
-            write_results_to_log(best, grasps);
+//            write_results_to_log(best, grasps);
 
-            System.out.println(best);
-            System.out.println(best.calculate_costs());
+//            System.out.println(best);
+//            System.out.println(best.calculate_costs());
         }
 
 
