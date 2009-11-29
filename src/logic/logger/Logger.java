@@ -1,5 +1,7 @@
 package logic.logger;
 
+import java.io.File;
+
 public abstract class Logger {
     public static int ERR = 3;
     public static int NOTICE = 5;
@@ -26,6 +28,13 @@ public abstract class Logger {
 
     public void message(String s) {
         message(s, 0);
+    }
+
+    public static void clear_logdir() {
+        File dir = new File("logs/");
+        for(File f : dir.listFiles()){
+            f.delete();
+        }
     }
 }
 

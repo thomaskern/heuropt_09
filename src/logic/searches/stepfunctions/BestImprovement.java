@@ -7,6 +7,9 @@ import java.util.ArrayList;
 
 public class BestImprovement implements IStepFunction {
 
+    public String toString(){
+        return "BestImprovement";
+    }
 
     public Solution select(Solution solution, INeighborhood n) {
         Solution neighbor;

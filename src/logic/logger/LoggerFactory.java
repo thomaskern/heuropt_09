@@ -27,6 +27,9 @@ public class LoggerFactory {
     }
 
     public static Logger get() {
+        if(loggers.values().toArray().length == 0){
+          create_or_get("1");  
+        }
         return (Logger) loggers.values().toArray()[loggers.values().toArray().length-1];
     }
 

@@ -5,6 +5,9 @@ import logic.searches.neighborhoods.INeighborhood;
 
 public class NextImprovement implements IStepFunction {
 
+    public String toString(){
+        return "NextImprovement";
+    }
 
     public Solution select(Solution solution, INeighborhood n) {
 
