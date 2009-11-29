@@ -4,6 +4,7 @@ import data.Fixtures;
 import data.Solution;
 import logic.Utility;
 import logic.construction.Grasp;
+import logic.construction.Greedy;
 import logic.logger.Logger;
 import logic.logger.LoggerFactory;
 import logic.searches.Vnd;
@@ -38,8 +39,7 @@ public class BenchmarkTest extends TestHelper {
     }
 
     @Test
-    public void should_run_vnd() {
-
+    public void should_run_vnd_with_grasp() {
 
         IStepFunction[] steps = {new BestImprovement(), new NextImprovement()};
         for (IStepFunction step : steps) {
@@ -51,8 +51,8 @@ public class BenchmarkTest extends TestHelper {
                 g.run();
                 Solution s = g.get_best_solution();
 
-                Logger li = LoggerFactory.create("vnd_" + current[0]+"_"+step, "vnd_" + current[0] + "_" + step +"_"+ Utility.next_log_file_id() + ".txt");
-                li.message("VND " + current[0]+" for "+current[3] + " with "+step);
+                Logger li = LoggerFactory.create("vnd_" + current[0]+"_"+step, "vnd_grasp_" + current[0] + "_" + step +"_"+ Utility.next_log_file_id() + ".txt");
+                li.message("VND " + current[0]+" for "+current[3] + " with "+step + " and GRASP");
 
                 Vnd vnd = new Vnd();
 
@@ -68,7 +68,39 @@ public class BenchmarkTest extends TestHelper {
             }
         }
 
+    }
+
+       @Test
+    public void should_run_vnd_without_grasp() {
+
+        IStepFunction[] steps = {new BestImprovement(), new NextImprovement()};
+        for (IStepFunction step : steps) {
+
+            for (String[] current : fix_urls) {
+                Fixtures f = get_fixtures(current[1], current[2], current[3]);
+
+                Greedy g = new Greedy(f);
+
+                Solution s = g.create_solution();
+
+                Logger li = LoggerFactory.create("vnd_" + current[0]+"_"+step, "vnd_greedy_" + current[0] + "_" + step +"_"+ Utility.next_log_file_id() + ".txt");
+                li.message("VND " + current[0]+" for "+current[3] + " with "+step + " and Greedy");
+
+                Vnd vnd = new Vnd();
+
+
+                ArrayList<INeighborhood> hoods = new ArrayList<INeighborhood>();
+                INeighborhood hood1 = new Rotation(get_fixtures(current[1], current[2], current[3]));
+                INeighborhood hood2 = new PairSwitch(get_fixtures(current[1], current[2], current[3]));
+                hoods.add(hood1);
+                hoods.add(hood2);
+
+                vnd.search(s, step, hoods);
+                System.out.println(" ");
+            }
+        }
 
     }
+
 
 }

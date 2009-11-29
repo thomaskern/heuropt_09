@@ -17,10 +17,15 @@ public class Vnd {
 
     public Solution search(Solution s, IStepFunction step, ArrayList<INeighborhood> hoods) {
 
+
+
         int l = 0;
 
         int iterations = 0;
         Logger log = LoggerFactory.get();
+
+        log.message("Start solution is: "+s);
+        log.message("Start cost is: "+s.calculate_costs());
 
         do {
             Solution tmp = step.select(s, hoods.get(l));
