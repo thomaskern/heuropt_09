@@ -17,8 +17,6 @@ public class Vnd {
 
     public Solution search(Solution s, IStepFunction step, ArrayList<INeighborhood> hoods) {
 
-
-
         int l = 0;
 
         int iterations = 0;

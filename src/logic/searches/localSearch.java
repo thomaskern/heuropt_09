@@ -1,6 +1,8 @@
 package logic.searches;
 
 import data.Solution;
+import logic.logger.Logger;
+import logic.logger.LoggerFactory;
 import logic.searches.neighborhoods.INeighborhood;
 import logic.searches.stepfunctions.IStepFunction;
 
@@ -22,6 +24,12 @@ public class LocalSearch {
 
     public Solution search(Solution s, IStepFunction fs, INeighborhood n, int iStop) {
         int iBadCount = 0;
+        int iterations = 0;
+
+        Logger log = LoggerFactory.get();
+
+        log.message("Start solution is: "+s);
+        log.message("Start cost is: "+s.calculate_costs());
 
         do {
             Solution tmp = fs.select(s, n);
@@ -31,11 +39,19 @@ public class LocalSearch {
             if (s.calculate_costs() > tmp.calculate_costs()) {
                 s = tmp;
                 iBadCount = 0;
+                log.message("Better Solution: "+s);
+                log.message("Solution cost: "+s.calculate_costs());
+                
             } else {
                 iBadCount++;
             }
+            iterations++;
         } while (iBadCount <= iStop);
-        
+
+        log.message("Best solution: "+s);
+        log.message("Lowest cost: "+s.calculate_costs());
+        log.message("Total iterations: "+iterations);
+
         return s;
     }
 

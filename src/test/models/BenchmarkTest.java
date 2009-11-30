@@ -19,6 +19,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
+import logic.searches.LocalSearch;
+import logic.searches.stepfunctions.RandomImprovement;
 
 public class BenchmarkTest extends TestHelper {
 
@@ -76,6 +78,17 @@ public class BenchmarkTest extends TestHelper {
         System.out.println(" ");
     }
 
+    private void run_ls(INeighborhood hood, IStepFunction step, String[] current, Solution s, String name) {
+        Logger li = LoggerFactory.create("ls_" + current[0] + "_" + step, "ls_" + name + "_" + current[0] + "_" + step + "_" + Utility.next_log_file_id() + ".txt");
+        li.message("ls " + current[0] + " for " + current[3] + " with " + step + " and " + name.toUpperCase());
+
+        LocalSearch ls = new LocalSearch();
+
+        ls.search(s, step, hood, 100000);
+
+        System.out.println(" ");
+    }
+
     @Test
     public void should_run_vnd_without_grasp() {
 
@@ -94,5 +107,45 @@ public class BenchmarkTest extends TestHelper {
         }
     }
 
+    @Test
+    public void run_local_search_PairSwitch() {
 
+        IStepFunction[] steps = {new BestImprovement(), new NextImprovement()};
+        for (IStepFunction step : steps) {
+
+            for (String[] current : fix_urls) {
+                Fixtures f = get_fixtures(current[1], current[2], current[3]);
+
+                Greedy g = new Greedy(f);
+
+                Solution s = g.create_solution();
+
+                INeighborhood hood = new PairSwitch(f);
+
+                run_ls(hood,step, current, s, "PairSwitch");
+
+            }
+        }
+    }
+
+    @Test
+    public void run_local_search_Rotation() {
+
+        IStepFunction[] steps = {new BestImprovement(), new NextImprovement()};
+        for (IStepFunction step : steps) {
+
+            for (String[] current : fix_urls) {
+                Fixtures f = get_fixtures(current[1], current[2], current[3]);
+
+                Greedy g = new Greedy(f);
+
+                Solution s = g.create_solution();
+
+                INeighborhood hood = new Rotation(f);
+
+                run_ls(hood,step, current, s, "Rotation");
+
+            }
+        }
+    }
 }
