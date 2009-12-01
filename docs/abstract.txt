@@ -1,0 +1,49 @@
+What Algorithms did we choose and why?
+
+The first problem that we encountered when working on the toolswitching problem
+was to find the cheapest - which means a assignment of tools to the slots in the 
+magazine in order that the lowest possible number of toolswitches results. -
+toolassignment for a given jobsequence. Doing some research, we discovered that
+there already existed a well known method called KTNS which solved our first 
+problem quite well. KTNS is an algorithm which was developed by Tang and Denardo
+in 1988. It is based on the idea, when selecting the tools in the unoccupied slots 
+of the magazine, to keep the tools which are required up next, starting with the
+tool, needed soonest. 
+
+Then we developed a greedy algorithm, which we applied on a jobsmiliarity matrix
+There we choose the smallest job first. The selection of the following jobs is 
+based on the jobs similarity. The most similar job with the least difference is 
+choosen next until there are no jobs left for selection.
+
+The next task, we were confroted with, was to find and construct two or more 
+rather reasonable neighborhood structures which have to be used in the localsearch
+later on. For this neighborhood structures we had to implement random neighbor, 
+next neighbor and best improvement. Here the only freedom we got was the selection
+of the appropriate neighborhood function, since the stepfunctions algorithm are 
+designed rather straigt forward and do not leave much room for any improvement. 
+The neighborhood structures, we chose, were PairSwitch and Rotation.
+
+PairSwitch:  PairSwitch is a neigbhorhood function where the neighbors of a solutions
+jobsequence are defined by the exchange of two jobs. Here a rather broad neighborhood
+is generated.
+
+Rotation: In the rotation neighborhood, jobs are rotated triplet wise. The last job 
+of the triplet is moved to its beginning and the other two jobs are shifted right.
+This step is performed from the beginning to the end of the jobsequence as long as
+three jobs are available in the next step.
+
+When comparing this two neighborhoods, PairSwitch showed a better performance than 
+Rotation. 
+
+The next step was to combine these two Neighborhood structures in a variable
+neighborhood descend. This algorithm respectively method has the advantage of
+helping escaping loccal optima. 
+
+Next we randomized our construction heuristic and implemented a greedy, randomized, 
+adaptive search procedure. We start with N randomized greedy heuristics, where N 
+depicts the number of cores. Then we create all the possible augmentations (lists
+of jobs) by using a jobsimilarity matrix (which also returns the cost of each
+job sequence). These jobs are stored in a Cl (candidate list) and in the subsequent
+step these list is taken and the most promising augmentations are stored in a RCL
+(Restricted Candidate List). In The end, the best of the N randomized greedy heuristics
+is selected.

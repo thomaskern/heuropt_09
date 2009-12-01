@@ -84,7 +84,7 @@ public class BenchmarkTest extends TestHelper {
 
         LocalSearch ls = new LocalSearch();
 
-        ls.search(s, step, hood, 100000);
+        ls.search(s, step, hood, 5000);
 
         System.out.println(" ");
     }
