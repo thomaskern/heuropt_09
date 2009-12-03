@@ -13,15 +13,15 @@ public class BestImprovement implements IStepFunction {
 
     public Solution select(Solution solution, INeighborhood n) {
         Solution neighbor;
-        ArrayList<Solution> neighbors = n.getNeighborhood(solution);
-        Solution bestSolution = neighbors.get(0);
+
+        n.init(solution);
+
+        Solution bestSolution = n.next();
         Integer bestCost = bestSolution.calculate_costs();
 
         Integer tempCost;
 
-        for (int i = 1; i < neighbors.size(); i++) {
-            neighbor = neighbors.get(i);
-
+        while((neighbor = n.next()) != null){
             tempCost = neighbor.calculate_costs();
             if (tempCost < bestCost) {
                 bestCost = tempCost;
