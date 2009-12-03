@@ -2,6 +2,7 @@ package logic.searches;
 
 import data.Fixtures;
 import data.Solution;
+import logic.Utility;
 import logic.logger.Logger;
 import logic.logger.LoggerFactory;
 import logic.searches.neighborhoods.BlockSwitch;
@@ -9,6 +10,8 @@ import logic.searches.neighborhoods.INeighborhood;
 import logic.searches.neighborhoods.XBlockSwitch;
 import logic.searches.stepfunctions.BestImprovement;
 import logic.searches.stepfunctions.IStepFunction;
+import logic.searches.stepfunctions.NextImprovement;
+import logic.searches.stepfunctions.RandomImprovement;
 
 import java.util.ArrayList;
 
@@ -22,8 +25,11 @@ public class Vnd {
     public Solution search(Solution s, IStepFunction step, ArrayList<INeighborhood> hoods, Fixtures fixtures) {
 
         int l = 0;
+        Solution best = s;
 
         int iterations = 0;
+        BestImprovement b;
+        XBlockSwitch bs;
         Logger log = LoggerFactory.get();
 
         log.message("Start solution is: "+s);
@@ -44,28 +50,31 @@ public class Vnd {
                 if(l == hoods.size()){
                     l = 0;
                     System.out.println("NICE");
-//                    BlockSwitch bs = new BlockSwitch(10, fixtures);
-//                    bs.init(s);
-                    XBlockSwitch bs = new XBlockSwitch(fixtures, 8);
-                    bs.getNeighborhood(s);
+                    int r = 20 - Utility.get_random_int(10);
+//                    int r = 20;
+                    bs = new XBlockSwitch(fixtures, r);
 
-                    BestImprovement b = new BestImprovement();
+
+                    b = new BestImprovement();
                     s = b.select(s, bs);
 
-//                    s = bs.next();
+
                     done++;
                 }
+                if(s.calculate_costs() < best.calculate_costs())
+                    best = s;
                 if(done > 25)
                     break;
+
             }
             iterations++;
         } while (l < hoods.size());
 
-        log.message("Best solution: "+s);
-        log.message("Lowest cost: "+s.calculate_costs());
+        log.message("Best solution: "+best);
+        log.message("Lowest cost: "+best.calculate_costs());
         log.message("Total iterations: "+iterations);
 
-        return s;
+        return best;
     }
 
 }

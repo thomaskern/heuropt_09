@@ -75,7 +75,7 @@ public class Grasp extends ConstructionHeuristic implements Runnable, Comparable
         }
         
 //        return min;
-        return (int) (min + 0.9 * (max - min));
+        return (int) (min + 0.7 * (max - min));
     }
 
     private ArrayList<JobCost> calculate_costs(ArrayList<Job> cl, Solution solution) {
