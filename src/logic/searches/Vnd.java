@@ -6,6 +6,8 @@ import logic.logger.Logger;
 import logic.logger.LoggerFactory;
 import logic.searches.neighborhoods.BlockSwitch;
 import logic.searches.neighborhoods.INeighborhood;
+import logic.searches.neighborhoods.XBlockSwitch;
+import logic.searches.stepfunctions.BestImprovement;
 import logic.searches.stepfunctions.IStepFunction;
 
 import java.util.ArrayList;
@@ -42,9 +44,15 @@ public class Vnd {
                 if(l == hoods.size()){
                     l = 0;
                     System.out.println("NICE");
-                    BlockSwitch bs = new BlockSwitch(10, fixtures);
-                    bs.init(s);
-                    s = bs.next();
+//                    BlockSwitch bs = new BlockSwitch(10, fixtures);
+//                    bs.init(s);
+                    XBlockSwitch bs = new XBlockSwitch(fixtures, 8);
+                    bs.getNeighborhood(s);
+
+                    BestImprovement b = new BestImprovement();
+                    s = b.select(s, bs);
+
+//                    s = bs.next();
                     done++;
                 }
                 if(done > 25)
