@@ -62,7 +62,7 @@ public class XBlockSwitch implements INeighborhood {
        if(blocks > n )
             return null;
 
-       if (!((i == (blocks)) && j == n)) {
+       if (!((i == (blocks)) && j == blocks)) {
             Solution s = get_solution(switchBlocks(j, i));
 
             if (j == (blocks)) {
