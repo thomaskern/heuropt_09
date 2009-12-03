@@ -2,16 +2,13 @@ package test.models.searches;
 
 import data.Fixtures;
 import data.Solution;
-import logic.ToolSequences.Ktns;
 import logic.construction.Grasp;
-import logic.searches.LocalSearch;
 import logic.searches.Vnd;
 import logic.searches.neighborhoods.INeighborhood;
 import logic.searches.neighborhoods.PairSwitch;
 import logic.searches.neighborhoods.Rotation;
 import logic.searches.stepfunctions.BestImprovement;
 import logic.searches.stepfunctions.IStepFunction;
-import logic.searches.stepfunctions.NextImprovement;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import test.models.TestHelper;
@@ -50,7 +47,7 @@ public class VndTest extends TestHelper {
         hoods.add(hood1);
         hoods.add(hood2);        
 
-        Solution s1 = vnd.search(s, step, hoods);
+        Solution s1 = vnd.search(s, step, hoods, f);
         System.out.println(s1);
         System.out.println(s1.calculate_costs());
         System.out.println("DONE");

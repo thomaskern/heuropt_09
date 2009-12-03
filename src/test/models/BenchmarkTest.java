@@ -58,6 +58,7 @@ public class BenchmarkTest extends TestHelper {
 //
 
                 run_vnd(step, current, s, "grasp");
+                break;
             }
         }
     }
@@ -74,7 +75,7 @@ public class BenchmarkTest extends TestHelper {
         hoods.add(hood1);
         hoods.add(hood2);
 
-        vnd.search(s, step, hoods);
+        vnd.search(s, step, hoods, get_fixtures(current[1], current[2], current[3]));
         System.out.println(" ");
     }
 
@@ -84,7 +85,7 @@ public class BenchmarkTest extends TestHelper {
 
         LocalSearch ls = new LocalSearch();
 
-        ls.search(s, step, hood, 100000);
+        ls.search(s, step, hood, 5);
 
         System.out.println(" ");
     }

@@ -73,8 +73,9 @@ public class Grasp extends ConstructionHeuristic implements Runnable, Comparable
             if (max < j.get_cost())
                 max = j.get_cost();
         }
-
-        return min;
+        
+//        return min;
+        return (int) (min + 0.9 * (max - min));
     }
 
     private ArrayList<JobCost> calculate_costs(ArrayList<Job> cl, Solution solution) {
