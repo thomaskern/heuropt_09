@@ -4,6 +4,8 @@ import data.Fixtures;
 import data.Job;
 import data.Solution;
 import logic.ToolSequences.Ktns;
+import logic.searches.stepfunctions.BestImprovement;
+import sun.misc.GC;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -16,10 +18,15 @@ public class TwoOpt implements INeighborhood {
     private int n;
     private PairSwitch ps;
     private Fixtures fixtures;
+    private int count;
+    private Solution s;
+    private Runtime r;
 
     public TwoOpt(Fixtures fixtures) {
         this.fixtures = fixtures;
         this.ps = new PairSwitch(fixtures);
+        r = Runtime.getRuntime();
+
     }
 
     public ArrayList<Solution> getNeighborhood(Solution solution) {
@@ -33,23 +40,43 @@ public class TwoOpt implements INeighborhood {
         this.jobsequence = solution.jobsequence;
         this.n = this.jobsequence.size();
         ps.init(solution);
+        this.s = solution;
+        this.count = 0;
     }
 
     public Solution next() {
-        if (!((i == (n - 1)) && j == n)) {
-            Solution s = ps.next();
-            if (s == null) {
-                /* check out next solutions neighborhood -> increase counters */
-                if (j == (n - 1)) {
-                    i++;
-                    j = i + 1;
-                } else {
-                    j++;
-                }
-                ps.init(get_solution(get_sequence(j, i)));
-                s = ps.next();
-            }
-            return s;
+        if (j != n) {
+            BestImprovement best = new BestImprovement();
+            INeighborhood nh = new PairSwitch(fixtures);
+            nh.init(s);
+            j++;
+            return best.select(s,nh);
+//            System.out.println("BEFORE");
+//            s = ps.next();
+////            System.out.println("AFTER");
+////            System.out.println("k");
+////            System.out.println(count);
+//            if (s == null) {
+//                System.out.println("N: "+n+"::"+j+"::"+i);
+//                count = 0;
+//                /* check out next solutions neighborhood -> increase counters */
+//                if (j == (n - 1)) {
+//                    i++;
+//                    j = i + 1;
+//                } else {
+//                    j++;
+//                }
+////                ps = null;
+////                GC.
+//                r.gc();
+//                ps = new PairSwitch(fixtures);
+//                ps.init(get_solution(get_sequence(j, i)));
+////                System.out.println("B");
+//                s = ps.next();
+////                System.out.println("A");
+////                s = s;
+//            }
+//            return s;
 
         } else {
             return null;
@@ -74,8 +101,8 @@ public class TwoOpt implements INeighborhood {
             a = (new Random()).nextInt(n - 1);
             b = (new Random()).nextInt(n - 1);
         }
-        
-        return get_solution(get_sequence(tmpSolution.jobsequence,a,b));
+
+        return get_solution(get_sequence(tmpSolution.jobsequence, a, b));
     }
 
     private ArrayList<Job> get_sequence(int j, int i) {

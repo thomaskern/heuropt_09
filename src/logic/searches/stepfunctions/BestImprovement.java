@@ -17,6 +17,7 @@ public class BestImprovement implements IStepFunction {
         n.init(solution);
 
         Solution bestSolution = n.next();
+        System.out.println(n);
         Integer bestCost = bestSolution.calculate_costs();
 
         Integer tempCost;

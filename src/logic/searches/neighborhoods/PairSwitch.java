@@ -18,6 +18,7 @@ public class PairSwitch implements INeighborhood {
 
     public PairSwitch(Fixtures fixtures) {
         this.fixtures = fixtures;
+
     }
 
 

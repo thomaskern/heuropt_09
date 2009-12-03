@@ -42,11 +42,12 @@ public class Vnd {
             if (tmp != null && s.calculate_costs() > tmp.calculate_costs()) {
                 s = tmp;
                 l = 0;
-                done = 0;
                 log.message("Better Solution: "+s);
                 log.message("Solution cost: "+s.calculate_costs());
             } else {
                 l++;
+
+//                LoggerFactory.get().message("neighbor"+l+"::"+hoods.size());
                 if(l == hoods.size()){
                     l = 0;
                     System.out.println("NICE");
@@ -65,6 +66,7 @@ public class Vnd {
                     best = s;
                 if(done > 25)
                     break;
+
 
             }
             iterations++;

@@ -17,7 +17,12 @@ public class Ktns implements IToolSequencer {
         create(jobs, fixtures, solution);
     }
 
-    public Solution run() {
+    public Ktns(Fixtures fixtures) {
+        create(null,fixtures,null);
+    }
+
+    public Solution run(){
+
         solution.clear_sequences();
 
         for (int i = 0; i < jobs.size(); i++) {

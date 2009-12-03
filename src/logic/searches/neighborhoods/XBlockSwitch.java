@@ -31,10 +31,10 @@ public class XBlockSwitch implements INeighborhood {
 
     public ArrayList<Solution> getNeighborhood(Solution solution) {
         init(solution);
-         ArrayList<Solution> neighborhood = new ArrayList<Solution>();
+        ArrayList<Solution> neighborhood = new ArrayList<Solution>();
 
-     /* If invalid blocksize is selected null is returned */
-       if(blocks > n )
+        /* If invalid blocksize is selected null is returned */
+        if (blocks > n)
             return null;
 
         for (int k = 1; k <= blocks; k++) {
@@ -45,11 +45,11 @@ public class XBlockSwitch implements INeighborhood {
             }
         }
 
-         return neighborhood;
+        return neighborhood;
     }
 
     public void init(Solution solution) {
-  
+
         this.jobsequence = solution.jobsequence;
         this.n = jobsequence.size();
         this.bsize = n / blocks;
@@ -59,10 +59,10 @@ public class XBlockSwitch implements INeighborhood {
 
     public Solution next() {
         /* If invalid blocksize is selected null is returned */
-       if(blocks > n )
+        if (blocks > n)
             return null;
 
-       if (!((i == (blocks)) && j == blocks)) {
+        if (!((i == (blocks)) && j >= (blocks))) {
             Solution s = get_solution(switchBlocks(j, i));
 
             if (j == (blocks)) {
@@ -78,27 +78,27 @@ public class XBlockSwitch implements INeighborhood {
             return null;
         }
     }
-    
+
 
     public Solution random() {
-        
+
         /* If invalid blocksize is selected null is returned */
-       if(blocks > n )
+        if (blocks > n)
             return null;
 
         int a = 1;
         int b = 1;
 
         while (a == b) {
-            a = 1 + (new Random()).nextInt(blocks-1);
-            b = 1 + (new Random()).nextInt(blocks-1);
+            a = 1 + (new Random()).nextInt(blocks - 1);
+            b = 1 + (new Random()).nextInt(blocks - 1);
         }
 
         return get_solution(switchBlocks(b, a));
     }
 
 
-    private ArrayList<Job> switchBlocks(int a, int b){
+    private ArrayList<Job> switchBlocks(int a, int b) {
         ArrayList<Job> newJobSequence = new ArrayList<Job>();
         ArrayList<Job> block = new ArrayList<Job>();
 
@@ -106,16 +106,16 @@ public class XBlockSwitch implements INeighborhood {
             newJobSequence.add(job);
         }
 
-       for(int i = 0; i < bsize;i++){
-           block.add(newJobSequence.get(((a-1)*bsize)+i));
-           newJobSequence.set((((a-1)*bsize)+i), newJobSequence.get(((b-1)*bsize)+i));
-       }
+        for (int i = 0; i < bsize; i++) {
+            block.add(newJobSequence.get(((a - 1) * bsize) + i));
+            newJobSequence.set((((a - 1) * bsize) + i), newJobSequence.get(((b - 1) * bsize) + i));
+        }
 
-       for(int i = 0; i < bsize; i++){
-           newJobSequence.set((((b-1)*bsize)+i), block.get(i));
-       }
+        for (int i = 0; i < bsize; i++) {
+            newJobSequence.set((((b - 1) * bsize) + i), block.get(i));
+        }
 
-       return newJobSequence;
+        return newJobSequence;
     }
 
     private Solution get_solution(ArrayList<Job> sequence) {

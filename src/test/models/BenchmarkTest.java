@@ -12,6 +12,7 @@ import logic.searches.Vnd;
 import logic.searches.neighborhoods.INeighborhood;
 import logic.searches.neighborhoods.PairSwitch;
 import logic.searches.neighborhoods.Rotation;
+import logic.searches.neighborhoods.TwoOpt;
 import logic.searches.stepfunctions.BestImprovement;
 import logic.searches.stepfunctions.IStepFunction;
 import logic.searches.stepfunctions.NextImprovement;
@@ -72,8 +73,10 @@ public class BenchmarkTest extends TestHelper {
         ArrayList<INeighborhood> hoods = new ArrayList<INeighborhood>();
         INeighborhood hood1 = new Rotation(get_fixtures(current[1], current[2], current[3]));
         INeighborhood hood2 = new PairSwitch(get_fixtures(current[1], current[2], current[3]));
+        INeighborhood hood3 = new TwoOpt(get_fixtures(current[1], current[2], current[3]));
         hoods.add(hood1);
         hoods.add(hood2);
+        hoods.add(hood3);
 
         vnd.search(s, step, hoods, get_fixtures(current[1], current[2], current[3]));
         System.out.println(" ");
