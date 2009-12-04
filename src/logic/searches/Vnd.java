@@ -47,7 +47,7 @@ public class Vnd {
 
 
             if (tmp != null && s.calculate_costs() > tmp.calculate_costs()) {
-                hoods.remove(l);
+//                hoods.remove(l);
                 s = tmp;
                 l = 0;
                 log.message("Better Solution: "+s);

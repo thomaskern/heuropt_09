@@ -1,13 +1,13 @@
 package data;
 
-import logic.SolutionCostCache;
-
 import java.util.ArrayList;
 
 public class Solution implements Comparable<Solution> {
 
+
     public ArrayList<ToolConfiguration> tool_sequence;
     public ArrayList<Job> jobsequence;
+    private int total_cost;
     public static final int COST_FACTOR = 1;
 
     public Solution() {
@@ -61,16 +61,18 @@ public class Solution implements Comparable<Solution> {
 
     public Integer calculate_costs() {
 
-//        int cost = 0;
-//
-//        for (int i = 0; i < this.tool_sequence.size() - 1; i++) {
-//            cost += this.tool_sequence.get(i).dissimilarity(this.tool_sequence.get(i + 1));
-//        }
+        if (total_cost == 0) {
+            for (int i = 0; i < this.tool_sequence.size() - 1; i++) {
+                total_cost += this.tool_sequence.get(i).dissimilarity(this.tool_sequence.get(i + 1));
+            }
 
-//        return cost * Solution.COST_FACTOR;
 
-        SolutionCostCache scc = SolutionCostCache.getInstance();
-        return scc.get_cost(this);
+        }
+
+        return total_cost * Solution.COST_FACTOR;
+
+//        SolutionCostCache scc = SolutionCostCache.getInstance();
+//        return scc.get_cost(this);
     }
 
     public void clear_sequences() {
@@ -82,9 +84,11 @@ public class Solution implements Comparable<Solution> {
     }
 
     public int compareTo(Solution o) {
-        if(o.jobsequence == this.jobsequence){
+        if (o.jobsequence == this.jobsequence) {
             return 0;
         }
         return o.jobsequence == this.jobsequence ? 1 : -1;
     }
 }
+
+
