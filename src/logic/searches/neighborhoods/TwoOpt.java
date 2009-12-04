@@ -46,11 +46,14 @@ public class TwoOpt implements INeighborhood {
 
     public Solution next() {
         if (j != n) {
+            count++;
             BestImprovement best = new BestImprovement();
             INeighborhood nh = new PairSwitch(fixtures);
             nh.init(s);
             j++;
-            return best.select(s,nh);
+            System.out.println("BEST"+j);
+            s = best.select(s,nh);
+            return s;
 //            System.out.println("BEFORE");
 //            s = ps.next();
 ////            System.out.println("AFTER");
