@@ -41,7 +41,9 @@ public class Vnd {
         do {
             System.out.println("L: "+l);
             System.out.println(hoods.get(l));
+            long t = System.currentTimeMillis();
             Solution tmp = step.select(s, hoods.get(l));
+            System.out.println("TIME: "+ (System.currentTimeMillis() - t));
 
 
             if (tmp != null && s.calculate_costs() > tmp.calculate_costs()) {

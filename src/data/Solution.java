@@ -60,6 +60,15 @@ public class Solution implements Comparable<Solution> {
     }
 
     public Integer calculate_costs() {
+
+//        int cost = 0;
+//
+//        for (int i = 0; i < this.tool_sequence.size() - 1; i++) {
+//            cost += this.tool_sequence.get(i).dissimilarity(this.tool_sequence.get(i + 1));
+//        }
+
+//        return cost * Solution.COST_FACTOR;
+
         SolutionCostCache scc = SolutionCostCache.getInstance();
         return scc.get_cost(this);
     }

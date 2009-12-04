@@ -62,10 +62,8 @@ public class TwoOpt implements INeighborhood {
             nh.init(tmp);
             j++;
             System.out.println("BEST" + j);
-            tmp = best.select(tmp, nh);
             Runtime.getRuntime().gc();
-            return tmp;
-
+            return best.select(tmp, nh);
         } else {
             return null;
         }

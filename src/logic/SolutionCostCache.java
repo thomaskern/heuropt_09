@@ -1,7 +1,9 @@
 package logic;
 
+import data.Job;
 import data.Solution;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SolutionCostCache {
@@ -14,11 +16,24 @@ public class SolutionCostCache {
     }
 
     public synchronized Integer get_cost(Solution solution) {
-        if (!hm.containsKey(solution.jobsequence.toString())) {
-            hm.put(solution.jobsequence.toString(), calculate_cost(solution));
+
+        String key = get_key(solution.jobsequence);
+
+        if (!hm.containsKey(key)) {
+//            System.out.println(get_key(solution.jobsequence));
+            hm.put(key, calculate_cost(solution));
         }
 
-        return hm.get(solution.jobsequence.toString());
+        return hm.get(key);
+    }
+
+    private String get_key(ArrayList<Job> jobsequence) {
+        String tmp = "";
+
+        for (Job j : jobsequence)
+            tmp += j.id;
+
+        return tmp;
     }
 
     private Integer calculate_cost(Solution solution) {
