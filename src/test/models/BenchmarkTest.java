@@ -74,8 +74,8 @@ public class BenchmarkTest extends TestHelper {
         INeighborhood hood1 = new Rotation(get_fixtures(current[1], current[2], current[3]));
         INeighborhood hood2 = new PairSwitch(get_fixtures(current[1], current[2], current[3]));
         INeighborhood hood3 = new TwoOpt(get_fixtures(current[1], current[2], current[3]));
-//        hoods.add(hood1);
-//        hoods.add(hood2);
+        hoods.add(hood1);
+        hoods.add(hood2);
         hoods.add(hood3);
 
         vnd.search(s, step, hoods, get_fixtures(current[1], current[2], current[3]));

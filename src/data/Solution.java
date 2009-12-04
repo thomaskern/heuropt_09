@@ -4,7 +4,7 @@ import logic.SolutionCostCache;
 
 import java.util.ArrayList;
 
-public class Solution {
+public class Solution implements Comparable<Solution> {
 
     public ArrayList<ToolConfiguration> tool_sequence;
     public ArrayList<Job> jobsequence;
@@ -70,5 +70,12 @@ public class Solution {
 
     public void add_sequence(ToolConfiguration tc) {
         this.tool_sequence.add(tc);
+    }
+
+    public int compareTo(Solution o) {
+        if(o.jobsequence == this.jobsequence){
+            return 0;
+        }
+        return o.jobsequence == this.jobsequence ? 1 : -1;
     }
 }

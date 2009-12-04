@@ -51,8 +51,8 @@ public class Vnd {
                 if(l == hoods.size()){
                     l = 0;
                     System.out.println("NICE");
-                    int r = 20 - Utility.get_random_int(10);
-//                    int r = 20;
+                    int r = 4 + Utility.get_random_int(10);
+
                     bs = new XBlockSwitch(fixtures, r);
 
 

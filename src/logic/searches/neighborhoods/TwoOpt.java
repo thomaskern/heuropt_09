@@ -16,15 +16,16 @@ public class TwoOpt implements INeighborhood {
     private int i;
     private int j;
     private int n;
-    private PairSwitch ps;
+//    private PairSwitch ps;
     private Fixtures fixtures;
     private int count;
     private Solution s;
     private Runtime r;
+    private ArrayList<Solution> all;
 
     public TwoOpt(Fixtures fixtures) {
         this.fixtures = fixtures;
-        this.ps = new PairSwitch(fixtures);
+//        this.ps = new PairSwitch(fixtures);
         r = Runtime.getRuntime();
 
     }
@@ -39,20 +40,48 @@ public class TwoOpt implements INeighborhood {
         this.j = 1;
         this.jobsequence = solution.jobsequence;
         this.n = this.jobsequence.size();
-        ps.init(solution);
+//        ps.init(solution);
         this.s = solution;
         this.count = 0;
+        this.all = get_all();
+    }
+
+    public ArrayList<Solution> get_all(){
+        return new PairSwitch(fixtures).getNeighborhood(s);
     }
 
     public Solution next() {
-        if (j != n) {
+        if (j < all.size()) {
             count++;
-            BestImprovement best = new BestImprovement();
+
+            s = all.get(j);
+            System.out.println("NEXT: "+s.calculate_costs());
+//            BestImprovement best = new BestImprovement();
             INeighborhood nh = new PairSwitch(fixtures);
             nh.init(s);
-            j++;
+            j += 15;
             System.out.println("BEST"+j);
-            s = best.select(s,nh);
+//            Solution tmp = best.select(s,nh);
+
+            ArrayList<Solution> ss = nh.getNeighborhood(s);
+
+            for(Solution s1 : ss){
+
+
+                System.out.println("EQUAL to :" +(s1 == s));
+//                System.out.println(s1);
+//                System.out.println(s1.calculate_costs());
+
+
+            }
+            Solution tmp = ss.get(0);
+
+
+            System.out.println("EQAUAL: "+(tmp == s));
+            System.out.println(tmp);
+            System.out.println(s);
+            s = tmp;
+            System.out.println("CURRENTLY BEST: "+tmp.calculate_costs());
             return s;
 //            System.out.println("BEFORE");
 //            s = ps.next();
