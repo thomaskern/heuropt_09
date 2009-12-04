@@ -29,6 +29,7 @@ public class BestImprovement implements IStepFunction {
             }
         }
 
+        Runtime.getRuntime().gc();
         return bestSolution;
 
 

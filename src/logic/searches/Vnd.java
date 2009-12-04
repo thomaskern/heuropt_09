@@ -36,14 +36,22 @@ public class Vnd {
         log.message("Start cost is: "+s.calculate_costs());
         int done = 0;
 
+        System.out.println("HOODS: "+hoods.size());
+
         do {
+            System.out.println("L: "+l);
+            System.out.println(hoods.get(l));
             Solution tmp = step.select(s, hoods.get(l));
 
+
             if (tmp != null && s.calculate_costs() > tmp.calculate_costs()) {
+                hoods.remove(l);
                 s = tmp;
                 l = 0;
                 log.message("Better Solution: "+s);
                 log.message("Solution cost: "+s.calculate_costs());
+                if(s.calculate_costs() < best.calculate_costs())
+                    best = s;
             } else {
                 l++;
 
