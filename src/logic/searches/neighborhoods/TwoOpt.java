@@ -5,7 +5,6 @@ import data.Job;
 import data.Solution;
 import logic.ToolSequences.Ktns;
 import logic.searches.stepfunctions.BestImprovement;
-import sun.misc.GC;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -16,7 +15,7 @@ public class TwoOpt implements INeighborhood {
     private int i;
     private int j;
     private int n;
-//    private PairSwitch ps;
+    //    private PairSwitch ps;
     private Fixtures fixtures;
     private int count;
     private Solution s;
@@ -48,8 +47,8 @@ public class TwoOpt implements INeighborhood {
         this.all = get_all();
     }
 
-// returns all 780 possible pair switches   
-    public ArrayList<Solution> get_all(){
+    // returns all 780 possible pair switches
+    public ArrayList<Solution> get_all() {
         return new PairSwitch(fixtures).getNeighborhood(s);
     }
 
@@ -58,61 +57,14 @@ public class TwoOpt implements INeighborhood {
             count++;
 
             Solution tmp = all.get(j);
-//            System.out.println("NEXT: "+s.calculate_costs());
             best = new BestImprovement();
             nh = new PairSwitch(fixtures);
             nh.init(tmp);
-//            j += 15;
             j++;
-            System.out.println("BEST"+j);
-            tmp = best.select(tmp,nh);
-
-//            ArrayList<Solution> ss = nh.getNeighborhood(s);
-//
-//            for(Solution s1 : ss){
-//
-//
-//                System.out.println("EQUAL to :" +(s1 == s));
-//                System.out.println(s1);
-//                System.out.println(s1.calculate_costs());
-//
-//
-//            }
-//            Solution tmp = ss.get(0);
-
-
-//            System.out.println("EQAUAL: "+(tmp == s));
-//            System.out.println(tmp);
-//            System.out.println(s);
-//            s = tmp;
-//            System.out.println("CURRENTLY BEST: "+tmp.calculate_costs());
+            System.out.println("BEST" + j);
+            tmp = best.select(tmp, nh);
+            Runtime.getRuntime().gc();
             return tmp;
-//            System.out.println("BEFORE");
-//            s = ps.next();
-////            System.out.println("AFTER");
-////            System.out.println("k");
-////            System.out.println(count);
-//            if (s == null) {
-//                System.out.println("N: "+n+"::"+j+"::"+i);
-//                count = 0;
-//                /* check out next solutions neighborhood -> increase counters */
-//                if (j == (n - 1)) {
-//                    i++;
-//                    j = i + 1;
-//                } else {
-//                    j++;
-//                }
-////                ps = null;
-////                GC.
-//                r.gc();
-//                ps = new PairSwitch(fixtures);
-//                ps.init(get_solution(get_sequence(j, i)));
-////                System.out.println("B");
-//                s = ps.next();
-////                System.out.println("A");
-////                s = s;
-//            }
-//            return s;
 
         } else {
             return null;
