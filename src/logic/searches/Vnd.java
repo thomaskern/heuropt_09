@@ -7,6 +7,7 @@ import logic.logger.Logger;
 import logic.logger.LoggerFactory;
 import logic.searches.neighborhoods.BlockSwitch;
 import logic.searches.neighborhoods.INeighborhood;
+import logic.searches.neighborhoods.TwoOpt;
 import logic.searches.neighborhoods.XBlockSwitch;
 import logic.searches.stepfunctions.BestImprovement;
 import logic.searches.stepfunctions.IStepFunction;
@@ -39,11 +40,9 @@ public class Vnd {
         System.out.println("HOODS: "+hoods.size());
 
         do {
-            System.out.println("L: "+l);
-            System.out.println(hoods.get(l));
             long t = System.currentTimeMillis();
             Solution tmp = step.select(s, hoods.get(l));
-            System.out.println("TIME: "+ (System.currentTimeMillis() - t));
+//            System.out.println("TIME: "+ (System.currentTimeMillis() - t));
 
 
             if (tmp != null && s.calculate_costs() > tmp.calculate_costs()) {
@@ -61,13 +60,18 @@ public class Vnd {
                 if(l == hoods.size()){
                     l = 0;
                     System.out.println("NICE");
-                    int r = 4 + Utility.get_random_int(10);
+                    int r = 8; //8 + Utility.get_random_int(10);
 
                     bs = new XBlockSwitch(fixtures, r);
 
 
                     b = new BestImprovement();
                     s = b.select(s, bs);
+
+                    INeighborhood hood3 = new TwoOpt(fixtures);
+                    hood3.init(s);
+                    s = hood3.next();
+
 
 
                     done++;

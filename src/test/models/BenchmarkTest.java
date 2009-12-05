@@ -30,14 +30,14 @@ public class BenchmarkTest extends TestHelper {
     @BeforeTest
     public void setUp() {
         Logger.clear_logdir();
-        String[] tmp = {"big", "matrices/matrix_40j_60to_NSS_2.txt", "matrices/capacities.txt", "40_60"};
-        fix_urls[0] = tmp;
+//        String[] tmp = {"big", "matrices/matrix_40j_60to_NSS_0.txt", "matrices/capacities.txt", "40_60"};
+//        fix_urls[0] = tmp;
 
-        String[] tmp1 = {"medium", "matrices/matrix_30j_40to_NSS_2.txt", "matrices/capacities.txt", "30_40"};
-        fix_urls[1] = tmp1;
+        String[] tmp1 = {"medium", "matrices/matrix_30j_40to_NSS_0.txt", "matrices/capacities.txt", "30_40"};
+        fix_urls[0] = tmp1;
 
-        String[] tmp2 = {"small", "matrices/matrix_10j_10to_NSS_2.txt", "matrices/capacities.txt", "10_10"};
-        fix_urls[2] = tmp2;
+//        String[] tmp2 = {"small", "matrices/matrix_10j_10to_NSS_0.txt", "matrices/capacities.txt", "10_10"};
+//        fix_urls[2] = tmp2;
     }
 
     @Test
@@ -59,8 +59,8 @@ public class BenchmarkTest extends TestHelper {
 //
 
                 run_vnd(step, current, s, "grasp");
-                break;
             }
+            break;
         }
     }
 

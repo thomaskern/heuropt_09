@@ -62,7 +62,7 @@ public class Solution implements Comparable<Solution> {
     public Integer calculate_costs() {
 
         if (total_cost == 0) {
-            for (int i = 0; i < this.tool_sequence.size() - 1; i++) {
+            for (int i = 1; i < this.tool_sequence.size() - 1; i++) {
                 total_cost += this.tool_sequence.get(i).dissimilarity(this.tool_sequence.get(i + 1));
             }
 
