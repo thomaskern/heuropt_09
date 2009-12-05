@@ -17,44 +17,33 @@
 \begin{document}
 	
 \maketitle
-
-Writing to stdout: Better Solution: job sequence: [job@36, job@19, job@27, job@38, job@0, job@26, job@28, job@2, job@14, job@25, job@35, job@20, job@11, job@1, job@32, job@39, job@34, job@15, job@22, job@18, job@8, job@12, job@33, job@21, job@37, job@10, job@7, job@24, job@9, job@16, job@31, job@5, job@4, job@3, job@13, job@17, job@23, job@29, job@6, job@30]
-Writing to stdout: Solution cost: 216
-
-What Algorithms did we choose and why?
+The first problem that we encountered when working on the tool switching problem was to find the cheapest - which means an assignment of tools to the slots in the magazine in order that the lowest possible number of tool switches results - tool assignment for a given job sequence. 
 \\
 \\
-The first problem that we encountered when working on the tool switching problem
-was to find the cheapest - which means a assignment of tools to the slots in the 
-magazine in order that the lowest possible number of tool switches results. -
-tool assignment for a given job sequence. 
-\\
-Doing some research, we discovered that
-there already existed a well known method called \textbf{KTNS} which solved our first 
+Doing some research, we discovered that there already existed a well known method called \textbf{KTNS} which solved our first 
 problem quite well. KTNS is an algorithm which was developed by Tang and Denardo
-in 1988. It is based on the idea, when selecting the tools in the unoccupied slots 
-of the magazine, to keep the tools which are required up next, starting with the
-tool, needed soonest. 
+in 1988. It is based on the idea of keeping and/or inserting the tool, which is needed the soonest, in/to the magazine configuration.
+\\
+Although there are some improvements available to the KTNS in terms of runtime performance, we didn't need such an improvement because fortunately enough, we aren't spending much time in our KTNS class.
 \\
 \\
-Then we developed a greedy algorithm, which we applied on a job-smiliarity matrix
-There we choose the smallest job first. The selection of the following jobs is 
+Then we developed a \textbf{greedy} algorithm, which we applied on a job-smiliarity matrix
+There we choose the biggest (ie. the one requiring the most tools) job first. The selection of the following jobs is 
 based on the jobs similarity. The most similar job with the least difference is 
 chosen next until there are no jobs left for selection.
 \\
 \\
-The next task, we were confronted with, was to find and construct two or more 
-rather reasonable neighbourhood structures which have to be used in the local search
+The next task was to find and construct two or more 
+rather reasonable \textbf{neighbourhood structures} which have to be used in the local search
 later on. For this neighbourhood structures we had to implement random neighbour, 
 next neighbour and best improvement. Here the only freedom we got was the selection
 of the appropriate neighbourhood function, since the step functions algorithm are 
 designed rather straight forward and do not leave much room for any improvement. 
-The neighbourhood structures, we chose, were PairSwitch and Rotation.
+The implemented neighbourhood structures are PairSwitch, BinSwitch, Rotation and TwoOpt.
 \\
 \\
 \textbf{PairSwitch}:  PairSwitch is a neighbourhood function where the neighbours of a solutions
-job sequence are defined by the exchange of two jobs. Here a rather broad neighbourhood
-is generated.
+job sequence are defined by the exchange of two jobs.
 \\
 \\
 \textbf{Rotation}: In the rotation neighbourhood, jobs are rotated triplet wise. The last job 
@@ -63,21 +52,21 @@ This step is performed from the beginning to the end of the job sequence as long
 three jobs are available in the next step.
 \\
 \\
-When comparing this two neighbourhoods, PairSwitch showed a better performance than 
-Rotation. 
+\textbf{BinSwitch}: Here, the jobs are divided into $N$ bins. After that, all bin combinations are created. Ie. 1|2|3 results in 1|3|2, 3|1|2 etc. This is heavily used in the VND. $N$ is passed into the function, meaning, we are flexible about the size of the bin and the number of bins.
 \\
 \\
-The next step was to combine these two Neighbourhood structures in a variable
-neighbourhood descend. This algorithm respectively method has the advantage of
-helping escaping local optima. 
+\textbf{TwoOpt}: Enhancement of the PairSwitch. First a regular PairSwitch is done, after that, another PairSwitch is applied to each of the solutions of the first PairSwitch.
+\\
+\\
+Our \textbf{VND} is customised. We apply PairSwitch, TwoOpt and Rotation onto the solution of the GRASP. The order of the solution doesn't play a big part of getting our best solution. What helps is the BinSwitch. 
+\\
+If no better solution is found after all the neighbourhood functions are applied, we randomly BinSwitch ($N$ is a number between 4 and 20 for the big instance). $VND$ improves our GRASP a lot (from 280 to 216) and is also better than a local search, no matter which neighbourhood function is used for the local search (best LS result: 230). This is done infinitely. Downside is the insane number of iterations, which basically depend on a manual stop. Our VND is a never ending process.
 \\
 \\
 Next we randomised our construction heuristic and implemented a greedy, randomised, 
-adaptive search procedure (\textbf{GRASP}). We start with N randomised greedy heuristics, where N 
-depicts the number of cores. Then we create all the possible augmentations (lists
-of jobs) by using a job similarity matrix (which also returns the cost of each
-job sequence). These jobs are stored in a Cl (candidate list) and in the subsequent
-step these list is taken and the most promising augmentations are stored in a RCL
-(Restricted Candidate List). In The end, the best of the N randomised greedy heuristics
-is selected.
+adaptive search procedure (\textbf{GRASP}). We start with $N$ randomised greedy heuristics, where N 
+depicts the number of cores. We create all the possible augmentations (lists
+of jobs) by using a job similarity matrix. These jobs are stored in a \textit{Cl}, which gets filtered into a \textit{RCL}. Our best results are with an \textit{alpha} set to around 0.65 $\pm$ 0.1.
+\\
+In the end, the best of the $N$ randomised greedy heuristics is selected.
 \end{document}
