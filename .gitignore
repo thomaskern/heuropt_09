@@ -1,4 +1,7 @@
 .idea/*
+*.aux
+*.log
+*.gz
 *.iml
 *.xml
 test-output/
