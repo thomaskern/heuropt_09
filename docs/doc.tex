@@ -17,26 +17,27 @@
 \begin{document}
 	
 \maketitle
-The first problem that we encountered when working on the tool switching problem was to find the cheapest - which means an assignment of tools to the slots in the magazine in order that the lowest possible number of tool switches results - tool assignment for a given job sequence. 
+The first problem that we encountered when working on the tool switching problem was to find the cheapest tool assignment, meaning 
+ lowest number of tool switches possible, for a given job sequence. 
 \\
 \\
 Doing some research, we discovered that there already existed a well known method called \textbf{KTNS} which solved our first 
 problem quite well. KTNS is an algorithm which was developed by Tang and Denardo
 in 1988. It is based on the idea of keeping and/or inserting the tool, which is needed the soonest, in/to the magazine configuration.
 \\
-Although there are some improvements available to the KTNS in terms of runtime performance, we didn't need such an improvement because fortunately enough, we aren't spending much time in our KTNS class.
+Although there are some improvements available to the KTNS in terms of runtime performance, we \textit{didn't need such an improvement} because fortunately enough, we aren't spending much time in our KTNS class.
 \\
 \\
-Then we developed a \textbf{greedy} algorithm, which we applied on a job-smiliarity matrix
+Then we developed a \textbf{greedy} algorithm, which we applied on a \textit{job-smiliarity matrix}.
 There we choose the biggest (ie. the one requiring the most tools) job first. The selection of the following jobs is 
 based on the jobs similarity. The most similar job with the least difference is 
 chosen next until there are no jobs left for selection.
 \\
 \\
 The next task was to find and construct two or more 
-rather reasonable \textbf{neighbourhood structures} which have to be used in the local search
-later on. For this neighbourhood structures we had to implement random neighbour, 
-next neighbour and best improvement. Here the only freedom we got was the selection
+rather reasonable and different \textbf{neighbourhood functions}, which have to be used in the local search
+later on. For this neighbourhood structures we had to implement \textbf{random neighbour, 
+next neighbour and best improvement}. Here the only freedom we got was the selection
 of the appropriate neighbourhood function, since the step functions algorithm are 
 designed rather straight forward and do not leave much room for any improvement. 
 The implemented neighbourhood structures are PairSwitch, BinSwitch, Rotation and TwoOpt.
@@ -60,13 +61,22 @@ three jobs are available in the next step.
 \\
 Our \textbf{VND} is customised. We apply PairSwitch, TwoOpt and Rotation onto the solution of the GRASP. The order of the solution doesn't play a big part of getting our best solution. What helps is the BinSwitch. 
 \\
-If no better solution is found after all the neighbourhood functions are applied, we randomly BinSwitch ($N$ is a number between 4 and 20 for the big instance). $VND$ improves our GRASP a lot (from 280 to 216) and is also better than a local search, no matter which neighbourhood function is used for the local search (best LS result: 230). This is done infinitely. Downside is the insane number of iterations, which basically depend on a manual stop. Our VND is a never ending process.
+If no better solution is found after all the neighbourhood functions are applied, we randomly BinSwitch ($N$ is a number between 4 and 20 for the big instance). $VND$ improves our GRASP a lot (from 270-280 to 216) and is also better than a local search, no matter which neighbourhood function is used for the local search (best LS result: 235). The $VND$ runs infinitely. Downside is the insane number of iterations, which basically depends on a manual stop. Our VND is a never ending process.
 \\
 \\
-Next we randomised our construction heuristic and implemented a greedy, randomised, 
-adaptive search procedure (\textbf{GRASP}). We start with $N$ randomised greedy heuristics, where N 
-depicts the number of cores. We create all the possible augmentations (lists
-of jobs) by using a job similarity matrix. These jobs are stored in a \textit{Cl}, which gets filtered into a \textit{RCL}. Our best results are with an \textit{alpha} set to around 0.65 $\pm$ 0.1.
+Next we randomised our construction heuristic and implemented a \textbf{GRASP}. We start with $N$ randomised greedy heuristics, where N 
+depicts the number of cores (we are using Java's concurrency namely Threads). Again, we take advantage of our job similarity matrix to order the jobs and calculate the costs between them. The jobs are stored in a \textit{Cl}, which gets filtered into a \textit{RCL}. Our best results are with an \textit{alpha} set to around 0.65 $\pm$ 0.1.
 \\
 In the end, the best of the $N$ randomised greedy heuristics is selected.
+\\
+\\
+Our results:\\
+\\
+\center
+\begin{tabular}{ | l | c | c | c |}
+  \hline
+  Matrix: 	& 10 * 10 & 30 * 40 & 40 * 60 \\ \hline
+  Best cost:	& 10    & 104   & 216 \\ \hline
+  Iterations: 	& 47	& 214 	& 2875 \\ \hline
+\end{tabular}
 \end{document}
