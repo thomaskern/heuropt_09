@@ -1,0 +1,18 @@
+<testng-results>
+  <reporter-output>
+  </reporter-output>
+  <suite name="Custom suite">
+    <groups>
+    </groups>
+    <test name="bsp2">
+      <class name="test.data.FixturesTest">
+        <test-method status="PASS" signature="should_parse_doubles_from_file()" name="should_parse_doubles_from_file" duration-ms="20" started-at="2009-12-13T00:36:55Z" finished-at="2009-12-13T00:36:55Z">
+        </test-method>
+        <test-method status="PASS" signature="should_set_uniq_node_ids()" name="should_set_uniq_node_ids" duration-ms="20" started-at="2009-12-13T00:36:55Z" finished-at="2009-12-13T00:36:55Z">
+        </test-method>
+        <test-method status="PASS" signature="should_read_fixtures_from_file()" name="should_read_fixtures_from_file" duration-ms="25" started-at="2009-12-13T00:36:55Z" finished-at="2009-12-13T00:36:55Z">
+        </test-method>
+      </class>
+    </test>
+  </suite>
+</testng-results>
