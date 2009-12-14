@@ -6,9 +6,9 @@
     </groups>
     <test name="bsp2">
       <class name="test.data.AcoTest">
-        <test-method status="PASS" signature="before_method()" name="before_method" is-config="true" duration-ms="7" started-at="2009-12-14T02:28:50Z" finished-at="2009-12-14T02:28:50Z">
+        <test-method status="PASS" signature="before_method()" name="before_method" is-config="true" duration-ms="7" started-at="2009-12-14T03:16:59Z" finished-at="2009-12-14T03:16:59Z">
         </test-method>
-        <test-method status="PASS" signature="should_initiate_multiple_ants()" name="should_initiate_multiple_ants" duration-ms="84" started-at="2009-12-14T02:28:50Z" finished-at="2009-12-14T02:28:50Z">
+        <test-method status="PASS" signature="should_initiate_multiple_ants()" name="should_initiate_multiple_ants" duration-ms="2023" started-at="2009-12-14T03:16:59Z" finished-at="2009-12-14T03:17:01Z">
         </test-method>
       </class>
     </test>

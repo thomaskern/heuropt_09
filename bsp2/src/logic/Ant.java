@@ -15,7 +15,13 @@ public class Ant extends Thread {
     }
 
     public void run() {
-        tree.insert(graph.start_node());        
+        try {
+            sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        tree.insert(graph.start_node());
+        this.aco.ant_done(this);
     }
 
     public Tree getTree() {
