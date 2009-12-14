@@ -1,6 +1,6 @@
 package data;
 
-public class Node {
+public class Node implements Comparable<Node> {
     private double x;
     private double y;
     private int id;
@@ -25,5 +25,9 @@ public class Node {
 
     public int getId() {
         return id;
+    }
+
+    public int compareTo(Node o) {
+        return o.getId() - this.id;
     }
 }

@@ -1,4 +1,4 @@
-package data;
+package data.tree;
 
 import data.tree.Tree;
 

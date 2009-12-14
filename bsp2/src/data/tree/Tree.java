@@ -1,38 +1,58 @@
 package data.tree;
 
+import data.Edge;
 import data.Node;
+import data.NodeList;
 
 import java.util.Stack;               // for Stack class
 
 public class Tree {
+    public NodeList getNodes() {
+        return nodes;
+    }
+
+    public Node getRoot() {
+        return root.data_node;
+    }
+
+    public boolean contains_node(Node node) {
+        return nodes.contains(node);
+    }
+
+    public int size() {
+        return nodes.size();
+    }
 
     class TreeNode {
 
-        public Node dData;           // data item
+
+        public Node data_node;           // data item
         public TreeNode leftChild;         // this node's left child
         public TreeNode rightChild;        // this node's right child
 
         public String toString()      // display ourself
         {
             String s = "{";
-            s += dData.getId();
+            s += data_node.getId();
             s += ", ";
-            s += dData;
+            s += data_node;
             s += "} ";
             return s;
         }
 
         public int getId() {
-            return dData.getId();
+            return data_node.getId();
         }
     }
 
 
+    private NodeList nodes;
     private TreeNode root;             // first node of tree
 
     // -------------------------------------------------------------
     public Tree()                  // constructor
     {
+        nodes = new NodeList();
         root = null;
     }            // no nodes in tree yet
 
@@ -52,10 +72,17 @@ public class Tree {
         return current;                    // found it
     }
 
+    public void insert(Edge edge){
+        TreeNode start = find(edge.getStart().getId());
+//        start.
+
+    }
     // -------------------------------------------------------------
     public void insert(Node node) {
         TreeNode newTreeNode = new TreeNode();
-        newTreeNode.dData = node;
+        newTreeNode.data_node = node;
+        nodes.add_node(node);
+
         if (root == null)
             root = newTreeNode;
         else
@@ -274,7 +301,7 @@ public class Tree {
         return 0;
     }
 
-    public boolean valid(){
-        return false;
+    public boolean valid(int graph_size){
+        return size() == graph_size;
     }
 }

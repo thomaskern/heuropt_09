@@ -18,7 +18,7 @@ public class AcoTest {
     @Test
     public void should_initiate_multiple_ants() {
         Aco aco = new Aco();
-        aco.run(graph, 16);
+        aco.run(graph, 1);
     }
 
 }

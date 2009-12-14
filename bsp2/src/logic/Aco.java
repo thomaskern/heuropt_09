@@ -1,7 +1,7 @@
 package logic;
 
 import data.Graph;
-import data.TreeList;
+import data.tree.TreeList;
 import data.tree.Tree;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class Aco {
     }
 
     private void update_pheromone() {
-        System.out.println(trees.size());
+        
     }
 
     private TreeList run_ants() {
@@ -47,6 +47,7 @@ public class Aco {
         for (int i = 0; i < Utility.available_processor(); i++) {
             start_ant();
         }
+
     }
 
     private boolean start_ant() {
@@ -65,7 +66,7 @@ public class Aco {
         boolean b = true;
 
         while (b) {
-            if (this.ant_count() < this.ant_totals) // creates less t.isAlive() checks
+            if (this.ant_count() < this.ant_totals) // creates less t.isAlive() checks/loops
                 continue;
 
             b = false;
@@ -84,7 +85,8 @@ public class Aco {
         }
     }
 
-    public void ant_done(Ant ant) {
+    // used from within the ant algorithm when the ant is finished
+    public synchronized void ant_done(Ant ant) {
         this.trees.add(ant.getTree());
         start_ant();
     }

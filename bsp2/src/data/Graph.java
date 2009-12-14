@@ -9,6 +9,7 @@ public class Graph {
     private double[] pheromone_limits;
     private double alpha;
     private double beta;
+    private EdgeList edges;
 
     public Graph() {
         create(0.5, 0.1,0.5,0.5);
@@ -36,11 +37,27 @@ public class Graph {
     }
 
     public void finish_parsing() {
+        this.edges = new EdgeList();
         this.distance_matrix = new double[size()][size()];
         this.pheromone_matrix = new double[size()][size()];
 
+        create_edges();
         calculate_pheromone_matrix();
         calculate_distance_matrix();
+    }
+
+    private void create_edges() {
+        for(int i = 0; i < nodes.size();i++){
+            Node n = nodes.get(i);
+            for(int z = i + 1; z < nodes.size();z++){
+                Node n1 = nodes.get(z);
+                
+                Edge e = new Edge(n,n1);
+                Edge e1 = new Edge(n1, n);
+                edges.add(e);
+                edges.add(e1);
+            }
+        }
     }
 
     private void calculate_pheromone_matrix() {
@@ -82,5 +99,13 @@ public class Graph {
 
     public double getAlpha() {
         return alpha;
+    }
+
+    public EdgeList getEdges() {
+        return edges;
+    }
+
+    public double get_pheromone_for_edge(Edge e) {
+        return pheromone_matrix[e.getStart().getId()-1][e.getEnd().getId()-1];
     }
 }
