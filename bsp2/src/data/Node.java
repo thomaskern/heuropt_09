@@ -1,5 +1,7 @@
 package data;
 
+import java.beans.beancontext.BeanContextMembershipEvent;
+
 public class Node implements Comparable<Node> {
     private double x;
     private double y;
@@ -30,4 +32,5 @@ public class Node implements Comparable<Node> {
     public int compareTo(Node o) {
         return o.getId() - this.id;
     }
+
 }

@@ -2,9 +2,10 @@
 <suite thread-count="5" skipfailedinvocationCounts="false" verbose="1" name="Failed suite [Custom suite]" junit="false" parallel="none" annotations="JDK">
   <test name="bsp2(failed)" junit="false" parallel="none" annotations="JDK">
     <classes>
-      <class name="test.data.GraphTest">
+      <class name="test.data.AcoTest">
         <methods>
-          <include name="should_calculate_distance_matrix"/>
+          <include name="before_method"/>
+          <include name="should_initiate_multiple_ants"/>
         </methods>
       </class>
     </classes>

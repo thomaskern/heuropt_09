@@ -1,8 +1,8 @@
 package data.tree;
 
-import data.tree.Tree;
+import data.tree.Trie;
 
 import java.util.ArrayList;
 
-public class TreeList extends ArrayList<Tree> {
+public class TreeList extends ArrayList<Trie> {
 }

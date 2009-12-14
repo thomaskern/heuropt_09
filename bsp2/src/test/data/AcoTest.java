@@ -12,7 +12,7 @@ public class AcoTest {
 
     @BeforeMethod
     public void before_method() {
-        graph = Fixtures.parse("mebp/mebp-01.dat");
+        graph = Fixtures.parse("mebp/mebp-05.dat");
     }
 
     @Test

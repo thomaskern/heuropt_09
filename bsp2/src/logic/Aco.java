@@ -2,19 +2,18 @@ package logic;
 
 import data.Graph;
 import data.tree.TreeList;
-import data.tree.Tree;
+import data.tree.Trie;
 
 import java.util.ArrayList;
 
 public class Aco {
-    private Tree best;
+    private Trie best;
     private Graph graph;
     private int ant_totals;
     private ArrayList<Ant> threads;
     private TreeList trees;
 
     public void run(Graph graph, int ants) {
-        best = new Tree();
         this.ant_totals = ants;
         this.graph = graph;
 
@@ -92,6 +91,6 @@ public class Aco {
     }
 
     private boolean should_start_ant() {
-        return ant_count() < this.ant_totals;
+        return ant_count() < this.ant_totals * Utility.available_processor();
     }
 }

@@ -12,7 +12,11 @@ public class Graph {
     private EdgeList edges;
 
     public Graph() {
-        create(0.5, 0.1,0.5,0.5);
+        create(0.5, 0.1, 0.5, 0.5);
+    }
+
+    public Graph(double pheromone_init, double pheromone_evaporation, double alpha, double beta) {
+        create(pheromone_init, pheromone_evaporation, alpha, beta);
     }
 
     private void create(double pheromone_init, double pheromone_evaporation, double alpha, double beta) {
@@ -47,12 +51,12 @@ public class Graph {
     }
 
     private void create_edges() {
-        for(int i = 0; i < nodes.size();i++){
+        for (int i = 0; i < nodes.size(); i++) {
             Node n = nodes.get(i);
-            for(int z = i + 1; z < nodes.size();z++){
+            for (int z = i + 1; z < nodes.size(); z++) {
                 Node n1 = nodes.get(z);
-                
-                Edge e = new Edge(n,n1);
+
+                Edge e = new Edge(n, n1);
                 Edge e1 = new Edge(n1, n);
                 edges.add(e);
                 edges.add(e1);
@@ -106,6 +110,6 @@ public class Graph {
     }
 
     public double get_pheromone_for_edge(Edge e) {
-        return pheromone_matrix[e.getStart().getId()-1][e.getEnd().getId()-1];
+        return pheromone_matrix[e.getStart().getId() - 1][e.getEnd().getId() - 1];
     }
 }

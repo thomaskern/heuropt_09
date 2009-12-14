@@ -4,21 +4,20 @@ import data.Edge;
 import data.EdgeList;
 import data.Graph;
 import data.Node;
-import data.tree.Tree;
+import data.tree.Trie;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 
 public class Ant extends Thread {
     private Aco aco;
     private Graph graph;
-    private Tree tree;
+    private Trie tree;
 
     public Ant(Aco aco, Graph graph) {
         this.aco = aco;
         this.graph = graph;
-        tree = new Tree();
+        tree = new Trie();
     }
 
     public void run() {
@@ -30,22 +29,39 @@ public class Ant extends Thread {
 
     private void local_search() {
         while (!tree.valid(graph.size())) {
-            int next = Utility.get_random_int(100);
             EdgeList nh = calculate_probabilities_for_nh(get_neighborhood());
-
             Collections.sort(nh, new EdgeCostSorter());
+            add_edges(nh, find_edge(nh));
+        }
 
-            double t = 0;
-            for (Edge edge : nh) {
-                if(t + edge.getProbability() * 100 > next){
-                    tree.insert(edge.getEnd());
-                    break;
-                }
-                t += edge.getProbability()*100;
+        System.out.println(tree.cost());
+//        tree.displayTree();
+    }
+
+    private Edge find_edge(EdgeList nh) {
+        int next = Utility.get_random_int(100);
+        double t = 0;
+
+        for (Edge edge : nh) {
+            if (t + edge.getProbability() > next) {
+                return edge;
+            }
+            t += edge.getProbability();
+        }
+        return null;
+    }
+
+    private void add_edges(EdgeList nh, Edge _edge) {
+        if(_edge == null)
+            return;
+
+        for (Edge edge : nh) {
+            if (_edge.getStart() == edge.getStart() &&
+                    edge.cost() < _edge.cost() && !tree.contains_node(edge.getEnd())) {
+                tree.insert(edge);
             }
         }
-        System.out.println(tree.size());
-        tree.displayTree();
+        tree.insert(_edge);
     }
 
     private EdgeList calculate_probabilities_for_nh(EdgeList neighborhood) {
@@ -80,7 +96,7 @@ public class Ant extends Thread {
     }
 
     private double calculate_probability_for_edge(Edge e, HashMap<Edge, Double> edge_costs, double total) {
-        return edge_costs.get(e) / total;
+        return (edge_costs.get(e) * 100) / total;
     }
 
     private EdgeList get_neighborhood() {
@@ -102,7 +118,7 @@ public class Ant extends Thread {
         tree.insert(graph.start_node());
     }
 
-    public Tree getTree() {
+    public Trie getTree() {
         return tree;
     }
 }

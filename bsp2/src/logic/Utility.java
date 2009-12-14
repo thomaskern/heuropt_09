@@ -5,6 +5,8 @@ import java.util.Random;
 
 public class Utility {
 
+    public static final boolean DEBUG = false;
+
     public static Integer get_random_int(int max) {
         Random r = new Random();
         return 1 + r.nextInt(max - 1);
@@ -22,7 +24,6 @@ public class Utility {
         if (c > 8)
             c = 8;
 
-//        return c;
-        return 1;
+        return DEBUG ? 1 : c;
     }
 }
