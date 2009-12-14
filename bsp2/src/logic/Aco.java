@@ -8,9 +8,11 @@ import java.util.ArrayList;
 
 public class Aco {
     Tree best;
+    private Graph graph;
 
     public void run(Graph graph, int ants) {
         best = new Tree();
+        this.graph = graph;
 
         for (int i = 0; i < 100; i++) {
             TreeList trees = run_ants(graph, ants);

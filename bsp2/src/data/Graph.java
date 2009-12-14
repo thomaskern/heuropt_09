@@ -7,13 +7,17 @@ public class Graph {
     private double pheromone_init;
     private double pheromone_evaporation;
     private double[] pheromone_limits;
+    private double alpha;
+    private double beta;
 
     public Graph() {
-        create(0.5, 0.1);
+        create(0.5, 0.1,0.5,0.5);
     }
 
-    private void create(double pheromone_init, double pheromone_evaporation) {
+    private void create(double pheromone_init, double pheromone_evaporation, double alpha, double beta) {
         nodes = new NodeList();
+        this.alpha = alpha;
+        this.beta = beta;
         this.pheromone_init = pheromone_init;
         this.pheromone_evaporation = pheromone_evaporation;
         this.pheromone_limits = new double[]{0.0, 10.0};
@@ -70,5 +74,13 @@ public class Graph {
 
     public double[] getPheromoneLimits() {
         return pheromone_limits;
+    }
+
+    public double getBeta() {
+        return beta;
+    }
+
+    public double getAlpha() {
+        return alpha;
     }
 }

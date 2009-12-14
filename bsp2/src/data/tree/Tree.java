@@ -50,12 +50,12 @@ public class Tree {
                 return null;                 // didn't find it
         }
         return current;                    // found it
-    }  // end find()
+    }
 
     // -------------------------------------------------------------
-    public void insert(Node dd) {
-        TreeNode newTreeNode = new TreeNode();    // make new node
-        newTreeNode.dData = dd;
+    public void insert(Node node) {
+        TreeNode newTreeNode = new TreeNode();
+        newTreeNode.dData = node;
         if (root == null)
             root = newTreeNode;
         else
@@ -65,7 +65,7 @@ public class Tree {
             while (true)                // (exits internally)
             {
                 parent = current;
-                if (dd.getId() < current.getId())  // go left?
+                if (node.getId() < current.getId())  // go left?
                 {
                     current = current.leftChild;
                     if (current == null)  // if end of the line,
@@ -158,7 +158,7 @@ public class Tree {
         }  // end else two children
         // (successor cannot have a left child)
         return true;                                // success
-    }  // end delete()
+    }
 
     // -------------------------------------------------------------
     // returns node with next-highest value after delTreeNode

@@ -15,7 +15,7 @@ public class Ant extends Thread {
     }
 
     public void run() {
-        graph.start_node();
+        tree.insert(graph.start_node());        
     }
 
     public Tree getTree() {
