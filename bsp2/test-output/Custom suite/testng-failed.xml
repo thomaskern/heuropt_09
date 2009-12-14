@@ -2,9 +2,9 @@
 <suite thread-count="5" skipfailedinvocationCounts="false" verbose="1" name="Failed suite [Custom suite]" junit="false" parallel="none" annotations="JDK">
   <test name="bsp2(failed)" junit="false" parallel="none" annotations="JDK">
     <classes>
-      <class name="test.data.NodeTest">
+      <class name="test.data.GraphTest">
         <methods>
-          <include name="should_calculate_distance_between_nodes"/>
+          <include name="should_calculate_distance_matrix"/>
         </methods>
       </class>
     </classes>

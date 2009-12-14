@@ -1,9 +1,9 @@
 package data;
 
 public class Node {
-    public double x;
-    public double y;
-    public int id;
+    private double x;
+    private double y;
+    private int id;
 
     public Node(int id, double x, double y) {
         assign(id, x, y);

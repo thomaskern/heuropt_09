@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bsp2" failures="0" tests="3" time="0.106" errors="0">
+<testsuite name="bsp2" failures="0" tests="3" time="0.084" errors="0">
   <properties/>
-  <testcase name="should_read_fixtures_from_file" time="0.025" classname="test.data.FixturesTest"/>
-  <testcase name="should_parse_doubles_from_file" time="0.02" classname="test.data.FixturesTest"/>
-  <testcase name="should_set_uniq_node_ids" time="0.02" classname="test.data.FixturesTest"/>
+  <testcase name="should_calculate_distance_matrix" time="0.027" classname="test.data.GraphTest"/>
+  <testcase name="should_set_nodes" time="0.019" classname="test.data.GraphTest"/>
+  <testcase name="should_init_phero_matrix" time="0.022" classname="test.data.GraphTest"/>
 </testsuite>

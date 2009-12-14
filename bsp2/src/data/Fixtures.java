@@ -1,35 +1,19 @@
 package data;
 
-import java.util.ArrayList;
-
 public class Fixtures {
-    private String filename;
 
-    public NodeList getNodes() {
-        return nodes;
-    }
-
-    private NodeList nodes;
-
-
-    public Fixtures(String filename){
-        this.filename = filename;
-        this.nodes = new NodeList();
-        parse_file();
-    }
-
-    private void parse_file() {
+    public static Graph parse(String filename){
+        Graph g = new Graph();
         for (String line : File.read_lines(filename))
-            parse_line(line);
+            parse_line(line, g);
+        g.finish_parsing();
+        return g;
     }
 
-    private void parse_line(String line) {
+    private static void parse_line(String line, Graph g) {
         String[] coords = line.split(" ");
-        Node n = new Node(this.nodes.size()+1,coords[0], coords[2]);
-        this.nodes.add(n);
+        Node n = new Node(g.getNodes().size() + 1, coords[0], coords[2]);
+        g.getNodes().add(n);
     }
 
-    public Integer size() {
-        return nodes.size();
-    }
 }
