@@ -22,4 +22,8 @@ public class Node {
         this.y = y;
         this.id = id;
     }
+
+    public int getId() {
+        return id;
+    }
 }

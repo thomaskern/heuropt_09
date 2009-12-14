@@ -5,12 +5,10 @@
     <groups>
     </groups>
     <test name="bsp2">
-      <class name="test.data.GraphTest">
-        <test-method status="PASS" signature="should_set_nodes()" name="should_set_nodes" duration-ms="19" started-at="2009-12-14T01:16:41Z" finished-at="2009-12-14T01:16:41Z">
+      <class name="test.data.AcoTest">
+        <test-method status="PASS" signature="before_method()" name="before_method" is-config="true" duration-ms="7" started-at="2009-12-14T02:28:50Z" finished-at="2009-12-14T02:28:50Z">
         </test-method>
-        <test-method status="PASS" signature="should_init_phero_matrix()" name="should_init_phero_matrix" duration-ms="22" started-at="2009-12-14T01:16:41Z" finished-at="2009-12-14T01:16:41Z">
-        </test-method>
-        <test-method status="PASS" signature="should_calculate_distance_matrix()" name="should_calculate_distance_matrix" duration-ms="27" started-at="2009-12-14T01:16:41Z" finished-at="2009-12-14T01:16:41Z">
+        <test-method status="PASS" signature="should_initiate_multiple_ants()" name="should_initiate_multiple_ants" duration-ms="84" started-at="2009-12-14T02:28:50Z" finished-at="2009-12-14T02:28:50Z">
         </test-method>
       </class>
     </test>

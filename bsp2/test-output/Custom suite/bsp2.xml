@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bsp2" failures="0" tests="3" time="0.084" errors="0">
+<testsuite name="bsp2" failures="0" tests="1" time="0.103" errors="0">
   <properties/>
-  <testcase name="should_calculate_distance_matrix" time="0.027" classname="test.data.GraphTest"/>
-  <testcase name="should_set_nodes" time="0.019" classname="test.data.GraphTest"/>
-  <testcase name="should_init_phero_matrix" time="0.022" classname="test.data.GraphTest"/>
+  <testcase name="should_initiate_multiple_ants" time="0.084" classname="test.data.AcoTest"/>
 </testsuite>
