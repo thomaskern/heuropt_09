@@ -2,7 +2,7 @@ package logic;
 
 import data.Graph;
 import data.Node;
-import data.tree.TreeList;
+import data.tree.TrieList;
 import data.tree.TreeNode;
 import data.tree.Trie;
 
@@ -14,7 +14,7 @@ public class Aco {
     private Graph graph;
     private int ant_totals;
     private ArrayList<Ant> threads;
-    private TreeList trees;
+    private TrieList trees;
 
     public void run(Graph graph, int ants) {
         this.ant_totals = ants;
@@ -75,8 +75,8 @@ public class Aco {
         return ph + 1.5;
     }
 
-    private TreeList run_ants() {
-        this.trees = new TreeList();
+    private TrieList run_ants() {
+        this.trees = new TrieList();
 
         threads = new ArrayList<Ant>();
         
