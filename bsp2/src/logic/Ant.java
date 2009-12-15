@@ -33,9 +33,6 @@ public class Ant extends Thread {
             Collections.sort(nh, new EdgeCostSorter());
             add_edges(nh, find_edge(nh));
         }
-
-        System.out.println(tree.cost());
-//        tree.displayTree();
     }
 
     private Edge find_edge(EdgeList nh) {
@@ -52,7 +49,7 @@ public class Ant extends Thread {
     }
 
     private void add_edges(EdgeList nh, Edge _edge) {
-        if(_edge == null)
+        if (_edge == null)
             return;
 
         for (Edge edge : nh) {

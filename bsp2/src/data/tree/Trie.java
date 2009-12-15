@@ -4,38 +4,23 @@ import data.Edge;
 import data.Node;
 import data.NodeList;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;               // for Stack class
 
 public class Trie {
-    public NodeList getNodes() {
-        return nodes;
-    }
-
-    public TreeNode getRoot() {
-        return root;
-    }
-
-    public boolean contains_node(Node node) {
-        return nodes.contains(node);
-    }
-
-    public int size() {
-        return nodes.size();
-    }
-
     private NodeList nodes;
     private TreeNode root;
     private HashMap<Integer, TreeNode> treenodes;
+    private HashMap<Integer, Double> hm_cost;
 
-    // -------------------------------------------------------------
-    public Trie()                  // constructor
-    {
+    public Trie() {
         nodes = new NodeList();
         root = null;
         treenodes = new HashMap<Integer, TreeNode>();
-    }            // no nodes in tree yet
+        hm_cost = new HashMap<Integer, Double>();
+    }
 
-    // -------------------------------------------------------------
     public TreeNode find(int key)      // find node with given key
     {
         return treenodes.get(key);
@@ -53,7 +38,6 @@ public class Trie {
         treenodes.put(edge.getEnd().getId(), start);
     }
 
-    // -------------------------------------------------------------
     public void insert(Node node) {
         TreeNode newTreeNode = new TreeNode();
         newTreeNode.set_data_node(node);
@@ -66,7 +50,6 @@ public class Trie {
         }
     }
 
-    // -------------------------------------------------------------
     public void displayTree() {
         int nBlanks = 4;
         System.out.println("......................................................");
@@ -78,36 +61,47 @@ public class Trie {
         for (int j = 0; j < nBlanks * level; j++)
             System.out.print(' ');
 
-        System.out.print(tn.getId() + "(" + tn.getParent().getId() + "), (CTP: "+tn.getDataNode().distance_to(tn.getParent().getDataNode())+"), (CE: "+tn.costliest_edge()+")\n");
+        System.out.print(tn.getId() + "(" + tn.getParent().getId() + "), (CTP: " + tn.getDataNode().distance_to(tn.getParent().getDataNode()) + "), (CE: " + tn.costliest_edge() + ")\n");
         for (TreeNode treeNode : tn.getChildren()) {
             _displayTree(treeNode, level + 1, nBlanks);
         }
     }
 
     public double cost() {
-        double cost = 0;
-        for (TreeNode treeNode : treenodes.values()) {
-            cost += treeNode.costliest_edge();            
-        }
-
-        return cost;
-//        return _cost(root, 0.0);
-    }
-
-    private double _cost(TreeNode tn, double _cost) {
-
-        double cost = 0;
-        if (tn.getChildren().size() > 0) {
-            cost = tn.costliest_edge();
-            for (TreeNode tn1 : tn.getChildren()) {
-                cost += _cost(tn1, 0);
+        if (hm_cost.containsKey(size()))
+            return hm_cost.get(size());
+        else {
+            double cost = 0;
+            for (TreeNode treeNode : treenodes.values()) {
+                cost += treeNode.costliest_edge();
             }
-        }
 
-        return _cost + cost;
+            hm_cost.put(size(), cost);
+            return cost;
+        }
     }
 
     public boolean valid(int graph_size) {
         return size() == graph_size;
+    }
+
+    public NodeList getNodes() {
+        return nodes;
+    }
+
+    public TreeNode getRoot() {
+        return root;
+    }
+
+    public boolean contains_node(Node node) {
+        return nodes.contains(node);
+    }
+
+    public int size() {
+        return nodes.size();
+    }
+
+    public Collection<TreeNode> getTreeNodes() {
+        return treenodes.values();
     }
 }

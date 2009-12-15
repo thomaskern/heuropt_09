@@ -110,6 +110,17 @@ public class Graph {
     }
 
     public double get_pheromone_for_edge(Edge e) {
-        return pheromone_matrix[e.getStart().getId() - 1][e.getEnd().getId() - 1];
+        return get_pheromone_for_edge(e.getStart().getId(), e.getEnd().getId());
+
+    }
+
+    public double get_pheromone_for_edge(int from, int to) {
+        return pheromone_matrix[from - 1][to - 1];
+    }
+
+    public void update_pheromone_value(int from, int to, double v) {
+        if (v < 0)
+            v = 0;
+        pheromone_matrix[from - 1][to - 1] = v;
     }
 }

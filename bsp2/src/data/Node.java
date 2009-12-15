@@ -1,7 +1,5 @@
 package data;
 
-import java.beans.beancontext.BeanContextMembershipEvent;
-
 public class Node implements Comparable<Node> {
     private double x;
     private double y;

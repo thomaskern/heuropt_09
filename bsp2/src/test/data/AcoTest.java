@@ -12,13 +12,13 @@ public class AcoTest {
 
     @BeforeMethod
     public void before_method() {
-        graph = Fixtures.parse("mebp/mebp-05.dat");
+        graph = Fixtures.parse("mebp/mebp-09.dat");
     }
 
     @Test
     public void should_initiate_multiple_ants() {
         Aco aco = new Aco();
-        aco.run(graph, 1);
+        aco.run(graph, 4);
     }
 
 }

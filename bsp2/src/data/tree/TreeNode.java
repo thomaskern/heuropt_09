@@ -13,7 +13,7 @@ public class TreeNode implements Comparable<TreeNode> {
         children = new TreeNodeList();
     }
 
-    public String toString()      // _displayTree ourself
+    public String toString()
     {
         String s = "{";
         s += data_node.getId();
@@ -49,13 +49,7 @@ public class TreeNode implements Comparable<TreeNode> {
     }
 
     public double costliest_edge() {
-        double cost = 0;
-        for (TreeNode treeNode : children) {
-            if (treeNode.data_node.distance_to(this.data_node) > cost)
-                cost = treeNode.data_node.distance_to(this.data_node);
-        }
-
-        return Math.pow(cost,3);
+        return children.max_to_node(this.data_node);
     }
 
     public void set_data_node(Node _data_node) {
