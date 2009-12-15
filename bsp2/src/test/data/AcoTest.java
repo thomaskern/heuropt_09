@@ -16,18 +16,12 @@ public class AcoTest {
     @BeforeMethod
     public void before_method() {
         graph = Fixtures.parse("mebp/mebp-01.dat");
-        double cost = 0;
         ArrayList<Double> costs = new ArrayList<Double>();
-//        for(double d : graph.getDistanceMatrix()[0]){
-//            if(d >cost)
-//                cost = d;
-//        }
 
         for(int i = 0; i < graph.getDistanceMatrix().length;i++){
             for(int z = 0; z < graph.getDistanceMatrix()[i].length;z++){
                 costs.add(graph.getDistanceMatrix()[i][z]);
             }
-
         }
         Collections.sort(costs);
         System.out.println(costs);
