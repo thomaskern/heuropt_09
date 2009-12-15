@@ -4,21 +4,20 @@ import data.Edge;
 import data.Node;
 import data.NodeList;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;               // for Stack class
+import java.util.HashMap;
 
 public class Trie {
     private NodeList nodes;
     private TreeNode root;
     private HashMap<Integer, TreeNode> treenodes;
-    private HashMap<Integer, Double> hm_cost;
+    private HashMap<Integer, Integer> hm_cost;
 
     public Trie() {
         nodes = new NodeList();
         root = null;
         treenodes = new HashMap<Integer, TreeNode>();
-        hm_cost = new HashMap<Integer, Double>();
+        hm_cost = new HashMap<Integer, Integer>();
     }
 
     public TreeNode find(int key)      // find node with given key
@@ -61,13 +60,13 @@ public class Trie {
         for (int j = 0; j < nBlanks * level; j++)
             System.out.print(' ');
 
-        System.out.print(tn.getId() + "(" + tn.getParent().getId() + "), (CTP: " + tn.getDataNode().distance_to(tn.getParent().getDataNode()) + "), (CE: " + tn.costliest_edge() + ")\n");
+        System.out.print(tn.getId() + "(" + tn.getParent().getId() + "), (CTP: " + tn.getDataNode().distance_to(tn.getParent().getDataNode()) + "), (CE: " + (int)tn.costliest_edge() + ")\n");
         for (TreeNode treeNode : tn.getChildren()) {
             _displayTree(treeNode, level + 1, nBlanks);
         }
     }
 
-    public double cost() {
+    public int cost() {
         if (hm_cost.containsKey(size()))
             return hm_cost.get(size());
         else {
@@ -76,8 +75,8 @@ public class Trie {
                 cost += treeNode.costliest_edge();
             }
 
-            hm_cost.put(size(), cost);
-            return cost;
+            hm_cost.put(size(), (int)cost);
+            return (int)cost;
         }
     }
 

@@ -3,8 +3,6 @@ package data.tree;
 import data.Node;
 
 public class TreeNode implements Comparable<TreeNode> {
-
-
     private Node data_node;           // data item
     private TreeNodeList children;         // this node's left child
     private TreeNode parent;

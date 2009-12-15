@@ -57,7 +57,7 @@ public class Aco {
     private void update_pheromone() {
         Trie max_min = find_best_tree();
 
-        max_min.displayTree();
+//        max_min.displayTree();
         System.out.println("COST" + max_min.cost());
 
         for (TreeNode treeNode : max_min.getTreeNodes()) {

@@ -21,18 +21,14 @@ public class Ant extends Thread {
     }
 
     public void run() {
-        init_broadcast_tree();
+        construct_broadcast_tree();
         local_search();
 
         this.aco.ant_done(this);
     }
 
     private void local_search() {
-        while (!tree.valid(graph.size())) {
-            EdgeList nh = calculate_probabilities_for_nh(get_neighborhood());
-            Collections.sort(nh, new EdgeCostSorter());
-            add_edges(nh, find_edge(nh));
-        }
+// TODO       
     }
 
     private Edge find_edge(EdgeList nh) {
@@ -111,8 +107,14 @@ public class Ant extends Thread {
         return el;
     }
 
-    private void init_broadcast_tree() {
+    private void construct_broadcast_tree() {
         tree.insert(graph.start_node());
+
+        while (!tree.valid(graph.size())) {
+            EdgeList nh = calculate_probabilities_for_nh(get_neighborhood());
+            Collections.sort(nh, new EdgeCostSorter());
+            add_edges(nh, find_edge(nh));
+        }
     }
 
     public Trie getTree() {
