@@ -66,6 +66,7 @@ public class Trie {
         }
     }
 
+    // cache purely based on size of tree, if tree changes without size, one would have to clear the cache
     public int cost() {
         if (hm_cost.containsKey(size()))
             return hm_cost.get(size());
