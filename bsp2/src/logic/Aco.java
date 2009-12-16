@@ -3,7 +3,7 @@ package logic;
 import data.Graph;
 import data.Node;
 import data.tree.TrieList;
-import data.tree.TreeNode;
+import data.tree.TrieNode;
 import data.tree.Trie;
 
 import java.util.ArrayList;
@@ -60,12 +60,12 @@ public class Aco {
 //        max_min.displayTree();
         System.out.println("COST" + max_min.cost());
 
-        for (TreeNode treeNode : max_min.getTreeNodes()) {
-            if (treeNode.getParent().getDataNode() == treeNode.getDataNode())
+        for (TrieNode trieNode : max_min.getTreeNodes()) {
+            if (trieNode.getParent().getDataNode() == trieNode.getDataNode())
                 continue;
 
-            int from = treeNode.getParent().getDataNode().getId();
-            int to = treeNode.getDataNode().getId();
+            int from = trieNode.getParent().getDataNode().getId();
+            int to = trieNode.getDataNode().getId();
             double ph = graph.get_pheromone_for_edge(from, to);
             graph.update_pheromone_value(from, to, calculate_pheromone_update_for_best_edge(ph, max_min));
         }

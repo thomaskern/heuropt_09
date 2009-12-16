@@ -9,27 +9,27 @@ import java.util.HashMap;
 
 public class Trie {
     private NodeList nodes;
-    private TreeNode root;
-    private HashMap<Integer, TreeNode> treenodes;
+    private TrieNode root;
+    private HashMap<Integer, TrieNode> treenodes;
     private HashMap<Integer, Integer> hm_cost;
 
     public Trie() {
         nodes = new NodeList();
         root = null;
-        treenodes = new HashMap<Integer, TreeNode>();
+        treenodes = new HashMap<Integer, TrieNode>();
         hm_cost = new HashMap<Integer, Integer>();
     }
 
-    public TreeNode find(int key)      // find node with given key
+    public TrieNode find(int key)      // find node with given key
     {
         return treenodes.get(key);
     }
 
     public void insert(Edge edge) {
-        TreeNode start = new TreeNode();
+        TrieNode start = new TrieNode();
         start.set_data_node(edge.getEnd());
 
-        TreeNode tn = find(edge.getStart().getId());
+        TrieNode tn = find(edge.getStart().getId());
 
         tn.add_child(start);
 
@@ -38,13 +38,13 @@ public class Trie {
     }
 
     public void insert(Node node) {
-        TreeNode newTreeNode = new TreeNode();
-        newTreeNode.set_data_node(node);
-        newTreeNode.autoParent();
+        TrieNode newTrieNode = new TrieNode();
+        newTrieNode.set_data_node(node);
+        newTrieNode.autoParent();
         nodes.add_node(node);
 
         if (root == null) {
-            root = newTreeNode;
+            root = newTrieNode;
             treenodes.put(node.getId(), root);
         }
     }
@@ -56,13 +56,13 @@ public class Trie {
         System.out.println("......................................................");
     }
 
-    private void _displayTree(TreeNode tn, int level, int nBlanks) {
+    private void _displayTree(TrieNode tn, int level, int nBlanks) {
         for (int j = 0; j < nBlanks * level; j++)
             System.out.print(' ');
 
         System.out.print(tn.getId() + "(" + tn.getParent().getId() + "), (CTP: " + tn.getDataNode().distance_to(tn.getParent().getDataNode()) + "), (CE: " + (int)tn.costliest_edge() + ")\n");
-        for (TreeNode treeNode : tn.getChildren()) {
-            _displayTree(treeNode, level + 1, nBlanks);
+        for (TrieNode trieNode : tn.getChildren()) {
+            _displayTree(trieNode, level + 1, nBlanks);
         }
     }
 
@@ -71,8 +71,8 @@ public class Trie {
             return hm_cost.get(size());
         else {
             double cost = 0;
-            for (TreeNode treeNode : treenodes.values()) {
-                cost += treeNode.costliest_edge();
+            for (TrieNode trieNode : treenodes.values()) {
+                cost += trieNode.costliest_edge();
             }
 
             hm_cost.put(size(), (int)cost);
@@ -88,7 +88,7 @@ public class Trie {
         return nodes;
     }
 
-    public TreeNode getRoot() {
+    public TrieNode getRoot() {
         return root;
     }
 
@@ -100,7 +100,7 @@ public class Trie {
         return nodes.size();
     }
 
-    public Collection<TreeNode> getTreeNodes() {
+    public Collection<TrieNode> getTreeNodes() {
         return treenodes.values();
     }
 }
