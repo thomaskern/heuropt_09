@@ -5,6 +5,7 @@ import data.EdgeList;
 import data.Graph;
 import data.Node;
 import data.tree.Trie;
+import logic.search.Vnd;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,6 +29,7 @@ public class Ant extends Thread {
     }
 
     private void local_search() {
+        Vnd v = new  Vnd();
 // TODO       
     }
 
