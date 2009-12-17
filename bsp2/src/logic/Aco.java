@@ -2,9 +2,9 @@ package logic;
 
 import data.Graph;
 import data.Node;
+import data.tree.Trie;
 import data.tree.TrieList;
 import data.tree.TrieNode;
-import data.tree.Trie;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +15,13 @@ public class Aco {
     private int ant_totals;
     private ArrayList<Ant> threads;
     private TrieList trees;
+    private double phero_max;
+    private double phero_min;
+
+    public Aco() {
+        this.phero_max = 100;
+        this.phero_min = 0;
+    }
 
     public void run(Graph graph, int ants) {
         this.ant_totals = ants;
@@ -37,11 +44,26 @@ public class Aco {
                 graph.update_pheromone_value(
                         n1.getId(),
                         n2.getId(),
-                        graph.get_pheromone_for_edge(n1.getId(),n2.getId()) * 0.9
+                        calculate_pheromone_update_for_evap(n1, n2)
+
                 );
 
             }
         }
+    }
+
+    private double calculate_pheromone_update_for_evap(Node n1, Node n2) {
+        double tmp = graph.get_pheromone_for_edge(n1.getId(), n2.getId()) * 0.9;
+        return check_for_phero_limits(tmp);
+    }
+
+    private double check_for_phero_limits(double tmp) {
+        if (tmp > phero_max)
+            tmp = phero_max;
+        else if (tmp < phero_min)
+            tmp = phero_min;
+
+        return tmp;
     }
 
     private Trie find_best_tree() {
@@ -57,7 +79,6 @@ public class Aco {
     private void update_pheromone() {
         Trie max_min = find_best_tree();
 
-//        max_min.displayTree();
         System.out.println("COST" + max_min.cost());
 
         for (TrieNode trieNode : max_min.getTreeNodes()) {
@@ -72,14 +93,14 @@ public class Aco {
     }
 
     private double calculate_pheromone_update_for_best_edge(double ph, Trie max_min) {
-        return ph + 1.5;
+        return check_for_phero_limits(ph + 1.5);
     }
 
     private TrieList run_ants() {
         this.trees = new TrieList();
 
         threads = new ArrayList<Ant>();
-        
+
         start_ants();
         wait_or_start_ants();
 

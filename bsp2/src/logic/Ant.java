@@ -29,8 +29,12 @@ public class Ant extends Thread {
     }
 
     private void local_search() {
+
+        Sweep s = new Sweep();
+        tree = s.run(tree);
+
         Vnd v = new  Vnd();
-// TODO       
+        tree = v.run(tree);
     }
 
     private Edge find_edge(EdgeList nh) {
