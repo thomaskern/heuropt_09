@@ -102,15 +102,28 @@ public class Ant extends Thread {
         EdgeList el = new EdgeList();
 
         for (Node node : tree.getNodes()) {
+            EdgeList edges = new EdgeList();
+
             for (Edge e : graph.getEdges()) {
                 if (e.getStart() != node || tree.contains_node(e.getEnd()))
                     continue;
 
-                el.add(e);
+                edges.add(e);
             }
+
+            Collections.sort(edges);
+            add_best_edges_to_nh(el,edges);
         }
 
         return el;
+    }
+
+    private void add_best_edges_to_nh(EdgeList el, EdgeList edges) {
+//        System.out.println(Math.ceil(edges.size()*0.1));
+        System.out.println(edges);
+        for(int i = 0; i < (int) Math.ceil(edges.size()*0.1);i++)
+//        for(Edge e : edges.subList(0, ))
+            el.add(edges.get(i));
     }
 
     private void construct_broadcast_tree() {

@@ -1,6 +1,6 @@
 package data;
 
-public class Edge {
+public class Edge implements Comparable<Edge> {
     private Node start;
     private Node end;
     private double probability;
@@ -32,5 +32,21 @@ public class Edge {
 
     public double getProbability() {
         return probability;
+    }
+
+    public int compareTo(Edge o) {
+        int i = exponent_needed(o);
+        return (int) (cost() * i - o.cost() * i);
+    }
+
+    private int exponent_needed(Edge o) {
+        int i = 0;
+        double tmp = o.cost() < cost() ? o.cost() : cost();
+        while(true){
+            if(tmp * i > 10)
+                break;
+            i++;
+        }
+        return i;
     }
 }

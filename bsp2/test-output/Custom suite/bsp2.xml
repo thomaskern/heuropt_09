@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bsp2" failures="0" tests="1" time="0.318" errors="0">
+<testsuite name="bsp2" failures="1" tests="1" time="0.241" errors="0">
   <properties/>
-  <testcase name="should_initiate_multiple_ants" time="0.058" classname="test.data.AcoTest"/>
+  <testcase name="should_initiate_multiple_ants" time="0.033" classname="test.data.AcoTest">
+    <failure type="java.lang.IndexOutOfBoundsException" message="Index: 0, Size: 0">
+      <![CDATA[java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+	at java.util.ArrayList.RangeCheck(ArrayList.java:547)
+	at java.util.ArrayList.get(ArrayList.java:322)
+	at logic.Aco.find_best_tree(Aco.java:70)
+	at logic.Aco.update_pheromone(Aco.java:80)
+	at logic.Aco.run(Aco.java:32)
+	at test.data.AcoTest.should_initiate_multiple_ants(AcoTest.java:35)
+... Removed 22 stack frames]]>
+    </failure>
+  </testcase>
 </testsuite>
