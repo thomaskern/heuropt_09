@@ -119,10 +119,7 @@ public class Ant extends Thread {
     }
 
     private void add_best_edges_to_nh(EdgeList el, EdgeList edges) {
-//        System.out.println(Math.ceil(edges.size()*0.1));
-        System.out.println(edges);
-        for(int i = 0; i < (int) Math.ceil(edges.size()*0.1);i++)
-//        for(Edge e : edges.subList(0, ))
+        for(int i = 0; i < (int) Math.ceil(edges.size()*0.2);i++)
             el.add(edges.get(i));
     }
 
