@@ -33,7 +33,7 @@ public class Ant extends Thread {
         Sweep s = new Sweep();
         tree = s.run(tree);
 
-        Vnd v = new  Vnd();
+        Vnd v = new Vnd();
         tree = v.run(tree);
     }
 
@@ -112,14 +112,14 @@ public class Ant extends Thread {
             }
 
             Collections.sort(edges);
-            add_best_edges_to_nh(el,edges);
+            add_best_edges_to_nh(el, edges);
         }
 
         return el;
     }
 
     private void add_best_edges_to_nh(EdgeList el, EdgeList edges) {
-        for(int i = 0; i < (int) Math.ceil(edges.size()*0.2);i++)
+        for (int i = 0; i < (int) Math.ceil(edges.size() * 0.2); i++)
             el.add(edges.get(i));
     }
 

@@ -60,7 +60,7 @@ public class Trie {
         for (int j = 0; j < nBlanks * level; j++)
             System.out.print(' ');
 
-        System.out.print(tn.getId() + "(" + tn.getParent().getId() + "), (CTP: " + tn.getDataNode().distance_to(tn.getParent().getDataNode()) + "), (CE: " + (int)tn.costliest_edge() + ")\n");
+        System.out.print(tn.getId() + "(" + tn.getParent().getId() + "), (CTP: " + tn.getDataNode().distance_to(tn.getParent().getDataNode()) + "), (CE: " + (int) tn.costliest_edge() + ")\n");
         for (TrieNode trieNode : tn.getChildren()) {
             _displayTree(trieNode, level + 1, nBlanks);
         }
@@ -76,8 +76,8 @@ public class Trie {
                 cost += trieNode.costliest_edge();
             }
 
-            hm_cost.put(size(), (int)cost);
-            return (int)cost;
+            hm_cost.put(size(), (int) cost);
+            return (int) cost;
         }
     }
 
@@ -103,5 +103,9 @@ public class Trie {
 
     public Collection<TrieNode> getTreeNodes() {
         return treenodes.values();
+    }
+
+    public int rounded_cost() {
+        return (int) Math.round(Math.cbrt(cost()));
     }
 }
