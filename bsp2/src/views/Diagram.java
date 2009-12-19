@@ -9,9 +9,6 @@ import java.awt.*;
 
 public class Diagram extends Panel {
     private Trie trie;
-    private Integer r;
-    private Integer g1;
-    private Integer b;
 
     public void draw_list(Trie tree) {
         trie = tree;
@@ -21,7 +18,7 @@ public class Diagram extends Panel {
         if (trie == null)
             return;
 
-        display_node(trie.getRoot(), g, true,null);
+        display_node(trie.getRoot(), g, true, null);
     }
 
     private void display_node(TrieNode node, Graphics g, boolean b, Color parent_color) {
@@ -29,7 +26,7 @@ public class Diagram extends Panel {
         if (b) {
             c = Color.red;
         } else {
-            if(node.hasChildren())
+            if (node.hasChildren())
                 c = set_random_color(g);
             else
                 c = parent_color;
@@ -42,7 +39,7 @@ public class Diagram extends Panel {
         if (node.hasChildren()) {
             draw_kids(node, g, c);
             for (TrieNode n : node.getChildren()) {
-                display_node(n, g, false,c);
+                display_node(n, g, false, c);
             }
         }
     }
@@ -64,11 +61,7 @@ public class Diagram extends Panel {
     }
 
     private Color set_random_color(Graphics g) {
-        r = Utility.get_random_int(255);
-        g1 = Utility.get_random_int(255);
-        b = Utility.get_random_int(255);
-
-        Color c = new Color(r, g1, b);
+        Color c = new Color(Utility.get_random_int(255), Utility.get_random_int(255), Utility.get_random_int(255));
         g.setColor(c);
         return c;
     }
