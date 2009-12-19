@@ -61,4 +61,8 @@ public class TrieNode implements Comparable<TrieNode> {
     public boolean hasChildren() {
         return this.children.size() > 0;
     }
+
+    public void setParent(TrieNode trieNode) {
+        parent = trieNode;
+    }
 }

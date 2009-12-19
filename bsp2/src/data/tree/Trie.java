@@ -108,4 +108,16 @@ public class Trie {
     public int rounded_cost() {
         return (int) Math.round(Math.cbrt(cost()));
     }
+
+    public void delete_node(Node node) {
+        TrieNode trienode = find(node.getId());
+        trienode.getParent().getChildren().remove(trienode);
+        treenodes.remove(node.getId());
+
+        int counter = trienode.getChildren().size();
+        for(int i = 0; i < counter;i++){
+            delete_node(trienode.getChildren().get(0).getDataNode());
+        }
+
+    }
 }
