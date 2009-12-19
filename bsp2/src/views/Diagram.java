@@ -35,7 +35,7 @@ public class Diagram extends Panel {
 
         g.setColor(c);
 
-        draw_node(node.getDataNode(), g);
+        draw_node(node.getDataNode(), g, parent_color);
 
         if (node.hasChildren()) {
             draw_kids(node, g, c);
@@ -46,11 +46,6 @@ public class Diagram extends Panel {
     }
 
     private void draw_kids(TrieNode trienode, Graphics g, Color color) {
-        if (color == null)
-            set_random_color(g);
-
-        draw_node(trienode.getDataNode(), g);
-
         int cost = (int) Math.cbrt(trienode.costliest_edge());
         int x = (int) Math.ceil(trienode.getDataNode().getX());
         int y = (int) Math.ceil(trienode.getDataNode().getY());
@@ -67,8 +62,23 @@ public class Diagram extends Panel {
         return c;
     }
 
-    private void draw_node(Node node, Graphics g) {
+    private void draw_node(Node node, Graphics g, Color parent_color) {
         g.fillOval((int) node.getX(), (int) node.getY(), 5, 5);
         g.drawString(String.valueOf(node.getId()), (int) node.getX() + 5, (int) node.getY() + 5);
+
+        Color c = g.getColor();
+//        System.out.println(c+"::"+node.getId());
+
+        if (c != parent_color) {
+            g.setColor(parent_color);
+            int add = 10;
+            if(node.getId() > 9)
+                add = 20;
+
+            g.drawString("/" + node.getId(), (int) node.getX() + add, (int) node.getY() + 5);
+            g.setColor(c);
+        }
+
+
     }
 }

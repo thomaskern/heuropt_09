@@ -39,11 +39,12 @@ public class Aco {
                 best = find_best_tree();
 
             trieVisualizer.draw_trie(best);
-//            try {
-//                Thread.sleep(1);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+            best.displayTree();
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 

@@ -9,9 +9,9 @@ public class TrieVisualizer extends Frame {
 
     public TrieVisualizer() {
         addPanel();
-        //set frame size
-        this.setSize(1200, 1200);
-        //make this frame visible
+        System.out.println(Toolkit.getDefaultToolkit().getScreenSize());
+
+        this.setBounds(3000,0,1200,1200);
         this.setVisible(true);
     }
 
