@@ -21,7 +21,7 @@ public class Sweep {
 
         Collections.sort(nodes, new TrieNodeIdSorter());
 
-        System.out.println(nodes);
+//        System.out.println(nodes);
 
         return tree;
     }

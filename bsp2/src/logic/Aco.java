@@ -5,6 +5,7 @@ import data.Node;
 import data.tree.Trie;
 import data.tree.TrieList;
 import data.tree.TrieNode;
+import views.TrieVisualizer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,24 +18,34 @@ public class Aco {
     private TrieList trees;
     private double phero_max;
     private double phero_min;
+    private TrieVisualizer trieVisualizer;
 
     public Aco() {
         this.phero_max = 100;
         this.phero_min = 0;
+        trieVisualizer = new TrieVisualizer();
     }
 
     public void run(Graph graph, int ants) {
         this.ant_totals = ants;
         this.graph = graph;
 
-        for (int i = 0; i < 400; i++) {
+        for (int i = 0; i < 1000; i++) {
             run_ants();
             update_pheromone();
-            System.out.println(Arrays.deepToString(graph.getPheromoneMatrix()));
+//            System.out.println(Arrays.deepToString(graph.getPheromoneMatrix()));
             evaporate_pheromones();
             System.out.println(" ");
             if (best == null || best.cost() > find_best_tree().cost())
                 best = find_best_tree();
+            trieVisualizer.draw_trie(best);
+            best.displayTree();
+
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -47,7 +58,6 @@ public class Aco {
                         calculate_pheromone_update_for_evap(n1, n2)
 
                 );
-
             }
         }
     }
@@ -79,7 +89,7 @@ public class Aco {
     private void update_pheromone() {
         Trie max_min = find_best_tree();
 
-        System.out.println("COST" + max_min.rounded_cost() );
+//        System.out.println("COST" + max_min.rounded_cost());
 
         for (TrieNode trieNode : max_min.getTreeNodes()) {
             if (trieNode.getParent().getDataNode() == trieNode.getDataNode())

@@ -31,4 +31,11 @@ public class Node implements Comparable<Node> {
         return o.getId() - this.id;
     }
 
+    public double getY() {
+        return y;
+    }
+
+    public double getX() {
+        return x;
+    }
 }

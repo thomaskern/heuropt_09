@@ -57,4 +57,8 @@ public class TrieNode implements Comparable<TrieNode> {
     public Node getDataNode() {
         return data_node;
     }
+
+    public boolean hasChildren() {
+        return this.children.size() > 0;
+    }
 }
