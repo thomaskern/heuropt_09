@@ -18,18 +18,19 @@ public class Diagram extends Panel {
         if (trie == null)
             return;
 
-        display_node(trie.getRoot(), g, true, null);
+        display_node(trie.getRoot(), g, null);
     }
 
-    private void display_node(TrieNode node, Graphics g, boolean b, Color parent_color) {
+    private void display_node(TrieNode node, Graphics g, Color parent_color) {
         Color c;
-        if (b) {
+
+        if (trie.getRoot() == node) {
             c = Color.red;
         } else {
             if (node.hasChildren())
                 c = set_random_color(g);
             else
-                c = parent_color;
+                c = parent_color; //belongs to parent, therefor same color as parent
         }
 
         g.setColor(c);
@@ -39,7 +40,7 @@ public class Diagram extends Panel {
         if (node.hasChildren()) {
             draw_kids(node, g, c);
             for (TrieNode n : node.getChildren()) {
-                display_node(n, g, false, c);
+                display_node(n, g, c);
             }
         }
     }

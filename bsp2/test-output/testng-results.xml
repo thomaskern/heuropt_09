@@ -5,14 +5,10 @@
     <groups>
     </groups>
     <test name="bsp2">
-      <class name="test.data.TrieTest">
-        <test-method status="PASS" signature="should_remove_node_and_children_from_tree()" name="should_remove_node_and_children_from_tree" duration-ms="21" started-at="2009-12-19T15:20:24Z" finished-at="2009-12-19T15:20:24Z">
+      <class name="test.data.SweepTest">
+        <test-method status="PASS" signature="should_remove_obvious_problems_in_trie()" name="should_remove_obvious_problems_in_trie" duration-ms="22" started-at="2009-12-19T15:41:42Z" finished-at="2009-12-19T15:41:42Z">
         </test-method>
-        <test-method status="PASS" signature="should_remove_leaf_from_tree()" name="should_remove_leaf_from_tree" duration-ms="15" started-at="2009-12-19T15:20:24Z" finished-at="2009-12-19T15:20:24Z">
-        </test-method>
-        <test-method status="PASS" signature="before_method()" name="before_method" is-config="true" duration-ms="3" started-at="2009-12-19T15:20:24Z" finished-at="2009-12-19T15:20:24Z">
-        </test-method>
-        <test-method status="PASS" signature="before_method()" name="before_method" is-config="true" duration-ms="10" started-at="2009-12-19T15:20:24Z" finished-at="2009-12-19T15:20:24Z">
+        <test-method status="PASS" signature="before_method()" name="before_method" is-config="true" duration-ms="9" started-at="2009-12-19T15:41:42Z" finished-at="2009-12-19T15:41:42Z">
         </test-method>
       </class>
     </test>

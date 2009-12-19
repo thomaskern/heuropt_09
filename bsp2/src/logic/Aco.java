@@ -33,19 +33,17 @@ public class Aco {
         for (int i = 0; i < 1000; i++) {
             run_ants();
             update_pheromone();
-//            System.out.println(Arrays.deepToString(graph.getPheromoneMatrix()));
+
             evaporate_pheromones();
-            System.out.println(" ");
             if (best == null || best.cost() > find_best_tree().cost())
                 best = find_best_tree();
-            trieVisualizer.draw_trie(best);
-            best.displayTree();
 
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            trieVisualizer.draw_trie(best);
+//            try {
+//                Thread.sleep(1);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
         }
     }
 
@@ -88,8 +86,6 @@ public class Aco {
 
     private void update_pheromone() {
         Trie max_min = find_best_tree();
-
-//        System.out.println("COST" + max_min.rounded_cost());
 
         for (TrieNode trieNode : max_min.getTreeNodes()) {
             if (trieNode.getParent().getDataNode() == trieNode.getDataNode())

@@ -9,8 +9,6 @@ import java.util.Collections;
 public class Sweep {
 
     public Trie run(Trie tree) {
-        Trie trie = new Trie();
-
         TrieNodeList nodes = new TrieNodeList();
 
         for(TrieNode te : tree.getTreeNodes()){
