@@ -4,11 +4,11 @@ import data.Node;
 
 public class TrieNode implements Comparable<TrieNode> {
     private Node data_node;           // data item
-    private TreeNodeList children;         // this node's left child
+    private TrieNodeList children;         // this node's left child
     private TrieNode parent;
 
     public TrieNode() {
-        children = new TreeNodeList();
+        children = new TrieNodeList();
     }
 
     public String toString()
@@ -30,7 +30,7 @@ public class TrieNode implements Comparable<TrieNode> {
         children.add(end);
     }
 
-    public TreeNodeList getChildren() {
+    public TrieNodeList getChildren() {
         return children;
     }
 

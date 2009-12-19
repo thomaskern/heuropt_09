@@ -4,7 +4,7 @@ import data.Node;
 
 import java.util.ArrayList;
 
-public class TreeNodeList extends ArrayList<TrieNode> {
+public class TrieNodeList extends ArrayList<TrieNode> {
     public double max_to_node(Node data_node) {
         double cost = 0;
         for (TrieNode trieNode : this) {
