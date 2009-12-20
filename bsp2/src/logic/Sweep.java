@@ -21,7 +21,7 @@ public class Sweep {
 
 // TODO: check for descendant nodes, not allowed to swap edges with descend nodes
         for (TrieNode te : tree.getTreeNodes()) {
-            if (te.getChildren().size() > 0 && te != tree.getRoot()) {
+            if (te.getChildren().size() > 0) {
                 nodes.add(te);
             }
         }

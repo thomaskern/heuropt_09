@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bsp2" failures="0" tests="1" time="0.145" errors="0">
+<testsuite name="bsp2" failures="0" tests="1" time="0.146" errors="0">
   <properties/>
-  <testcase name="should_remove_obvious_problems_in_trie" time="0.124" classname="test.data.SweepTest"/>
+  <testcase name="should_remove_obvious_problems_in_trie" time="0.125" classname="test.data.SweepTest"/>
 </testsuite>

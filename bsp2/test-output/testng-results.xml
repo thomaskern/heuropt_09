@@ -6,9 +6,9 @@
     </groups>
     <test name="bsp2">
       <class name="test.data.SweepTest">
-        <test-method status="PASS" signature="should_remove_obvious_problems_in_trie()" name="should_remove_obvious_problems_in_trie" duration-ms="124" started-at="2009-12-20T14:01:32Z" finished-at="2009-12-20T14:01:32Z">
+        <test-method status="PASS" signature="should_remove_obvious_problems_in_trie()" name="should_remove_obvious_problems_in_trie" duration-ms="125" started-at="2009-12-20T14:04:02Z" finished-at="2009-12-20T14:04:02Z">
         </test-method>
-        <test-method status="PASS" signature="before_method()" name="before_method" is-config="true" duration-ms="9" started-at="2009-12-20T14:01:32Z" finished-at="2009-12-20T14:01:32Z">
+        <test-method status="PASS" signature="before_method()" name="before_method" is-config="true" duration-ms="9" started-at="2009-12-20T14:04:02Z" finished-at="2009-12-20T14:04:02Z">
         </test-method>
       </class>
     </test>
