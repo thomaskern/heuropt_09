@@ -65,4 +65,12 @@ public class TrieNode implements Comparable<TrieNode> {
     public void setParent(TrieNode trieNode) {
         parent = trieNode;
     }
+
+    public double costliest_edge_in_eucledian() {
+        return Math.cbrt(costliest_edge());        
+    }
+
+    public double distance_to(TrieNode worked_on_root_node) {
+        return data_node.distance_to(worked_on_root_node.getDataNode());
+    }
 }

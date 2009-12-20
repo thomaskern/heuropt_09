@@ -14,4 +14,8 @@ public class TrieNodeList extends ArrayList<TrieNode> {
 
         return Math.pow(cost, 3);
     }
+
+    public TrieNode second() {
+        return get(1);
+    }
 }
