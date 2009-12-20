@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bsp2" failures="1" tests="1" time="1.909" errors="0">
+<testsuite name="bsp2" failures="0" tests="1" time="1002.033" errors="0">
   <properties/>
-  <testcase name="should_remove_obvious_problems_in_trie" time="1.885" classname="test.data.SweepTest">
-    <failure type="java.lang.NullPointerException">
-      <![CDATA[java.lang.NullPointerException
-	at data.tree.Trie.insert(Trie.java:36)
-	at logic.Sweep.run(Sweep.java:72)
-	at test.data.SweepTest.should_remove_obvious_problems_in_trie(SweepTest.java:52)
-... Removed 22 stack frames]]>
-    </failure>
-  </testcase>
+  <testcase name="should_remove_obvious_problems_in_trie" time="1002.011" classname="test.data.SweepTest"/>
 </testsuite>

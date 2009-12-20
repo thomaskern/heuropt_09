@@ -14,8 +14,9 @@ public class Sweep {
         double removed;
         TrieNodeList nodes = new TrieNodeList();
 
+// TODO: check for descendant nodes, not allowed to swap edges with descend nodes
         for (TrieNode te : tree.getTreeNodes()) {
-            if (te.getChildren().size() > 0) {
+            if (te.getChildren().size() > 0 && te != tree.getRoot()) {
                 nodes.add(te);
             }
         }
@@ -25,7 +26,7 @@ public class Sweep {
         TrieVisualizer vis = new TrieVisualizer();
         vis.draw_trie(tree);
         try {
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -62,6 +63,7 @@ public class Sweep {
 
 
                         if (removed > distance_change_to_new_root_node) {
+                            System.out.println("NEW DISTANCE: "+new_distance);
                         System.out.println("if added: " + distance_change_to_new_root_node);
                         System.out.println("distance from node to other origin: " + new_distance);
                             System.out.println("if removed:"+removed);

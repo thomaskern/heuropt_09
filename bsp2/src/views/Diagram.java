@@ -9,6 +9,7 @@ import java.awt.*;
 
 public class Diagram extends Panel {
     private Trie trie;
+    private int scale = 2;
 
     public void draw_list(Trie tree) {
         trie = tree;
@@ -53,7 +54,7 @@ public class Diagram extends Panel {
     }
 
     private void drawCircle(int x, int y, int radius, Graphics g) {
-        g.drawOval(x - radius, y - radius, radius * 2, radius * 2);
+        g.drawOval((x - radius)/scale, (y - radius)/scale, (radius * 2)/scale, (radius * 2)/scale);
     }
 
     private Color set_random_color(Graphics g) {
@@ -63,8 +64,8 @@ public class Diagram extends Panel {
     }
 
     private void draw_node(Node node, Graphics g, Color parent_color) {
-        g.fillOval((int) node.getX(), (int) node.getY(), 5, 5);
-        g.drawString(String.valueOf(node.getId()), (int) node.getX() + 5, (int) node.getY() + 5);
+        g.fillOval((int) node.getX()/scale, (int) node.getY()/scale, 5, 5);
+        g.drawString(String.valueOf(node.getId()), (int) (node.getX() + 5)/scale, (int) (node.getY() + 5)/scale);
 
         Color c = g.getColor();
 //        System.out.println(c+"::"+node.getId());
@@ -75,7 +76,7 @@ public class Diagram extends Panel {
             if(node.getId() > 9)
                 add = 20;
 
-            g.drawString("/" + node.getId(), (int) node.getX() + add, (int) node.getY() + 5);
+            g.drawString("/" + node.getId(), (int) (node.getX() + add)/scale, (int) (node.getY() + 5)/scale);
             g.setColor(c);
         }
 
