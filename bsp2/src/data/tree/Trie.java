@@ -21,8 +21,7 @@ public class Trie {
         hm_cost = new HashMap<Integer, Integer>();
     }
 
-    public TrieNode find(int key)
-    {
+    public TrieNode find(int key) {
         synchronized (treenodes) {
             return treenodes.get(key);
         }
@@ -78,14 +77,14 @@ public class Trie {
         hm_cost.clear();
     }
 
-// returns the number of visited nodes
+    // returns the number of visited nodes
     public int displayTree(boolean show) {
         int nBlanks = 4;
-        if(show)
+        if (show)
             System.out.println("......................................................");
         display_counter = 0;
         _displayTree(root, 0, nBlanks, show);
-        if(show)
+        if (show)
             System.out.println("...................................................... " + display_counter);
 
         return display_counter;

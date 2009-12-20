@@ -7,9 +7,6 @@ import logic.Aco;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 public class AcoTest {
 
     private Graph graph;

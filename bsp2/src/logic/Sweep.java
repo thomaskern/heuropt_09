@@ -37,9 +37,9 @@ public class Sweep {
 //        visualize_tree(tree, 0, 0, 100);
 
         for (TrieNode worked_on_root_node : nodes) {
-            if(worked_on_root_node == tree.getRoot())
+            if (worked_on_root_node == tree.getRoot())
                 continue;
-            
+
             sort_kids(worked_on_root_node);
             int kids = worked_on_root_node.getChildren().size(); //have to do it like this; otherwise can't remove child from getChildren()
 
