@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class Ant extends Thread {
+
     private Aco aco;
     private Graph graph;
     private Trie tree;
@@ -51,8 +52,9 @@ public class Ant extends Thread {
     }
 
     private void add_edges(EdgeList nh, Edge _edge) {
-        if (_edge == null)
+        if (_edge == null) {
             return;
+        }
 
         for (Edge edge : nh) {
             if (_edge.getStart() == edge.getStart() &&
@@ -94,6 +96,7 @@ public class Ant extends Thread {
         return hm;
     }
 
+    /* ? */
     private double calculate_probability_for_edge(Edge e, HashMap<Edge, Double> edge_costs, double total) {
         return (edge_costs.get(e) * 100) / total;
     }
@@ -105,8 +108,9 @@ public class Ant extends Thread {
             EdgeList edges = new EdgeList();
 
             for (Edge e : graph.getEdges()) {
-                if (e.getStart() != node || tree.contains_node(e.getEnd()))
+                if (e.getStart() != node || tree.contains_node(e.getEnd())) {
                     continue;
+                }
 
                 edges.add(e);
             }
@@ -119,8 +123,9 @@ public class Ant extends Thread {
     }
 
     private void add_best_edges_to_nh(EdgeList el, EdgeList edges) {
-        for (int i = 0; i < (int) Math.ceil(edges.size() * 0.2); i++)
+        for (int i = 0; i < (int) Math.ceil(edges.size() * 0.2); i++) {
             el.add(edges.get(i));
+        }
     }
 
     private void construct_broadcast_tree() {
