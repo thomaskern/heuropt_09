@@ -8,7 +8,6 @@ import data.tree.TrieNode;
 import views.TrieVisualizer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Aco {
     private Trie best;
@@ -44,9 +43,8 @@ public class Aco {
 //            best.displayTree();
         }
 
-        
 
-        return best;        
+        return best;
     }
 
     private void evaporate_pheromones() {
@@ -122,7 +120,7 @@ public class Aco {
     private boolean start_ant() {
         synchronized (threads) {
             if (should_start_ant()) {
-                Ant a = new Ant(threads.size(),this, graph);
+                Ant a = new Ant(threads.size(), this, graph);
                 a.start();
                 threads.add(a);
                 return true;

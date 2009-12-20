@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class Ant extends Thread {
     private int id;
-    
+
     private Aco aco;
     private Graph graph;
     private Trie tree;
@@ -35,7 +35,7 @@ public class Ant extends Thread {
 
     private void local_search() {
         Sweep s = new Sweep();
-        tree = s.run(tree,3);
+        tree = s.run(tree, 3);
 
         Vnd v = new Vnd();
         tree = v.run(tree);
@@ -135,7 +135,7 @@ public class Ant extends Thread {
         tree.insert(graph.start_node());
 
         while (!tree.valid(graph.size())) {
-            System.out.println("N"+id+" :"+tree.size());
+            System.out.println("N" + id + " :" + tree.size());
             EdgeList nh = calculate_probabilities_for_nh(get_neighborhood());
             Collections.sort(nh, new EdgeCostSorter());
             add_edges(nh, find_edge(nh));

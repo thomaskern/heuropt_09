@@ -13,7 +13,6 @@ public class Utility {
     }
 
     public static int next_log_file_id() {
-
         File d = new File("logs/");
         return d.listFiles().length + 1;
     }
