@@ -39,6 +39,9 @@ public class SweepTest {
         t.insert(new Edge(nodes.get(4),nodes.get(6)));
 
 //        664714140
+//        567308731
+//        583916349
+       
 
 //        System.out.println(new Edge(nodes.get(3),nodes.get(6)).cost());
 

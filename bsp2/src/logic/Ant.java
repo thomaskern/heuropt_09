@@ -30,8 +30,8 @@ public class Ant extends Thread {
 
     private void local_search() {
 
-        Sweep s = new Sweep();
-        tree = s.run(tree);
+//        Sweep s = new Sweep();
+//        tree = s.run(tree);
 
         Vnd v = new Vnd();
         tree = v.run(tree);
