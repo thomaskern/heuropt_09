@@ -55,23 +55,9 @@ public class Sweep {
                         double old_costs = worked_on_root_node.costliest_edge() + other_root_node.costliest_edge();
                         double new_costs = new_parent_cost + new_other_node_cost(child, other_root_node);
 
-                        if (new_costs < old_costs) {
-
-
-//                            System.out.println("NEW DISTANCE: " + new_other_node_cost);
-//                            System.out.println("if added: " + new_other_node_cost);
-//                            System.out.println("distance from node to other origin: " + new_other_node_cost);
-//                            System.out.println("if new_parent_cost:" + new_parent_cost);
-//                            int before_size = tree.displayTree(false);
+                        if (new_costs <= old_costs) {
                             tree.swap_node(child, other_root_node);
                             found_better_home = true;
-
-
-//                            if (before_size != tree.displayTree(false)) {
-//                                System.out.println("child: " + child.getId() + ", to:" + other_root_node.getId() + ", from: " + worked_on_root_node.getId());
-//                                tree.displayTree();
-//                            }
-
                         }
 
                     }
