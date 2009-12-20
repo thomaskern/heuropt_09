@@ -19,6 +19,7 @@ public class Aco {
     private double phero_max;
     private double phero_min;
     private TrieVisualizer trieVisualizer;
+    private static double p = 0.1; /* Evaporation rate between 0 and 1*/
 
     public Aco() {
         this.phero_max = 100;
@@ -28,6 +29,7 @@ public class Aco {
         threads = new ArrayList<Ant>();
     }
 
+    /* ? */
     public Trie run(Graph graph, int ants) {
         this.ant_totals = ants;
         this.graph = graph;
@@ -61,8 +63,9 @@ public class Aco {
         }
     }
 
+
     private double calculate_pheromone_update_for_evap(Node n1, Node n2) {
-        double tmp = graph.get_pheromone_for_edge(n1.getId(), n2.getId()) * 0.9;
+        double tmp = graph.get_pheromone_for_edge(n1.getId(), n2.getId()) * (1-p);
         return check_for_phero_limits(tmp);
     }
 
@@ -99,6 +102,7 @@ public class Aco {
         }
     }
 
+    /* ? */
     private double calculate_pheromone_update_for_best_edge(double ph, Trie max_min) {
         return check_for_phero_limits(ph + 1.5);
     }

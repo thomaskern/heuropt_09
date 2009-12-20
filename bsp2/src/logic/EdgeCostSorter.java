@@ -4,6 +4,7 @@ import data.Edge;
 
 import java.util.Comparator;
 
+
 public class EdgeCostSorter implements Comparator<Edge> {
     public int compare(Edge o1, Edge o2) {
         double prob = o1.getProbability() - o2.getProbability();

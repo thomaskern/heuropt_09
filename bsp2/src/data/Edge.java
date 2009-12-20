@@ -39,6 +39,7 @@ public class Edge implements Comparable<Edge> {
         return (int) (cost() * i - o.cost() * i);
     }
 
+    /* ?? */
     private int exponent_needed(Edge o) {
         int i = 0;
         double tmp = o.cost() < cost() ? o.cost() : cost();
