@@ -12,6 +12,7 @@ public class Trie {
     private TrieNode root;
     private HashMap<Integer, TrieNode> treenodes;
     private HashMap<Integer, Integer> hm_cost;
+    private int display_counter;
 
     public Trie() {
         nodes = new NodeList();
@@ -20,23 +21,43 @@ public class Trie {
         hm_cost = new HashMap<Integer, Integer>();
     }
 
-    public TrieNode find(int key)      // find node with given key
+    public TrieNode find(int key)
     {
-        return treenodes.get(key);
+        synchronized (treenodes) {
+            return treenodes.get(key);
+        }
+
+    }
+
+    public void delete_node(Node node) {
+        synchronized (treenodes) {
+            clear_cache();
+            TrieNode trienode = find(node.getId());
+            trienode.getParent().getChildren().remove(trienode);
+            treenodes.remove(node.getId());
+
+            int counter = trienode.getChildren().size();
+            for (int i = 0; i < counter; i++) {
+                delete_node(trienode.getChildren().get(0).getDataNode());
+            }
+        }
+
     }
 
     public void insert(Edge edge) {
-        clear_cache();
+        synchronized (treenodes) {
+            clear_cache();
 
-        TrieNode start = new TrieNode();
-        start.set_data_node(edge.getEnd());
+            TrieNode start = new TrieNode();
+            start.set_data_node(edge.getEnd());
 
-        TrieNode tn = find(edge.getStart().getId());
+            TrieNode tn = find(edge.getStart().getId());
 
-        tn.add_child(start);
+            tn.add_child(start);
 
-        nodes.add_node(edge.getEnd());
-        treenodes.put(edge.getEnd().getId(), start);
+            nodes.add_node(edge.getEnd());
+            treenodes.put(edge.getEnd().getId(), start);
+        }
     }
 
     public void insert(Node node) {
@@ -57,20 +78,35 @@ public class Trie {
         hm_cost.clear();
     }
 
-    public void displayTree() {
+// returns the number of visited nodes
+    public int displayTree(boolean show) {
         int nBlanks = 4;
-        System.out.println("......................................................");
-        _displayTree(root, 0, nBlanks);
-        System.out.println("......................................................");
+        if(show)
+            System.out.println("......................................................");
+        display_counter = 0;
+        _displayTree(root, 0, nBlanks, show);
+        if(show)
+            System.out.println("...................................................... " + display_counter);
+
+        return display_counter;
     }
 
-    private void _displayTree(TrieNode tn, int level, int nBlanks) {
-        for (int j = 0; j < nBlanks * level; j++)
-            System.out.print(' ');
+    public int displayTree() {
+        return displayTree(true);
+    }
 
-        System.out.print(tn.getId() + "(" + tn.getParent().getId() + "), (CTP: " + tn.getDataNode().distance_to(tn.getParent().getDataNode()) + "), (CE: " + (int) tn.costliest_edge() + ")\n");
+    private void _displayTree(TrieNode tn, int level, int nBlanks, boolean show) {
+        if (show) {
+            for (int j = 0; j < nBlanks * level; j++)
+                System.out.print(' ');
+            System.out.print(tn.getId() + "(" + tn.getParent().getId() + "), (CTP: " + tn.getDataNode().distance_to(tn.getParent().getDataNode()) + "), (CE: " + (int) tn.costliest_edge() + ")\n");
+        }
+
+        display_counter++;
+
+
         for (TrieNode trieNode : tn.getChildren()) {
-            _displayTree(trieNode, level + 1, nBlanks);
+            _displayTree(trieNode, level + 1, nBlanks, show);
         }
     }
 
@@ -81,7 +117,6 @@ public class Trie {
         else {
             double cost = 0;
             for (TrieNode trieNode : treenodes.values()) {
-//                System.out.println(trieNode.getId()+"::"+(int)trieNode.costliest_edge()+"::"+(int)cost);
                 cost += trieNode.costliest_edge();
             }
 
@@ -114,20 +149,11 @@ public class Trie {
         return treenodes.values();
     }
 
-    public int rounded_cost() {
-        return (int) Math.round(Math.cbrt(cost()));
-    }
-
-    public void delete_node(Node node) {
+    public void swap_node(TrieNode child, TrieNode new_node) {
         clear_cache();
-        TrieNode trienode = find(node.getId());
-        trienode.getParent().getChildren().remove(trienode);
-        treenodes.remove(node.getId());
 
-        int counter = trienode.getChildren().size();
-        for(int i = 0; i < counter;i++){
-            delete_node(trienode.getChildren().get(0).getDataNode());
-        }
-
+        child.getParent().getChildren().remove(child);
+        child.setParent(new_node);
+        new_node.getChildren().add(child);
     }
 }

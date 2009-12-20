@@ -2,10 +2,10 @@
 <suite thread-count="5" skipfailedinvocationCounts="false" verbose="1" name="Failed suite [Custom suite]" junit="false" parallel="none" annotations="JDK">
   <test name="bsp2(failed)" junit="false" parallel="none" annotations="JDK">
     <classes>
-      <class name="test.data.SweepTest">
+      <class name="test.data.AntTest">
         <methods>
           <include name="before_method"/>
-          <include name="should_remove_obvious_problems_in_trie"/>
+          <include name="should_initiate_multiple_ants"/>
         </methods>
       </class>
     </classes>

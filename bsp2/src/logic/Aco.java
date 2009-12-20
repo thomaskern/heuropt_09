@@ -24,13 +24,15 @@ public class Aco {
         this.phero_max = 100;
         this.phero_min = 0;
         trieVisualizer = new TrieVisualizer();
+        this.trees = new TrieList();
+        threads = new ArrayList<Ant>();
     }
 
-    public void run(Graph graph, int ants) {
+    public Trie run(Graph graph, int ants) {
         this.ant_totals = ants;
         this.graph = graph;
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 500; i++) {
             run_ants();
             update_pheromone();
 
@@ -39,13 +41,12 @@ public class Aco {
                 best = find_best_tree();
 
             trieVisualizer.draw_trie(best);
-            best.displayTree();
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//            best.displayTree();
         }
+
+        
+
+        return best;        
     }
 
     private void evaporate_pheromones() {
@@ -55,7 +56,6 @@ public class Aco {
                         n1.getId(),
                         n2.getId(),
                         calculate_pheromone_update_for_evap(n1, n2)
-
                 );
             }
         }
@@ -105,7 +105,6 @@ public class Aco {
 
     private TrieList run_ants() {
         this.trees = new TrieList();
-
         threads = new ArrayList<Ant>();
 
         start_ants();
@@ -123,7 +122,7 @@ public class Aco {
     private boolean start_ant() {
         synchronized (threads) {
             if (should_start_ant()) {
-                Ant a = new Ant(this, graph);
+                Ant a = new Ant(threads.size(),this, graph);
                 a.start();
                 threads.add(a);
                 return true;

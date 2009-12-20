@@ -8,16 +8,22 @@ public class TrieVisualizer extends Frame {
     private Diagram diagram;
 
     public TrieVisualizer() {
-        addPanel();
-        System.out.println(Toolkit.getDefaultToolkit().getScreenSize());
+        create(3000,0);
+    }
 
-        this.setBounds(3000,0,1200,1200);
+    private void create(int i, int i1) {
+        addPanel();
+        this.setBounds(i,i1,600,600);
         this.setVisible(true);
+    }
+
+    public TrieVisualizer(int i, int i1) {
+        create(i,i1);
     }
 
     private void addPanel() {
         diagram = new Diagram();
-        diagram.setSize(1200,1200);
+        diagram.setSize(600,600);
         this.add(diagram);
     }
 

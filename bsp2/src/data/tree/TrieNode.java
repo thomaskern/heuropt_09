@@ -11,8 +11,7 @@ public class TrieNode implements Comparable<TrieNode> {
         children = new TrieNodeList();
     }
 
-    public String toString()
-    {
+    public String toString() {
         String s = "{";
         s += data_node.getId();
         s += ", ";
@@ -67,10 +66,22 @@ public class TrieNode implements Comparable<TrieNode> {
     }
 
     public double costliest_edge_in_eucledian() {
-        return Math.cbrt(costliest_edge());        
+        return Math.cbrt(costliest_edge());
     }
 
     public double distance_to(TrieNode worked_on_root_node) {
         return data_node.distance_to(worked_on_root_node.getDataNode());
+    }
+
+    public boolean is_descendend_of(TrieNode root_parent, TrieNode root) {
+        TrieNode tmp = parent;
+
+        while (!(root == tmp.getParent() && tmp == root)) {
+            if (tmp == root_parent)
+                return true;
+            tmp = tmp.getParent();
+        }
+
+        return false;
     }
 }

@@ -12,6 +12,8 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static org.testng.Assert.assertTrue;
+
 public class SweepTest {
 
     private Graph graph;
@@ -49,9 +51,13 @@ public class SweepTest {
         t.displayTree();
 
         Sweep s = new Sweep();
-        Trie t1 = s.run(t);
+        Trie t1 = s.run(t,3);
+
+        
 
         t1.displayTree();
+
+        assertTrue(t1.valid(20));
     }
 
 }
