@@ -26,6 +26,8 @@ public class Trie {
     }
 
     public void insert(Edge edge) {
+        clear_cache();
+
         TrieNode start = new TrieNode();
         start.set_data_node(edge.getEnd());
 
@@ -38,6 +40,8 @@ public class Trie {
     }
 
     public void insert(Node node) {
+        clear_cache();
+
         TrieNode newTrieNode = new TrieNode();
         newTrieNode.set_data_node(node);
         newTrieNode.autoParent();
@@ -47,6 +51,10 @@ public class Trie {
             root = newTrieNode;
             treenodes.put(node.getId(), root);
         }
+    }
+
+    private void clear_cache() {
+        hm_cost.clear();
     }
 
     public void displayTree() {
@@ -73,6 +81,7 @@ public class Trie {
         else {
             double cost = 0;
             for (TrieNode trieNode : treenodes.values()) {
+//                System.out.println(trieNode.getId()+"::"+(int)trieNode.costliest_edge()+"::"+(int)cost);
                 cost += trieNode.costliest_edge();
             }
 
@@ -110,6 +119,7 @@ public class Trie {
     }
 
     public void delete_node(Node node) {
+        clear_cache();
         TrieNode trienode = find(node.getId());
         trienode.getParent().getChildren().remove(trienode);
         treenodes.remove(node.getId());
