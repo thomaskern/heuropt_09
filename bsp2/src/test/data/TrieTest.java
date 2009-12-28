@@ -5,6 +5,7 @@ import data.Fixtures;
 import data.Graph;
 import data.NodeList;
 import data.tree.Trie;
+import data.tree.TrieNodeList;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -50,5 +51,11 @@ public class TrieTest {
 
         assertEquals(t.getTreeNodes().size(),5);
         assertFalse(t.valid(9));
+    }
+
+    @Test
+    public void should_get_descendants(){
+        System.out.println(t.find(0).getId());
+        System.out.println("List to String" + t.toString());
     }
 }

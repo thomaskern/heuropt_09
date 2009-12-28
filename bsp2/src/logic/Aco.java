@@ -96,6 +96,7 @@ public class Aco {
             int from = trieNode.getParent().getDataNode().getId();
             int to = trieNode.getDataNode().getId();
             double ph = graph.get_pheromone_for_edge(from, to);
+            /* ? */ 
             graph.update_pheromone_value(from, to, calculate_pheromone_update_for_best_edge(ph, max_min));
         }
     }

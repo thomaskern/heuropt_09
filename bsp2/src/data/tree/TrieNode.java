@@ -1,6 +1,8 @@
 package data.tree;
 
 import data.Node;
+import java.util.Iterator;
+import java.util.Stack;
 
 public class TrieNode implements Comparable<TrieNode> {
     private Node data_node;           // data item
@@ -31,6 +33,31 @@ public class TrieNode implements Comparable<TrieNode> {
 
     public TrieNodeList getChildren() {
         return children;
+    }
+
+    /* getDescendants gibt von diesem Knoten alle Nachfolger zurück */
+    public TrieNodeList getDescendants(){
+        TrieNodeList tmpChildren = null;
+        Stack<TrieNode> childStack = new Stack<TrieNode>();
+        TrieNodeList d = new TrieNodeList();
+        Iterator<TrieNode> tNodeIt = null;
+        TrieNode tmpNode = null;
+
+        tmpChildren = this.getChildren();
+        while(tmpChildren.size() != 0){
+            tNodeIt = tmpChildren.iterator();
+            while(tNodeIt.hasNext()){
+                tmpNode = tNodeIt.next();
+                childStack.push(tmpNode);
+                d.add(tmpNode);
+            }
+            tmpChildren = new TrieNodeList();
+            while(!childStack.isEmpty()){
+                tmpChildren.addAll(childStack.pop().getChildren());
+            }
+        }
+        
+        return d;
     }
 
     public TrieNode getParent() {
