@@ -21,14 +21,24 @@ public class RShrink implements INeighborhood {
     RShrink() {
     }
 
-    public TrieNodeList getFosterParents(Trie best, TrieNode node){
+    private int incrementalCostAtK(Trie best, TrieNode node){
+        return 0;
+    }
+
+    private int decrementalCostAtJ(Trie best, TrieNode node){
+        return 0;
+    }
+
+    /* returns the nondescendants of node, excluding its parent */
+    private TrieNodeList getFosterParents(Trie best, TrieNode node){
        Iterator<TrieNode> it = best.getTreeNodes().iterator();
        TrieNodeList fpa = getNonDescendants(best,node);
        fpa.remove(node.getParent());
        return fpa;
     }
 
-    public TrieNodeList getNonDescendants(Trie best, TrieNode node) {
+   /* returns the nondescendants of node*/
+    private TrieNodeList getNonDescendants(Trie best, TrieNode node) {
         TrieNodeList nd = new TrieNodeList();
         Iterator<TrieNode> it = null;
         TrieNode tmp = null;
