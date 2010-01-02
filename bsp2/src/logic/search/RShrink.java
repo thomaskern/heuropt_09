@@ -20,7 +20,6 @@ public class RShrink implements INeighborhood {
 
     /**
      *
-     * @param g graph
      * @param r r parameter of rshrink
      * @param max_level max_level of rshrink
      */
