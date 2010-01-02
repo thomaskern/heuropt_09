@@ -39,9 +39,10 @@ public class RShrink implements INeighborhood {
         int count = 0;
         TrieNode tdc = null; /* temporarily disconnected child*/
         TrieNodeList fosterParents = null;
-        TrieNodeList children = node.getChildren();
-
-        while((size > 0) && count < r ){
+        TrieNodeList children = new TrieNodeList();
+        children.addAll(node.getChildren());
+        
+        while((size > 0) && (count < size) && (count < r) ){
             tdc =  children.get(count);
             fosterParents = getFosterParents(best, tdc);
             TrieNode bestFP = null;
@@ -55,6 +56,7 @@ public class RShrink implements INeighborhood {
             if( bestFP != null){
                 best.swap_node(tdc, bestFP);
             }
+            count++;
         }
     }
 
