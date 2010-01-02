@@ -16,8 +16,6 @@ import logic.TrieNodeCostSorter;
 public class RShrink implements INeighborhood {
 
     private int r; /* the r-shrink r value */
-
-    private Graph g;
     private final int max_level;
 
     /**
@@ -26,9 +24,8 @@ public class RShrink implements INeighborhood {
      * @param r r parameter of rshrink
      * @param max_level max_level of rshrink
      */
-    public RShrink(Graph g, int r, int max_level) {
+    public RShrink(int r, int max_level) {
         this.r = r;
-        this.g = g;
         this.max_level = max_level;
     }
 
