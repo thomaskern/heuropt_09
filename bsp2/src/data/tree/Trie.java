@@ -132,6 +132,7 @@ public class Trie {
         return nodes;
     }
 
+
     public TrieNode getRoot() {
         return root;
     }

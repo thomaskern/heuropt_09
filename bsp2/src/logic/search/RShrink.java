@@ -9,18 +9,31 @@ import java.util.Collections;
 import java.util.Iterator;
 import logic.TrieNodeCostSorter;
 
+/**
+ *
+ * @author Christian
+ */
 public class RShrink implements INeighborhood {
 
     private int r; /* the r-shrink r value */
 
     private Graph g;
+    private final int max_level;
 
-    public RShrink(Graph g, int r) {
+    /**
+     *
+     * @param g graph
+     * @param r r parameter of rshrink
+     * @param max_level max_level of rshrink
+     */
+    public RShrink(Graph g, int r, int max_level) {
         this.r = r;
         this.g = g;
+        this.max_level = max_level;
     }
 
-    RShrink() {
+    public RShrink(){
+        this.max_level = 0;
     }
 
     private void rshrink(Trie best, TrieNode node){
@@ -99,8 +112,34 @@ public class RShrink implements INeighborhood {
         return nd;
     }
 
-    public Trie run(Trie best) {
+    public TrieNodeList getNodesAtLevel(TrieNode parent, int level){
+        TrieNodeList nodes = new TrieNodeList();
 
+        if(level == 1){
+            nodes = parent.getChildren();
+        }else{
+            for(TrieNode node : parent.getChildren()){
+                nodes.addAll(getNodesAtLevel(node,level -1));
+            }
+        }
+
+        return nodes;
+    }
+    /**
+     *
+     * @param best
+     * @return
+     */
+    public Trie run(Trie best) {
+        int level = max_level;
+
+        while(level != 0){
+            /*check parents at level*/
+            for(TrieNode node : getNodesAtLevel(best.getRoot(),level)){
+                rshrink(best,node);
+            }
+            level--;
+        }
         return best;
     }
 }
