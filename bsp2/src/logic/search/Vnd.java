@@ -11,7 +11,7 @@ public class Vnd implements ISearch {
         int l = 0;
 
         do {
-         RShrink shrink = new RShrink(2,l_max);
+         RShrink shrink = new RShrink(l,best.getDepth());
          Trie improvement = shrink.run(best);
          
             if (improvement.cost() < best.cost()) {

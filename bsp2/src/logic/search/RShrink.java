@@ -26,6 +26,7 @@ public class RShrink implements INeighborhood {
     public RShrink(int r, int max_level) {
         this.r = r;
         this.max_level = max_level;
+        System.out.println("max level:" + max_level);
     }
 
     public RShrink(){

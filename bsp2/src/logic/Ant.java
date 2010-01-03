@@ -54,6 +54,7 @@ public class Ant extends Thread {
         return null;
     }
 
+    /* adds implicit edges? */
     private void add_edges(EdgeList nh, Edge _edge) {
         if (_edge == null) {
             return;
