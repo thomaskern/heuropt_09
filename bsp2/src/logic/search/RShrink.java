@@ -26,7 +26,6 @@ public class RShrink implements INeighborhood {
     public RShrink(int r, int max_level) {
         this.r = r;
         this.max_level = max_level;
-        System.out.println("max level:" + max_level);
     }
 
     public RShrink(){
@@ -90,6 +89,7 @@ public class RShrink implements INeighborhood {
         Iterator<TrieNode> it = best.getTreeNodes().iterator();
         TrieNodeList fpa = getNonDescendants(best, node);
         fpa.remove(node.getParent());
+       
         return fpa;
     }
 
@@ -108,6 +108,8 @@ public class RShrink implements INeighborhood {
                 nd.add(tmp);
             }
         }
+
+        nd.remove(node);
 
         return nd;
     }
