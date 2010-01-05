@@ -33,7 +33,7 @@ public class Aco {
         this.ant_totals = ants;
         this.graph = graph;
 
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 1; i++) {
             run_ants();
             update_pheromone();
 

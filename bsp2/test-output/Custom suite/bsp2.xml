@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bsp2" failures="0" tests="1" time="9.79" errors="0">
+<testsuite name="bsp2" failures="0" tests="1" time="1.469" errors="0">
   <properties/>
-  <testcase name="should_initiate_multiple_ants" time="9.767" classname="test.data.AcoTest"/>
+  <testcase name="should_initiate_multiple_ants" time="1.448" classname="test.data.AcoTest"/>
 </testsuite>
