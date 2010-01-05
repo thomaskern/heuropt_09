@@ -48,7 +48,7 @@ public class Aco {
 
         return best;
     }
-
+/* performs an evaporation on each possible edge*/
     private void evaporate_pheromones() {
         for (Node n1 : graph.getNodes()) {
             for (Node n2 : graph.getNodes()) {
@@ -61,7 +61,7 @@ public class Aco {
         }
     }
 
-
+/* calculates evaporation for the given edge according to this formula: Tij(t+1) = (1-p) * Tij(t)*/
     private double calculate_pheromone_update_for_evap(Node n1, Node n2) {
         double tmp = graph.get_pheromone_for_edge(n1.getId(), n2.getId()) * (1-p);
         return check_for_phero_limits(tmp);
