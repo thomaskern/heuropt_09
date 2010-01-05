@@ -12,7 +12,7 @@ public class Vnd implements ISearch {
         do {
          RShrink shrink = new RShrink(l,best.getDepth());
          Trie improvement = shrink.run(best);
-
+//
             if (improvement.cost() < best.cost()) {
                 best = improvement;
                 l = 0;

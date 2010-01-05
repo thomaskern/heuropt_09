@@ -105,6 +105,12 @@ public class Trie {
         if (show)
             System.out.println("...................................................... " + display_counter);
 
+
+        for (TrieNode tn : treenodes.values()) {
+            System.out.println(tn.getId()+" has parent: "+tn.getParent().getId());
+        }
+
+
         return display_counter;
     }
 

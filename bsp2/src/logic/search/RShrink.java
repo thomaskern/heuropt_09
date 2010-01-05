@@ -47,6 +47,7 @@ public class RShrink implements INeighborhood {
             fosterParents = getFosterParents(best, tdc);
             TrieNode bestFP = null;
             for(TrieNode fp : fosterParents){
+
                 if(incrementalCostAtK(fp,tdc) < decrementalCostAtJ(node,tdc)){
                     if((bestFP == null) || tdc.distance_to(bestFP) > tdc.distance_to(fp)){
                         bestFP = fp;
