@@ -5,7 +5,6 @@ import data.tree.Trie;
 public class Vnd implements ISearch {
 
     public Trie run(Trie tree) {
-        RShrink r = new RShrink();
         Trie best = tree;
         int l_max = 10;
         int l = 0;
