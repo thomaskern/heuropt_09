@@ -54,6 +54,7 @@ public class Ant extends Thread {
         return null;
     }
 
+    /* adds implicit edges? */
     private void add_edges(EdgeList nh, Edge _edge) {
         if (_edge == null) {
             return;
@@ -99,7 +100,7 @@ public class Ant extends Thread {
         return hm;
     }
 
-    /* ? */
+    /*  - total are the full costs of the whole neighborhood */
     private double calculate_probability_for_edge(Edge e, HashMap<Edge, Double> edge_costs, double total) {
         return (edge_costs.get(e) * 100) / total;
     }

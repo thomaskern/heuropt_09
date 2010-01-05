@@ -28,6 +28,24 @@ public class Trie {
 
     }
 
+    /* returns depth of tree*/
+    public int getDepth(){
+        return depth(this.root);
+    }
+
+    /*goes down the tree starting node and adds 1 + the depth of the tree below the node */
+    private int depth(TrieNode node){
+        int max = 0;
+        int tmp = 0;
+        for(TrieNode child : node.getChildren()){
+            tmp = depth(child);
+            if(tmp > max){
+                max = tmp;
+            }
+        }
+        return 1 + max;
+    }
+    
     public void delete_node(Node node) {
         synchronized (treenodes) {
             clear_cache();
