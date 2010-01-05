@@ -33,7 +33,7 @@ public class Aco {
         this.ant_totals = ants;
         this.graph = graph;
 
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 1; i++) {
             run_ants();
             update_pheromone();
 
@@ -42,9 +42,15 @@ public class Aco {
                 best = find_best_tree();
 
             trieVisualizer.draw_trie(best);
-//            best.displayTree();
+            best.displayTree();
         }
 
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        
 
         return best;
     }

@@ -5,7 +5,6 @@ import data.tree.Trie;
 public class Vnd implements ISearch {
 
     public Trie run(Trie tree) {
-        RShrink r = new RShrink();
         Trie best = tree;
         int l_max = 10;
         int l = 0;
@@ -13,7 +12,7 @@ public class Vnd implements ISearch {
         do {
          RShrink shrink = new RShrink(l,best.getDepth());
          Trie improvement = shrink.run(best);
-         
+
             if (improvement.cost() < best.cost()) {
                 best = improvement;
                 l = 0;
