@@ -42,7 +42,7 @@ public class Aco {
                 best = find_best_tree();
 
             trieVisualizer.draw_trie(best);
-//            best.displayTree();
+            best.displayTree();
         }
 
         try {
