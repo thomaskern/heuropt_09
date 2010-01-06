@@ -102,12 +102,12 @@ public class Aco {
             int to = trieNode.getDataNode().getId();
             double ph = graph.get_pheromone_for_edge(from, to);
             /* ? */ 
-            graph.update_pheromone_value(from, to, calculate_pheromone_update_for_best_edge(ph, max_min));
+            graph.update_pheromone_value(from, to, calculate_pheromone_update_for_best_edge(ph));
         }
     }
 
     /* ? */
-    private double calculate_pheromone_update_for_best_edge(double ph, Trie max_min) {
+    private double calculate_pheromone_update_for_best_edge(double ph) {
         return check_for_phero_limits(ph + 1.5);
     }
 

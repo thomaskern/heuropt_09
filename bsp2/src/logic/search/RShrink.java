@@ -1,16 +1,14 @@
 package logic.search;
 
-import data.Graph;
 import data.tree.Trie;
 import data.tree.TrieNode;
 import data.tree.TrieNodeList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
 import logic.TrieNodeCostSorter;
 
+import java.util.Collections;
+import java.util.Iterator;
+
 /**
- *
  * @author Christian
  */
 public class RShrink implements INeighborhood {
@@ -19,8 +17,7 @@ public class RShrink implements INeighborhood {
     private final int max_level;
 
     /**
-     *
-     * @param r r parameter of rshrink
+     * @param r         r parameter of rshrink
      * @param max_level max_level of rshrink
      */
     public RShrink(int r, int max_level) {
@@ -28,11 +25,11 @@ public class RShrink implements INeighborhood {
         this.max_level = max_level;
     }
 
-    public RShrink(){
+    public RShrink() {
         this.max_level = 0;
     }
 
-    private void rshrink(Trie best, TrieNode node){
+    private void rshrink(Trie best, TrieNode node) {
         sort_kids(node);
         int size = node.getChildren().size();
         int count = 0;
@@ -40,20 +37,20 @@ public class RShrink implements INeighborhood {
         TrieNodeList fosterParents = null;
         TrieNodeList children = new TrieNodeList();
         children.addAll(node.getChildren());
-        
-        while((size > 0) && (count < size) && (count < r) ){
-            tdc =  children.get(count);
+
+        while ((size > 0) && (count < size) && (count < r)) {
+            tdc = children.get(count);
             fosterParents = getFosterParents(best, tdc);
             TrieNode bestFP = null;
-            for(TrieNode fp : fosterParents){
+            for (TrieNode fp : fosterParents) {
 
-                if(incrementalCostAtK(fp,tdc) < decrementalCostAtJ(node,tdc)){
-                    if((bestFP == null) || tdc.distance_to(bestFP) > tdc.distance_to(fp)){
+                if (incrementalCostAtK(fp, tdc) < decrementalCostAtJ(node, tdc)) {
+                    if ((bestFP == null) || tdc.distance_to(bestFP) > tdc.distance_to(fp)) {
                         bestFP = fp;
                     }
                 }
             }
-            if( bestFP != null){
+            if (bestFP != null) {
                 best.swap_node(tdc, bestFP);
             }
             count++;
@@ -71,29 +68,31 @@ public class RShrink implements INeighborhood {
         } else {
             return nodei.distance_to(nodek); /* result = Pik */
         }
-  
+
     }
 
     private double decrementalCostAtJ(TrieNode nodei, TrieNode nodek) {
-   
-        if(nodei.getChildren().size() > 1){
+
+        if (nodei.getChildren().size() > 1) {
             return nodei.costliest_edge() - nodei.distance_to(nodek); /* Pij - Pik */
-        } else{
+        } else {
             return nodei.costliest_edge(); /* Pij */
         }
 
     }
 
     /* returns the nondescendants of node, excluding its parent */
+
     private TrieNodeList getFosterParents(Trie best, TrieNode node) {
         Iterator<TrieNode> it = best.getTreeNodes().iterator();
         TrieNodeList fpa = getNonDescendants(best, node);
         fpa.remove(node.getParent());
-       
+
         return fpa;
     }
 
     /* returns the nondescendants of node*/
+
     private TrieNodeList getNonDescendants(Trie best, TrieNode node) {
         TrieNodeList nd = new TrieNodeList();
         Iterator<TrieNode> it = null;
@@ -114,33 +113,34 @@ public class RShrink implements INeighborhood {
         return nd;
     }
 
-    public TrieNodeList getNodesAtLevel(TrieNode parent, int level){
+    public TrieNodeList getNodesAtLevel(TrieNode parent, int level) {
         TrieNodeList nodes = new TrieNodeList();
 
-        if(level == 1){
+        if (level == 1) {
             nodes = parent.getChildren();
-        }else{
-            for(TrieNode node : parent.getChildren()){
-                nodes.addAll(getNodesAtLevel(node,level -1));
+        } else {
+            for (TrieNode node : parent.getChildren()) {
+                nodes.addAll(getNodesAtLevel(node, level - 1));
             }
         }
 
         return nodes;
     }
+
     /**
-     *
      * @param best
      * @return
      */
     public Trie run(Trie best) {
         int level = max_level;
 
-        while(level != 0){
+        while (level != 0) {
             /*check parents at level*/
-            TrieNodeList tnl =  getNodesAtLevel(best.getRoot(),level);
-            for(int i = 0; i < tnl.size();i++){
+            TrieNodeList tnl = getNodesAtLevel(best.getRoot(), level);
+            //noinspection ForLoopReplaceableByForEach
+            for (int i = 0; i < tnl.size(); i++) {
                 TrieNode node = tnl.get(0);
-                rshrink(best,node);
+                rshrink(best, node);
             }
             level--;
         }
