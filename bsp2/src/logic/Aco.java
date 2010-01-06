@@ -28,7 +28,6 @@ public class Aco {
         threads = new ArrayList<Ant>();
     }
 
-    /* ? */
     public Trie run(Graph graph, int ants) {
         this.ant_totals = ants;
         this.graph = graph;
@@ -101,12 +100,10 @@ public class Aco {
             int from = trieNode.getParent().getDataNode().getId();
             int to = trieNode.getDataNode().getId();
             double ph = graph.get_pheromone_for_edge(from, to);
-            /* ? */ 
             graph.update_pheromone_value(from, to, calculate_pheromone_update_for_best_edge(ph));
         }
     }
 
-    /* ? */
     private double calculate_pheromone_update_for_best_edge(double ph) {
         return check_for_phero_limits(ph + 1.5);
     }
