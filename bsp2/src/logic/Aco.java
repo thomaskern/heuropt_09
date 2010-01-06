@@ -21,8 +21,8 @@ public class Aco {
     private static double p = 0.1; /* Evaporation rate between 0 and 1*/
 
     public Aco() {
-        this.phero_max = 100;
-        this.phero_min = 0;
+        this.phero_max = 1;
+        this.phero_min = 0.001;
         trieVisualizer = new TrieVisualizer();
         this.trees = new TrieList();
         threads = new ArrayList<Ant>();
@@ -106,9 +106,13 @@ public class Aco {
         }
     }
 
-    /* ? */
+    /* Calculates a pheromone update according to mmas */
     private double calculate_pheromone_update_for_best_edge(double ph, Trie max_min) {
-        return check_for_phero_limits(ph + 1.5);
+        double new_ph;
+        double cost = max_min.cost();
+        new_ph = check_for_phero_limits(ph + 1/cost);
+        System.out.println("Pheroupdate:" + Double.toString(new_ph));
+        return new_ph;
     }
 
     private TrieList run_ants() {
