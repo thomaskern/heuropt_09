@@ -14,4 +14,7 @@ public class EdgeList extends ArrayList<Edge> {
         return sb.toString();
     }
 
+    public Edge last() {
+        return this.get(size()-1);
+    }
 }

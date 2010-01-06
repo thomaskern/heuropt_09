@@ -105,8 +105,10 @@ public class Trie {
         if (show)
             System.out.println("...................................................... " + display_counter);
 
+        System.out.println("COST: " + cost());
 
-        print_parents();
+        if (!show)
+            print_parents();
 
         return display_counter;
     }

@@ -32,7 +32,7 @@ public class Aco {
         this.ant_totals = ants;
         this.graph = graph;
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 500; i++) {
             run_ants();
             update_pheromone();
 
@@ -72,12 +72,7 @@ public class Aco {
     }
 
     private double check_for_phero_limits(double tmp) {
-        if (tmp > phero_max)
-            tmp = phero_max;
-        else if (tmp < phero_min)
-            tmp = phero_min;
-
-        return tmp;
+        return Math.max(Math.min(tmp,phero_max), phero_min);
     }
 
     private Trie find_best_tree() {
