@@ -21,7 +21,7 @@ public class Aco {
     private static double p = 0.1; /* Evaporation rate between 0 and 1*/
 
     public Aco() {
-        this.phero_max = 100;
+        this.phero_max = 1;
         this.phero_min = 0;
         trieVisualizer = new TrieVisualizer();
         this.trees = new TrieList();
