@@ -25,9 +25,9 @@ public class Ant extends Thread {
     }
 
     public void run() {
-        System.out.println("START CON");
+//        System.out.println("START CON");
         construct_broadcast_tree();
-        System.out.println("START LS");
+//        System.out.println("START LS");
         local_search();
 
         this.aco.ant_done(this);
@@ -61,6 +61,7 @@ public class Ant extends Thread {
         }
 
         for (Edge edge : nh) {
+
             if (_edge.getStart() == edge.getStart() &&
                     edge.cost() < _edge.cost() && !tree.contains_node(edge.getEnd())) {
                 tree.insert(edge);
@@ -94,10 +95,14 @@ public class Ant extends Thread {
         HashMap<Edge, Double> hm = new HashMap<Edge, Double>();
 
         for (Edge e : neighborhood) {
-            hm.put(e, Math.pow(graph.get_pheromone_for_edge(e), graph.getAlpha()) * Math.pow(e.cost(), graph.getBeta()));
+            hm.put(e, calculate_heuristic_value(e, graph));
         }
 
         return hm;
+    }
+
+    private Double calculate_heuristic_value(Edge e, Graph graph) {
+        return Math.pow(graph.get_pheromone_for_edge(e), graph.getAlpha()) * Math.pow(e.cost(), graph.getBeta());
     }
 
     /*  - total are the full costs of the whole neighborhood */
@@ -116,10 +121,11 @@ public class Ant extends Thread {
                     continue;
                 }
 
+                e.setHeuristicValue(calculate_heuristic_value(e,graph));
                 edges.add(e);
             }
 
-            Collections.sort(edges);
+            Collections.sort(edges, new HeuristicValueEdgeSorter());
             add_best_edges_to_nh(el, edges);
         }
 
@@ -127,9 +133,10 @@ public class Ant extends Thread {
     }
 
     private void add_best_edges_to_nh(EdgeList el, EdgeList edges) {
-        for (int i = 0; i < (int) Math.ceil(edges.size() * 0.2); i++) {
-            el.add(edges.get(i));
-        }
+//        for (int i = 0; i < (int) Math.ceil(edges.size() * 0.1); i++) {
+//            el.add(edges.get(i));
+//        }
+        el.addAll(edges);
     }
 
     private void construct_broadcast_tree() {

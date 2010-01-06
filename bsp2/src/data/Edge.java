@@ -5,6 +5,7 @@ public class Edge implements Comparable<Edge> {
     private Node end;
     private double probability;
     private Double cost;
+    private Double heuristicValue;
 
     public Edge(Node start, Node end) {
         this.start = start;
@@ -49,5 +50,14 @@ public class Edge implements Comparable<Edge> {
             i++;
         }
         return i;
+    }
+
+
+    public void setHeuristicValue(Double heuristicValue) {
+        this.heuristicValue = heuristicValue;
+    }
+
+    public double getHeuristicValue() {
+        return heuristicValue;
     }
 }

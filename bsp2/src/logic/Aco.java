@@ -23,17 +23,17 @@ public class Aco {
     public Aco() {
         this.phero_max = 1;
         this.phero_min = 0.001;
+
         trieVisualizer = new TrieVisualizer();
         this.trees = new TrieList();
         threads = new ArrayList<Ant>();
     }
 
-    /* ? */
     public Trie run(Graph graph, int ants) {
         this.ant_totals = ants;
         this.graph = graph;
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 500; i++) {
             run_ants();
             update_pheromone();
 
@@ -73,12 +73,7 @@ public class Aco {
     }
 
     private double check_for_phero_limits(double tmp) {
-        if (tmp > phero_max)
-            tmp = phero_max;
-        else if (tmp < phero_min)
-            tmp = phero_min;
-
-        return tmp;
+        return Math.max(Math.min(tmp,phero_max), phero_min);
     }
 
     private Trie find_best_tree() {
@@ -101,10 +96,10 @@ public class Aco {
             int from = trieNode.getParent().getDataNode().getId();
             int to = trieNode.getDataNode().getId();
             double ph = graph.get_pheromone_for_edge(from, to);
-            /* ? */ 
             graph.update_pheromone_value(from, to, calculate_pheromone_update_for_best_edge(ph, max_min));
         }
     }
+
 
     /* Calculates a pheromone update according to mmas */
     private double calculate_pheromone_update_for_best_edge(double ph, Trie max_min) {
