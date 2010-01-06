@@ -61,6 +61,7 @@ public class Ant extends Thread {
         }
 
         for (Edge edge : nh) {
+
             if (_edge.getStart() == edge.getStart() &&
                     edge.cost() < _edge.cost() && !tree.contains_node(edge.getEnd())) {
                 tree.insert(edge);
@@ -94,10 +95,14 @@ public class Ant extends Thread {
         HashMap<Edge, Double> hm = new HashMap<Edge, Double>();
 
         for (Edge e : neighborhood) {
-            hm.put(e, Math.pow(graph.get_pheromone_for_edge(e), graph.getAlpha()) * Math.pow(e.cost(), graph.getBeta()));
+            hm.put(e, calculate_heuristic_value(e, graph));
         }
 
         return hm;
+    }
+
+    private Double calculate_heuristic_value(Edge e, Graph graph) {
+        return Math.pow(graph.get_pheromone_for_edge(e), graph.getAlpha()) * Math.pow(e.cost(), graph.getBeta());
     }
 
     /*  - total are the full costs of the whole neighborhood */
@@ -116,10 +121,11 @@ public class Ant extends Thread {
                     continue;
                 }
 
+                e.setHeuristicValue(calculate_heuristic_value(e,graph));
                 edges.add(e);
             }
 
-            Collections.sort(edges);
+            Collections.sort(edges, new HeuristicValueEdgeSorter());
             add_best_edges_to_nh(el, edges);
         }
 
