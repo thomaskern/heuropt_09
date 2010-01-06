@@ -22,7 +22,8 @@ public class Aco {
 
     public Aco() {
         this.phero_max = 1;
-        this.phero_min = 0;
+        this.phero_min = 0.001;
+
         trieVisualizer = new TrieVisualizer();
         this.trees = new TrieList();
         threads = new ArrayList<Ant>();
@@ -95,12 +96,18 @@ public class Aco {
             int from = trieNode.getParent().getDataNode().getId();
             int to = trieNode.getDataNode().getId();
             double ph = graph.get_pheromone_for_edge(from, to);
-            graph.update_pheromone_value(from, to, calculate_pheromone_update_for_best_edge(ph));
+            graph.update_pheromone_value(from, to, calculate_pheromone_update_for_best_edge(ph, max_min));
         }
     }
 
-    private double calculate_pheromone_update_for_best_edge(double ph) {
-        return check_for_phero_limits(ph + 1.5);
+
+    /* Calculates a pheromone update according to mmas */
+    private double calculate_pheromone_update_for_best_edge(double ph, Trie max_min) {
+        double new_ph;
+        double cost = max_min.cost();
+        new_ph = check_for_phero_limits(ph + 1/cost);
+        System.out.println("Pheroupdate:" + Double.toString(new_ph));
+        return new_ph;
     }
 
     private TrieList run_ants() {
