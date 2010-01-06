@@ -1,9 +1,6 @@
 package logic;
 
-import data.Edge;
-import data.EdgeList;
-import data.Graph;
-import data.Node;
+import data.*;
 import data.tree.Trie;
 import logic.search.Vnd;
 
@@ -16,6 +13,8 @@ public class Ant extends Thread {
     private Aco aco;
     private Graph graph;
     private Trie tree;
+    private EdgeList nh;
+
 
     public Ant(int id, Aco aco, Graph graph) {
         this.id = id;
@@ -25,6 +24,8 @@ public class Ant extends Thread {
     }
 
     public void run() {
+        this.nh = new EdgeList();
+
         System.out.println("START CON");
         construct_broadcast_tree();
         System.out.println("START LS");
@@ -55,19 +56,21 @@ public class Ant extends Thread {
     }
 
     /* adds implicit edges? */
-    private void add_edges(EdgeList nh, Edge _edge) {
-        if (_edge == null) {
-            return;
-        }
+    private NodeList add_edges(EdgeList nh, Edge _edge) {
+        NodeList added_nodes = new NodeList();
+        if (_edge != null) {
+            added_nodes.add(_edge.getEnd());
 
-        for (Edge edge : nh) {
-
-            if (_edge.getStart() == edge.getStart() &&
-                    edge.cost() < _edge.cost() && !tree.contains_node(edge.getEnd())) {
-                tree.insert(edge);
+            for (Edge edge : nh) {
+                if (_edge.getStart() == edge.getStart() &&
+                        edge.cost() < _edge.cost() && !tree.contains_node(edge.getEnd())) {
+                    tree.insert(edge);
+                    added_nodes.add(edge.getEnd());
+                }
             }
+            tree.insert(_edge);
         }
-        tree.insert(_edge);
+        return added_nodes;
     }
 
     private EdgeList calculate_probabilities_for_nh(EdgeList neighborhood) {
@@ -114,44 +117,63 @@ public class Ant extends Thread {
         EdgeList el = new EdgeList();
 
         for (Node node : tree.getNodes()) {
-            EdgeList edges = new EdgeList();
-
-            for (Edge e : graph.getEdges()) {
-                if (e.getStart() != node || tree.contains_node(e.getEnd())) {
-                    continue;
-                }
-
-                e.setHeuristicValue(calculate_heuristic_value(e,graph));
-                edges.add(e);
-            }
-
-            Collections.sort(edges, new HeuristicValueEdgeSorter());
-            add_best_edges_to_nh(el, edges);
+            EdgeList edges = get_edges_for_node(node);
+            el.addAll(edges);
         }
 
         return el;
     }
 
+    private EdgeList get_edges_for_node(Node node) {
+        EdgeList edges = new EdgeList();
+
+        for (Edge e : graph.getEdges()) {
+            if (e.getStart() != node || tree.contains_node(e.getEnd())) {
+                continue;
+            }
+
+            e.setHeuristicValue(calculate_heuristic_value(e, graph));
+            edges.add(e);
+        }
+
+        Collections.sort(edges, new HeuristicValueEdgeSorter());
+        return edges;
+    }
+
     private void add_best_edges_to_nh(EdgeList el, EdgeList edges) {
-//        for (int i = 0; i < (int) Math.ceil(edges.size() * 0.5); i++) {
-//            el.add(edges.get(i));
-//        }
-        el.addAll(edges);
+        for (int i = 0; i < (int) Math.ceil(edges.size() * 0.5); i++) {
+            el.add(edges.get(i));
+        }
+//        el.addAll(edges);
     }
 
     private void construct_broadcast_tree() {
         tree.insert(graph.start_node());
+        this.nh.addAll(get_neighborhood());
 
         long time = System.currentTimeMillis();
 
         while (!tree.valid(graph.size())) {
-            System.out.println("N" + id + " :" + tree.size());
-            EdgeList nh = calculate_probabilities_for_nh(get_neighborhood());
+            System.out.println("N" + id + " :" + tree.size()+"::"+nh.size());
+            EdgeList nh = calculate_probabilities_for_nh(filter_nh(this.nh));
             Collections.sort(nh, new EdgeCostSorter());
-            add_edges(nh, find_edge(nh));
+
+            update_nh(add_edges(nh, find_edge(nh)));
         }
 
         Utility.print_time(time);
+    }
+
+    private void update_nh(NodeList edgeList) {
+        for (Node n : edgeList) {
+            nh.addAll(get_edges_for_node(n));
+        }
+    }
+
+    private EdgeList filter_nh(EdgeList neighborhood) {
+        EdgeList n = new EdgeList();
+        add_best_edges_to_nh(n, neighborhood);
+        return n;
     }
 
     public Trie getTree() {
