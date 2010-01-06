@@ -136,7 +136,7 @@ public class Ant extends Thread {
         tree.insert(graph.start_node());
 
         while (!tree.valid(graph.size())) {
-            System.out.println("N" + id + " :" + tree.size());
+//            System.out.println("N" + id + " :" + tree.size());
             EdgeList nh = calculate_probabilities_for_nh(get_neighborhood());
             Collections.sort(nh, new EdgeCostSorter());
             add_edges(nh, find_edge(nh));

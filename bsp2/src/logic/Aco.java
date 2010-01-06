@@ -43,7 +43,13 @@ public class Aco {
 
             trieVisualizer.draw_trie(best);
             best.displayTree();
-        }        
+        }
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         return best;
     }

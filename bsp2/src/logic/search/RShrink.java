@@ -137,7 +137,9 @@ public class RShrink implements INeighborhood {
 
         while(level != 0){
             /*check parents at level*/
-            for(TrieNode node : getNodesAtLevel(best.getRoot(),level)){
+            TrieNodeList tnl =  getNodesAtLevel(best.getRoot(),level);
+            for(int i = 0; i < tnl.size();i++){
+                TrieNode node = tnl.get(0);
                 rshrink(best,node);
             }
             level--;
