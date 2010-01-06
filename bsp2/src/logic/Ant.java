@@ -25,9 +25,9 @@ public class Ant extends Thread {
     }
 
     public void run() {
-//        System.out.println("START CON");
+        System.out.println("START CON");
         construct_broadcast_tree();
-//        System.out.println("START LS");
+        System.out.println("START LS");
         local_search();
 
         this.aco.ant_done(this);
@@ -133,7 +133,7 @@ public class Ant extends Thread {
     }
 
     private void add_best_edges_to_nh(EdgeList el, EdgeList edges) {
-//        for (int i = 0; i < (int) Math.ceil(edges.size() * 0.1); i++) {
+//        for (int i = 0; i < (int) Math.ceil(edges.size() * 0.5); i++) {
 //            el.add(edges.get(i));
 //        }
         el.addAll(edges);
@@ -142,12 +142,16 @@ public class Ant extends Thread {
     private void construct_broadcast_tree() {
         tree.insert(graph.start_node());
 
+        long time = System.currentTimeMillis();
+
         while (!tree.valid(graph.size())) {
-//            System.out.println("N" + id + " :" + tree.size());
+            System.out.println("N" + id + " :" + tree.size());
             EdgeList nh = calculate_probabilities_for_nh(get_neighborhood());
             Collections.sort(nh, new EdgeCostSorter());
             add_edges(nh, find_edge(nh));
         }
+
+        Utility.print_time(time);
     }
 
     public Trie getTree() {

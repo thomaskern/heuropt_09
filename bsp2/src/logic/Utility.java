@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Utility {
 
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     public static Integer get_random_int(int max) {
         Random r = new Random();
@@ -24,5 +24,9 @@ public class Utility {
             c = 8;
 
         return DEBUG ? 1 : c;
+    }
+
+    public static void print_time(long time) {
+        System.out.println(System.currentTimeMillis() - time);
     }
 }
