@@ -26,9 +26,9 @@ public class Ant extends Thread {
     public void run() {
         this.nh = new EdgeList();
 
-        System.out.println("START CON");
+       /* System.out.println("START CON"); */
         construct_broadcast_tree();
-        System.out.println("START LS");
+       /* System.out.println("START LS"); */
         local_search();
 
         this.aco.ant_done(this);

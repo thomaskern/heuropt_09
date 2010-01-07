@@ -102,13 +102,17 @@ public class Aco {
         }
     }
 
+/*
+    private double differenceToBestInPerc(Trie trie){
 
+    }
+*/
     /* Calculates a pheromone update according to mmas */
     private double calculate_pheromone_update_for_best_edge(double ph, Trie max_min) {
         double new_ph;
         double cost = max_min.cost();
-        new_ph = check_for_phero_limits(ph + 1/cost);
-        System.out.println("Pheroupdate:" + Double.toString(new_ph));
+        new_ph = check_for_phero_limits(ph + 0.1);
+        System.out.println("Old Pheromones:" + Double.toString(ph) + " Pheroupdate:" + Double.toString(new_ph));
         return new_ph;
     }
 
