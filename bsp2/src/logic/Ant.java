@@ -42,7 +42,7 @@ public class Ant extends Thread {
         tree = v.run(tree);
     }
 
-    private Edge find_edge(EdgeList nh) {
+    private Edge find_edge_according_to_probability(EdgeList nh) {
         int next = Utility.get_random_int(100);
         double t = 0;
 
@@ -56,19 +56,19 @@ public class Ant extends Thread {
     }
 
     /* adds implicit edges? */
-    private NodeList add_edges(EdgeList nh, Edge _edge) {
+    private NodeList add_edges(EdgeList nh, Edge edge) {
         NodeList added_nodes = new NodeList();
-        if (_edge != null) {
-            added_nodes.add(_edge.getEnd());
+        if (edge != null) {
+            added_nodes.add(edge.getEnd());
 
-            for (Edge edge : nh) {
-                if (_edge.getStart() == edge.getStart() &&
-                        edge.cost() < _edge.cost() && !tree.contains_node(edge.getEnd())) {
-                    tree.insert(edge);
-                    added_nodes.add(edge.getEnd());
+            for (Edge e : nh) {
+                if (edge.getStart() == e.getStart() &&
+                        e.cost() < edge.cost() && !tree.contains_node(e.getEnd())) {
+                    tree.insert(e);
+                    added_nodes.add(e.getEnd());
                 }
             }
-            tree.insert(_edge);
+            tree.insert(edge);
         }
         return added_nodes;
     }
@@ -141,10 +141,10 @@ public class Ant extends Thread {
     }
 
     private void add_best_edges_to_nh(EdgeList el, EdgeList edges) {
-        for (int i = 0; i < (int) Math.ceil(edges.size() * 0.5); i++) {
-            el.add(edges.get(i));
-        }
-//        el.addAll(edges);
+//        for (int i = 0; i < (int) Math.ceil(edges.size() * 0.5); i++) {
+//            el.add(edges.get(i));
+//        }
+        el.addAll(edges);
     }
 
     private void construct_broadcast_tree() {
@@ -155,10 +155,10 @@ public class Ant extends Thread {
 
         while (!tree.valid(graph.size())) {
             System.out.println("N" + id + " :" + tree.size()+"::"+nh.size());
-            EdgeList nh = calculate_probabilities_for_nh(filter_nh(this.nh));
+            EdgeList nh = calculate_probabilities_for_nh(this.nh);
             Collections.sort(nh, new EdgeCostSorter());
 
-            update_nh(add_edges(nh, find_edge(nh)));
+            update_nh(add_edges(nh, find_edge_according_to_probability(nh)));
         }
 
         Utility.print_time(time);
@@ -167,6 +167,14 @@ public class Ant extends Thread {
     private void update_nh(NodeList edgeList) {
         for (Node n : edgeList) {
             nh.addAll(get_edges_for_node(n));
+        }
+
+
+        for(int i = 0; i<nh.size();i++){
+            if(edgeList.contains(nh.get(i).getEnd())){
+                nh.remove(i);
+                i--;
+            }
         }
     }
 

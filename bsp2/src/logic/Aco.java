@@ -24,7 +24,7 @@ public class Aco {
         this.phero_max = 1;
         this.phero_min = 0.001;
 
-        trieVisualizer = new TrieVisualizer();
+        trieVisualizer = new TrieVisualizer(-1000,0);
         this.trees = new TrieList();
         threads = new ArrayList<Ant>();
     }
@@ -33,7 +33,7 @@ public class Aco {
         this.ant_totals = ants;
         this.graph = graph;
 
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 50; i++) {
             run_ants();
             update_pheromone();
 
@@ -43,10 +43,12 @@ public class Aco {
 
             trieVisualizer.draw_trie(best);
             best.displayTree();
+            
         }
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(50000);
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
