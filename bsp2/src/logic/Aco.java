@@ -24,7 +24,7 @@ public class Aco {
         this.phero_max = 1;
         this.phero_min = 0.001;
 
-        trieVisualizer = new TrieVisualizer(-1000,0);
+        trieVisualizer = new TrieVisualizer(0, 0);
         this.trees = new TrieList();
         threads = new ArrayList<Ant>();
     }
@@ -43,19 +43,18 @@ public class Aco {
 
             trieVisualizer.draw_trie(best);
             best.displayTree();
-            
         }
 
         try {
-            Thread.sleep(50000);
-
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
         return best;
     }
-/* performs an evaporation on each possible edge*/
+
+    /* performs an evaporation on each possible edge*/
     private void evaporate_pheromones() {
         for (Node n1 : graph.getNodes()) {
             for (Node n2 : graph.getNodes()) {
@@ -68,14 +67,14 @@ public class Aco {
         }
     }
 
-/* calculates evaporation for the given edge according to this formula: Tij(t+1) = (1-p) * Tij(t)*/
+    /* calculates evaporation for the given edge according to this formula: Tij(t+1) = (1-p) * Tij(t)*/
     private double calculate_pheromone_update_for_evap(Node n1, Node n2) {
-        double tmp = graph.get_pheromone_for_edge(n1.getId(), n2.getId()) * (1-p);
+        double tmp = graph.get_pheromone_for_edge(n1.getId(), n2.getId()) * (1 - p);
         return check_for_phero_limits(tmp);
     }
 
     private double check_for_phero_limits(double tmp) {
-        return Math.max(Math.min(tmp,phero_max), phero_min);
+        return Math.max(Math.min(tmp, phero_max), phero_min);
     }
 
     private Trie find_best_tree() {
@@ -98,21 +97,20 @@ public class Aco {
             int from = trieNode.getParent().getDataNode().getId();
             int to = trieNode.getDataNode().getId();
             double ph = graph.get_pheromone_for_edge(from, to);
-            graph.update_pheromone_value(from, to, calculate_pheromone_update_for_best_edge(ph, max_min));
+            graph.update_pheromone_value(from, to, calculate_pheromone_update_for_best_edge(ph));
         }
     }
 
-/*
-    private double differenceToBestInPerc(Trie trie){
+    /*
+        private double differenceToBestInPerc(Trie trie){
 
-    }
-*/
+        }
+    */
     /* Calculates a pheromone update according to mmas */
-    private double calculate_pheromone_update_for_best_edge(double ph, Trie max_min) {
+    private double calculate_pheromone_update_for_best_edge(double ph) {
         double new_ph;
-        double cost = max_min.cost();
         new_ph = check_for_phero_limits(ph + 0.1);
-        System.out.println("Old Pheromones:" + Double.toString(ph) + " Pheroupdate:" + Double.toString(new_ph));
+//        System.out.println("Old Pheromones:" + Double.toString(ph) + " Pheroupdate:" + Double.toString(new_ph));
         return new_ph;
     }
 
