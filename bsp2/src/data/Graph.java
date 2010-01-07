@@ -12,7 +12,7 @@ public class Graph {
     private EdgeList edges;
 
     public Graph() {
-        create(0.5, 0.1, 0.5, 0.5);
+        create(1, 0.1, 0.5, 0.5);
     }
 
     public Graph(double pheromone_init, double pheromone_evaporation, double alpha, double beta) {
@@ -25,7 +25,7 @@ public class Graph {
         this.beta = beta;
         this.pheromone_init = pheromone_init;
         this.pheromone_evaporation = pheromone_evaporation;
-        this.pheromone_limits = new double[]{0.0, 10.0};
+        this.pheromone_limits = new double[]{0.0, 1.0};
     }
 
     public NodeList getNodes() {

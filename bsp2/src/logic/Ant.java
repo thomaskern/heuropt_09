@@ -26,9 +26,9 @@ public class Ant extends Thread {
     public void run() {
         this.nh = new EdgeList();
 
-        System.out.println("START CON");
+       /* System.out.println("START CON"); */
         construct_broadcast_tree();
-        System.out.println("START LS");
+       /* System.out.println("START LS"); */
         local_search();
 
         this.aco.ant_done(this);
@@ -154,7 +154,7 @@ public class Ant extends Thread {
         long time = System.currentTimeMillis();
 
         while (!tree.valid(graph.size())) {
-            System.out.println("N" + id + " :" + tree.size()+"::"+nh.size());
+ /*           System.out.println("N" + id + " :" + tree.size()+"::"+nh.size()); */
             EdgeList nh = calculate_probabilities_for_nh(filter_nh(this.nh));
             Collections.sort(nh, new EdgeCostSorter());
 
