@@ -10,7 +10,7 @@ import views.TrieVisualizer;
 
 import java.util.ArrayList;
 
-public class AcoHBF {
+public class AcoHBF extends Aco {
     private Trie Tib;
     private Trie Trb;
     private Trie Tbs;
@@ -63,7 +63,7 @@ public class AcoHBF {
     }
 
     private double gamma(Trie t,Node n1, Node n2){
-      
+        return 0;
     }
     private void  ApplyPheromoneUpdate(){
 
