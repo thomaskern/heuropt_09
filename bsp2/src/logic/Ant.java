@@ -4,6 +4,7 @@ import data.*;
 import data.tree.Trie;
 import logic.search.Vnd;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -26,9 +27,9 @@ public class Ant extends Thread {
     public void run() {
         this.nh = new EdgeList();
 
-       /* System.out.println("START CON"); */
+        /* System.out.println("START CON"); */
         construct_broadcast_tree();
-       /* System.out.println("START LS"); */
+        /* System.out.println("START LS"); */
         local_search();
 
         this.aco.ant_done(this);
@@ -74,21 +75,25 @@ public class Ant extends Thread {
     }
 
     private EdgeList calculate_probabilities_for_nh(EdgeList neighborhood) {
-        HashMap<Edge, Double> edge_costs = calculate_edge_costs(neighborhood);
-        double total = sum_costs(edge_costs);
-
+        double total = sum_costs(neighborhood);
+        ArrayList<Double> al = new ArrayList<Double>(neighborhood.size());
         for (Edge e : neighborhood) {
-            e.setProbability(calculate_probability_for_edge(e, edge_costs, total));
+            al.add(calculate_probability_for_edge(e, total));
+        }
+
+        Collections.reverse(al);
+        for (int i = 0; i < neighborhood.size(); i++) {
+            neighborhood.get(i).setProbability(al.get(i));
         }
 
         return neighborhood;
     }
 
-    private double sum_costs(HashMap<Edge, Double> edge_costs) {
+    private double sum_costs(EdgeList edges) {
         double cost = 0;
 
-        for (double v : edge_costs.values()) {
-            cost += v;
+        for (Edge e : edges) {
+            cost += e.getHeuristicValue();
         }
 
         return cost;
@@ -109,8 +114,8 @@ public class Ant extends Thread {
     }
 
     /*  - total are the full costs of the whole neighborhood */
-    private double calculate_probability_for_edge(Edge e, HashMap<Edge, Double> edge_costs, double total) {
-        return (edge_costs.get(e) * 100) / total;
+    private double calculate_probability_for_edge(Edge e, double total) {
+        return (e.getHeuristicValue() * 100) / total;
     }
 
     private EdgeList get_neighborhood() {
@@ -141,10 +146,10 @@ public class Ant extends Thread {
     }
 
     private void add_best_edges_to_nh(EdgeList el, EdgeList edges) {
-//        for (int i = 0; i < (int) Math.ceil(edges.size() * 0.5); i++) {
-//            el.add(edges.get(i));
-//        }
-        el.addAll(edges);
+        for (int i = 0; i < (int) Math.ceil(edges.size() * 0.6); i++) {
+            el.add(edges.get(i));
+        }
+//        el.addAll(edges);
     }
 
     private void construct_broadcast_tree() {
@@ -154,7 +159,7 @@ public class Ant extends Thread {
         long time = System.currentTimeMillis();
 
         while (!tree.valid(graph.size())) {
-            System.out.println("N" + id + " :" + tree.size()+"::"+nh.size());
+            System.out.println("N" + id + " :" + tree.size() + "::" + nh.size());
             EdgeList nh = calculate_probabilities_for_nh(this.nh);
             Collections.sort(nh, new EdgeCostSorter());
 
@@ -169,9 +174,8 @@ public class Ant extends Thread {
             nh.addAll(get_edges_for_node(n));
         }
 
-
-        for(int i = 0; i<nh.size();i++){
-            if(edgeList.contains(nh.get(i).getEnd())){
+        for (int i = 0; i < nh.size(); i++) {
+            if (edgeList.contains(nh.get(i).getEnd())) {
                 nh.remove(i);
                 i--;
             }

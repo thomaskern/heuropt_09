@@ -12,7 +12,7 @@ import views.TrieVisualizer;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class AcoHBF {
+public class AcoHBF extends Aco {
     private Trie Tib;
     private Trie Trb;
     private Trie Tbs;
@@ -66,6 +66,7 @@ public class AcoHBF {
 
     /* returns 1 wenn the given trie contains given edge */
     private double gamma(Trie t,Node n1, Node n2){
+
       TrieNode tn1 = t.find(n1.getId());
       TrieNode tn2 = t.find(n2.getId());
       if((tn1.getParent().equals(tn2)) || (tn2.getParent().equals(tn1))){
