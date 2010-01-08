@@ -2,6 +2,7 @@ package logic;
 
 import data.Graph;
 import data.Node;
+import data.NodeList;
 import data.tree.Trie;
 import data.tree.TrieList;
 import data.tree.TrieNode;
@@ -9,6 +10,7 @@ import data.tree.TrieNodeList;
 import views.TrieVisualizer;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class AcoHBF extends Aco {
     private Trie Tib;
@@ -62,9 +64,18 @@ public class AcoHBF extends Aco {
         return Tbs;
     }
 
+    /* returns 1 wenn the given trie contains given edge */
     private double gamma(Trie t,Node n1, Node n2){
-        return 0;
+
+      TrieNode tn1 = t.find(n1.getId());
+      TrieNode tn2 = t.find(n2.getId());
+      if((tn1.getParent().equals(tn2)) || (tn2.getParent().equals(tn1))){
+          return 1;
+      }else{
+          return 0;
+      }
     }
+
     private void  ApplyPheromoneUpdate(){
 
     }
