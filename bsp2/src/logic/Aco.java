@@ -21,7 +21,7 @@ public class Aco {
     private static double p = 0.1; /* Evaporation rate between 0 and 1*/
 
     public Aco() {
-        this.phero_max = 1;
+        this.phero_max = 0.9999;
         this.phero_min = 0.001;
 
         trieVisualizer = new TrieVisualizer(0, 0);
@@ -110,7 +110,7 @@ public class Aco {
     private double calculate_pheromone_update_for_best_edge(double ph) {
         double new_ph;
         new_ph = check_for_phero_limits(ph + 0.1);
-//        System.out.println("Old Pheromones:" + Double.toString(ph) + " Pheroupdate:" + Double.toString(new_ph));
+        System.out.println("Old Pheromones:" + Double.toString(ph) + " Pheroupdate:" + Double.toString(new_ph));
         return new_ph;
     }
 
