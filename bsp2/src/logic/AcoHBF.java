@@ -122,9 +122,6 @@ public class AcoHBF extends Aco {
         for (Edge e : graph.getEdges()) {
             ep = Kib * gamma(Tib, e) + Krb * gamma(Trb, e) + Kbs * gamma(Tbs, e);
 
-            if ((Kib != 0) || (Kbs != 0) || (Krb != 0)) {
-                System.out.println("Kib " + Double.toString(Kib) + "Krb " + Double.toString(Krb) + "Kbs " + Double.toString(Kbs));
-            }
             ph = graph.get_pheromone_for_edge(e);
             ph = Math.min(Math.max(phero_min, ph + p * (ep - ph)), phero_max);
 
@@ -133,12 +130,12 @@ public class AcoHBF extends Aco {
 
         if (bs_update == false) {
             if (cf < 0.7) {
-                this.Kib = 2 / 3;
-                this.Krb = 1 / 3;
+                this.Kib = 2.0 / 3.0;
+                this.Krb = 1.0 / 3.0;
                 this.Kbs = 0;
             } else if ((0.7 <= cf) && (cf < 0.9)) {
-                this.Kib = 1 / 3;
-                this.Krb = 2 / 3;
+                this.Kib = 1.0 / 3.0;
+                this.Krb = 2.0 / 3.0;
                 this.Kbs = 0;
             } else if (cf >= 0.9) {
                 this.Kib = 0;
