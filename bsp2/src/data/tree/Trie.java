@@ -105,7 +105,7 @@ public class Trie {
         if (show)
             System.out.println("...................................................... " + display_counter);
 
-        System.out.println("COST: " + cost());
+        System.out.println("COST: " + cost() + "(" + Math.cbrt(cost()) + ")");
 
         if (!show)
             print_parents();
