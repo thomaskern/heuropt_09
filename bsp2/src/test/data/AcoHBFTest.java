@@ -27,7 +27,7 @@ public class AcoHBFTest {
     @Test
     public void should_initiate_multiple_ants_on_large_dataset() {
         graph = Fixtures.parse("mebp/mebp-12.dat");
-        AcoHBF aco = new AcoHBF(0.1);
+        AcoHBF aco = new AcoHBF(0.18);
         Trie t = aco.run(graph, 4);
         assert t.valid(20);
     }

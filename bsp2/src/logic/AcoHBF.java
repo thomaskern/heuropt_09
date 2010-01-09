@@ -23,7 +23,6 @@ public class AcoHBF extends Aco {
     private double Krb;
     private double Kbs;
     private double cf;
-
     private boolean bs_update;
     private Graph graph;
     private int ant_totals;
@@ -36,11 +35,6 @@ public class AcoHBF extends Aco {
 
 
     public AcoHBF(double p) {
-        this.Kib = 1;
-        this.Krb = 0;
-        this.Kbs = 0;
-        this.cf = 0;
-        this.bs_update = false;
         this.phero_max = 0.99;
         this.phero_min = 0.01;
         this.p = p;
@@ -58,8 +52,8 @@ public class AcoHBF extends Aco {
         Tbs = null;
         Trb = null;
         this.Kib = 1;
-        this.Krb = 0;
-        this.Kbs = 0;
+        this.Krb = 1;
+        this.Kbs = 1;
 
         for (Edge e : graph.getEdges()) {
             graph.update_pheromone_value(e.getStart().getId(), e.getEnd().getId(), 0.5);
@@ -80,6 +74,7 @@ public class AcoHBF extends Aco {
             ApplyPheromoneUpdate();
 
             cf = computeConvergenceFactor();
+            System.out.println("Convergence Factor:" + Double.toString(cf));
 
             if (cf >= 0.99) {
                 if (bs_update == true) {
@@ -125,30 +120,35 @@ public class AcoHBF extends Aco {
         double ph;
 
         for (Edge e : graph.getEdges()) {
-            ep = Kib * gamma(Tib, e) + Krb * gamma(Trb, e) + Kbs * gamma(Trb, e);
+            ep = Kib * gamma(Tib, e) + Krb * gamma(Trb, e) + Kbs * gamma(Tbs, e);
+
+            if ((Kib != 0) || (Kbs != 0) || (Krb != 0)) {
+                System.out.println("Kib " + Double.toString(Kib) + "Krb " + Double.toString(Krb) + "Kbs " + Double.toString(Kbs));
+            }
             ph = graph.get_pheromone_for_edge(e);
             ph = Math.min(Math.max(phero_min, ph + p * (ep - ph)), phero_max);
-            graph.update_pheromone_value(e.getStart().getId(), e.getEnd().getId(), ph);
 
-            if(bs_update == false){
-                if(cf < 0.7){
-                    Kib = 2/3;
-                    Krb = 1/3;
-                    Kbs = 0;
-                }else if( (0.7 <= cf) && (cf < 0.9)){
-                    Kib = 1/3;
-                    Krb = 2/3;
-                    Kbs = 0;
-                }else if(cf >= 0.9){
-                    Kib = 0;
-                    Krb = 1;
-                    Kbs = 0;
-                }
-            }else{
+            graph.update_pheromone_value(e.getStart().getId(), e.getEnd().getId(), ph);
+        }
+
+        if (bs_update == false) {
+            if (cf < 0.7) {
+                this.Kib = 2 / 3;
+                this.Krb = 1 / 3;
+                this.Kbs = 0;
+            } else if ((0.7 <= cf) && (cf < 0.9)) {
+                this.Kib = 1 / 3;
+                this.Krb = 2 / 3;
+                this.Kbs = 0;
+            } else if (cf >= 0.9) {
                 this.Kib = 0;
-                this.Krb = 0;
-                this.Kbs = 1;
+                this.Krb = 1;
+                this.Kbs = 0;
             }
+        } else {
+            this.Kib = 0;
+            this.Krb = 0;
+            this.Kbs = 1;
         }
     }
 
@@ -168,13 +168,13 @@ public class AcoHBF extends Aco {
     }
 
     private void Update() {
-        if(Trb == null){
+        if (Trb == null) {
             Trb = Tib;
         }
-        if(Tbs == null){
+        if (Tbs == null) {
             Tbs = Tib;
         }
-        
+
         if (Tib.cost() < Trb.cost() && Tib.cost() < Tbs.cost()) {
             Trb = Tib;
             Tbs = Tib;
