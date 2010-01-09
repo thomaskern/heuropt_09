@@ -35,14 +35,14 @@ public class AcoHBF extends Aco {
     private double p = 0.1; /* Evaporation rate between 0 and 1*/
 
 
-    public AcoHBF(double Kib, double Krb, double Kbs, double p) {
-        this.Kib = Kib;
-        this.Krb = Krb;
-        this.Kbs = Kbs;
+    public AcoHBF(double p) {
+        this.Kib = 1;
+        this.Krb = 0;
+        this.Kbs = 0;
         this.cf = 0;
         this.bs_update = false;
-        this.phero_max = 1;
-        this.phero_min = 0.001;
+        this.phero_max = 0.99;
+        this.phero_min = 0.01;
         this.p = p;
 
         trieVisualizer = new TrieVisualizer(-1000, 0);
@@ -57,6 +57,9 @@ public class AcoHBF extends Aco {
         bs_update = false;
         Tbs = null;
         Trb = null;
+        this.Kib = 1;
+        this.Krb = 0;
+        this.Kbs = 0;
 
         for (Edge e : graph.getEdges()) {
             graph.update_pheromone_value(e.getStart().getId(), e.getEnd().getId(), 0.5);
@@ -162,6 +165,13 @@ public class AcoHBF extends Aco {
     }
 
     private void Update() {
+        if(Trb == null){
+            Trb = Tib;
+        }
+        if(Tbs == null){
+            Tbs = Tib;
+        }
+        
         if (Tib.cost() < Trb.cost() && Tib.cost() < Tbs.cost()) {
             Trb = Tib;
             Tbs = Tib;
