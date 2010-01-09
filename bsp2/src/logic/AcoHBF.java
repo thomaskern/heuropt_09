@@ -19,10 +19,14 @@ public class AcoHBF extends Aco {
     private Trie Tib;
     private Trie Trb;
     private Trie Tbs;
+    /*weight of trees*/
     private double Kib;
     private double Krb;
     private double Kbs;
+
+    /*convergence factor*/
     private double cf;
+    
     private boolean bs_update;
     private Graph graph;
     private int ant_totals;
@@ -34,6 +38,13 @@ public class AcoHBF extends Aco {
     private double p = 0.1; /* Evaporation rate between 0 and 1*/
 
 
+    /*
+     constructs a new ACO according to the
+        "Ant Colony Optimization for Energy-Efficient
+        Broadcasting in Ad-Hoc Networks"
+     paper
+     p is the learning rate
+     */
     public AcoHBF(double p) {
         this.phero_max = 0.99;
         this.phero_min = 0.01;
@@ -55,6 +66,7 @@ public class AcoHBF extends Aco {
         this.Krb = 1;
         this.Kbs = 1;
 
+        /*initializes pheromones on edges with 0.5*/
         for (Edge e : graph.getEdges()) {
             graph.update_pheromone_value(e.getStart().getId(), e.getEnd().getId(), 0.5);
         }
@@ -63,6 +75,7 @@ public class AcoHBF extends Aco {
             /*Construct trees */
             run_ants();
 
+            /*run localsearch on them*/
             run_local_search();
 
             if (Tib == null || Tib.cost() > find_best_tree().cost()) {
@@ -115,6 +128,11 @@ public class AcoHBF extends Aco {
         }
     }
 
+    /*
+     updates all the pheromones if edge belongs to one of the trees, ep is higher than 0
+     * and as a result there are some more pheromones on the edge. Influence of each tree is given by
+     * weights
+     */
     private void ApplyPheromoneUpdate() {
         double ep;
         double ph;
@@ -149,6 +167,7 @@ public class AcoHBF extends Aco {
         }
     }
 
+    /*computes convergence factor (sum of pheromone values on best tree)/(number of edges in this tree-1) * phero_max*/
     private double computeConvergenceFactor() {
         double sumph = 0;
         int edgecount = 0;
@@ -164,6 +183,7 @@ public class AcoHBF extends Aco {
         return (sumph / ((edgecount - 1) * phero_max));
     }
 
+    /*if the iteration best Tree is better than the others they are set to this tree*/
     private void Update() {
         if (Trb == null) {
             Trb = Tib;
