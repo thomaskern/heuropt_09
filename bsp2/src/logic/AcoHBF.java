@@ -93,6 +93,9 @@ public class AcoHBF extends Aco {
                 }
 
             }
+
+            trieVisualizer.draw_trie(Tbs);
+            Tbs.displayTree();
         }
 
         try {
