@@ -146,7 +146,7 @@ public class Ant extends Thread {
     }
 
     private void add_best_edges_to_nh(EdgeList el, EdgeList edges) {
-        for (int i = 0; i < (int) Math.ceil(edges.size() * 0.6); i++) {
+        for (int i = 0; i < (int) Math.ceil(edges.size() * 0.2); i++) {
             el.add(edges.get(i));
         }
 //        el.addAll(edges);
@@ -159,7 +159,7 @@ public class Ant extends Thread {
         long time = System.currentTimeMillis();
 
         while (!tree.valid(graph.size())) {
-            System.out.println("N" + id + " :" + tree.size() + "::" + nh.size());
+//            System.out.println("N" + id + " :" + tree.size() + "::" + nh.size());
             EdgeList nh = calculate_probabilities_for_nh(this.nh);
             Collections.sort(nh, new EdgeCostSorter());
 

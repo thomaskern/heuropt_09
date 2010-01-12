@@ -25,7 +25,7 @@ public class Graph {
         this.beta = beta;
         this.pheromone_init = pheromone_init;
         this.pheromone_evaporation = pheromone_evaporation;
-        this.pheromone_limits = new double[]{0.0, 1.0};
+        this.pheromone_limits = new double[]{0.0001, 0.9999};
     }
 
     public NodeList getNodes() {
