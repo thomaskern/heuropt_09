@@ -1,5 +1,6 @@
 package logic;
 
+import data.Edge;
 import data.Graph;
 import data.Node;
 import data.NodeList;
@@ -11,12 +12,22 @@ import views.TrieVisualizer;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import logic.search.Vnd;
 
 public class AcoHBF extends Aco {
+
     private Trie Tib;
     private Trie Trb;
     private Trie Tbs;
+    /*weight of trees*/
+    private double Kib;
+    private double Krb;
+    private double Kbs;
 
+    /*convergence factor*/
+    private double cf;
+    
+    private boolean bs_update;
     private Graph graph;
     private int ant_totals;
     private ArrayList<Ant> threads;
@@ -24,12 +35,22 @@ public class AcoHBF extends Aco {
     private double phero_max;
     private double phero_min;
     private TrieVisualizer trieVisualizer;
-    private static double p = 0.1; /* Evaporation rate between 0 and 1*/
+    private double p = 0.1; /* Evaporation rate between 0 and 1*/
 
-    public AcoHBF() {
-        this.phero_max = 1;
-        this.phero_min = 0.001;
-        trieVisualizer = new TrieVisualizer(-1000,0);
+
+    /*
+     constructs a new ACO according to the
+        "Ant Colony Optimization for Energy-Efficient
+        Broadcasting in Ad-Hoc Networks"
+     paper
+     p is the learning rate
+     */
+    public AcoHBF(double p) {
+        this.phero_max = 0.99;
+        this.phero_min = 0.01;
+        this.p = p;
+
+        trieVisualizer = new TrieVisualizer(-1000, 0);
         this.trees = new TrieList();
         threads = new ArrayList<Ant>();
     }
@@ -37,21 +58,52 @@ public class AcoHBF extends Aco {
     public Trie run(Graph graph, int ants) {
         this.ant_totals = ants;
         this.graph = graph;
+        this.cf = 0;
+        bs_update = false;
+        Tbs = null;
+        Trb = null;
+        this.Kib = 1;
+        this.Krb = 1;
+        this.Kbs = 1;
+
+        /*initializes pheromones on edges with 0.5*/
+        for (Edge e : graph.getEdges()) {
+            graph.update_pheromone_value(e.getStart().getId(), e.getEnd().getId(), 0.5);
+        }
 
         for (int i = 0; i < 50; i++) {
             /*Construct trees */
             run_ants();
-            if (Tib == null || Tib.cost() > find_best_tree().cost())
+
+            /*run localsearch on them*/
+            run_local_search();
+
+            if (Tib == null || Tib.cost() > find_best_tree().cost()) {
                 Tib = find_best_tree();
+            }
 
             Update();
 
             ApplyPheromoneUpdate();
 
-            evaporate_pheromones();
-            
+            cf = computeConvergenceFactor();
+            System.out.println("Convergence Factor:" + Double.toString(cf));
 
-            
+            if (cf >= 0.99) {
+                if (bs_update == true) {
+                    for (Edge e : graph.getEdges()) {
+                        graph.update_pheromone_value(e.getStart().getId(), e.getEnd().getId(), 0.5);
+                    }
+                    Trb = null;
+                    bs_update = false;
+                } else {
+                    bs_update = true;
+                }
+
+            }
+
+            trieVisualizer.draw_trie(Tbs);
+            Tbs.displayTree();
         }
 
         try {
@@ -65,62 +117,107 @@ public class AcoHBF extends Aco {
     }
 
     /* returns 1 wenn the given trie contains given edge */
-    private double gamma(Trie t,Node n1, Node n2){
+    private double gamma(Trie t, Edge e) {
 
-      TrieNode tn1 = t.find(n1.getId());
-      TrieNode tn2 = t.find(n2.getId());
-      if((tn1.getParent().equals(tn2)) || (tn2.getParent().equals(tn1))){
-          return 1;
-      }else{
-          return 0;
-      }
+        TrieNode tn1 = t.find(e.getStart().getId());
+        TrieNode tn2 = t.find(e.getEnd().getId());
+        if ((tn1.getParent().equals(tn2)) || (tn2.getParent().equals(tn1))) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
-    private void  ApplyPheromoneUpdate(){
+    /*
+     updates all the pheromones if edge belongs to one of the trees, ep is higher than 0
+     * and as a result there are some more pheromones on the edge. Influence of each tree is given by
+     * weights
+     */
+    private void ApplyPheromoneUpdate() {
+        double ep;
+        double ph;
 
+        for (Edge e : graph.getEdges()) {
+            ep = Kib * gamma(Tib, e) + Krb * gamma(Trb, e) + Kbs * gamma(Tbs, e);
+
+            ph = graph.get_pheromone_for_edge(e);
+            ph = Math.min(Math.max(phero_min, ph + p * (ep - ph)), phero_max);
+
+            graph.update_pheromone_value(e.getStart().getId(), e.getEnd().getId(), ph);
+        }
+
+        if (bs_update == false) {
+            if (cf < 0.7) {
+                this.Kib = 2.0 / 3.0;
+                this.Krb = 1.0 / 3.0;
+                this.Kbs = 0;
+            } else if ((0.7 <= cf) && (cf < 0.9)) {
+                this.Kib = 1.0 / 3.0;
+                this.Krb = 2.0 / 3.0;
+                this.Kbs = 0;
+            } else if (cf >= 0.9) {
+                this.Kib = 0;
+                this.Krb = 1;
+                this.Kbs = 0;
+            }
+        } else {
+            this.Kib = 0;
+            this.Krb = 0;
+            this.Kbs = 1;
+        }
     }
 
-    private void Update(){
-        if( Tib.cost() < Trb.cost() && Tib.cost() < Tbs.cost()){
+    /*computes convergence factor (sum of pheromone values on best tree)/(number of edges in this tree-1) * phero_max*/
+    private double computeConvergenceFactor() {
+        double sumph = 0;
+        int edgecount = 0;
+
+        for (TrieNode tn : Tbs.getTreeNodes()) {
+            TrieNodeList children = tn.getChildren();
+            for (TrieNode child : children) {
+                sumph = sumph + graph.get_pheromone_for_edge(tn.getId(), child.getId());
+                edgecount++;
+            }
+        }
+
+        return (sumph / ((edgecount - 1) * phero_max));
+    }
+
+    /*if the iteration best Tree is better than the others they are set to this tree*/
+    private void Update() {
+        if (Trb == null) {
+            Trb = Tib;
+        }
+        if (Tbs == null) {
+            Tbs = Tib;
+        }
+
+        if (Tib.cost() < Trb.cost() && Tib.cost() < Tbs.cost()) {
             Trb = Tib;
             Tbs = Tib;
         }
-    }
-
-/* performs an evaporation on each possible edge*/
-    private void evaporate_pheromones() {
-        for (Node n1 : graph.getNodes()) {
-            for (Node n2 : graph.getNodes()) {
-                graph.update_pheromone_value(
-                        n1.getId(),
-                        n2.getId(),
-                        calculate_pheromone_update_for_evap(n1, n2)
-                );
-            }
-        }
-    }
-
-/* calculates evaporation for the given edge according to this formula: Tij(t+1) = (1-p) * Tij(t)*/
-    private double calculate_pheromone_update_for_evap(Node n1, Node n2) {
-        double tmp = graph.get_pheromone_for_edge(n1.getId(), n2.getId()) * (1-p);
-        return check_for_phero_limits(tmp);
-    }
-
-    private double check_for_phero_limits(double tmp) {
-        return Math.max(Math.min(tmp,phero_max), phero_min);
     }
 
     private Trie find_best_tree() {
         Trie t = trees.get(0);
 
         for (int i = 1; i < trees.size(); i++) {
-            if (t.cost() > trees.get(i).cost())
+            if (t.cost() > trees.get(i).cost()) {
                 t = trees.get(i);
+            }
         }
         return t;
     }
 
-  
+    private TrieList run_local_search() {
+        Vnd vnd = new Vnd();
+
+        for (Trie t : this.trees) {
+            t = vnd.run(t);
+        }
+
+        return trees;
+    }
 
     private TrieList run_ants() {
         this.trees = new TrieList();
@@ -145,8 +242,9 @@ public class AcoHBF extends Aco {
                 a.start();
                 threads.add(a);
                 return true;
-            } else
+            } else {
                 return false;
+            }
         }
     }
 
@@ -155,7 +253,9 @@ public class AcoHBF extends Aco {
 
         while (b) {
             if (this.ant_count() < this.ant_totals) // creates less t.isAlive() checks/loops
+            {
                 continue;
+            }
 
             b = false;
             synchronized (threads) {
