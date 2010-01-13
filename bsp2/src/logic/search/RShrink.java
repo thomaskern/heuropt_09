@@ -45,7 +45,7 @@ public class RShrink implements INeighborhood {
             for (TrieNode fp : fosterParents) {
 
                 if (incrementalCostAtK(fp, tdc) < decrementalCostAtJ(node, tdc)) {
-                    if ((bestFP == null) || tdc.distance_to(bestFP) > tdc.distance_to(fp)) {
+                    if ((bestFP == null) || tdc.cost_to(bestFP) > tdc.cost_to(fp)) {
                         bestFP = fp;
                     }
                 }
@@ -64,9 +64,9 @@ public class RShrink implements INeighborhood {
     private double incrementalCostAtK(TrieNode nodei, TrieNode nodek) {
 
         if (nodei.hasChildren()) {
-            return nodei.distance_to(nodek) - nodei.costliest_edge(); /* result = Pik - Pij */
+            return nodei.cost_to(nodek) - nodei.costliest_edge(); /* result = Pik - Pij */
         } else {
-            return nodei.distance_to(nodek); /* result = Pik */
+            return nodei.cost_to(nodek); /* result = Pik */
         }
 
     }
@@ -74,7 +74,7 @@ public class RShrink implements INeighborhood {
     private double decrementalCostAtJ(TrieNode nodei, TrieNode nodek) {
 
         if (nodei.getChildren().size() > 1) {
-            return nodei.costliest_edge() - nodei.distance_to(nodek); /* Pij - Pik */
+            return nodei.costliest_edge() - nodei.cost_to(nodek); /* Pij - Pik */
         } else {
             return nodei.costliest_edge(); /* Pij */
         }
