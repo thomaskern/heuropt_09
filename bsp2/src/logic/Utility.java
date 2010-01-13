@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Utility {
 
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     public static Integer get_random_int(int max) {
         Random r = new Random();
@@ -27,6 +27,6 @@ public class Utility {
     }
 
     public static void print_time(long time) {
-        System.out.println(System.currentTimeMillis() - time);
+        System.out.println("Time used: " + (System.currentTimeMillis() - time));
     }
 }

@@ -109,7 +109,7 @@ public class Sweep {
         }
 
         tree.displayTree();
-        System.out.println("SIZE: " + tree.size() + ", COST: " + tree.cost());
+//        System.out.println("SIZE: " + tree.size() + ", COST: " + tree.cost());
 
     }
 

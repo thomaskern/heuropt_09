@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class Diagram extends Panel {
     private Trie trie;
-    private int scale = 2;
+    private int scale = 1;
 
     public void draw_list(Trie tree) {
         trie = tree;
@@ -73,8 +73,11 @@ public class Diagram extends Panel {
         if (c != parent_color) {
             g.setColor(parent_color);
             int add = 10;
+
             if(node.getId() > 9)
                 add = 20;
+            if(node.getId() > 99)
+                add = 50;
 
             g.drawString("/" + node.getId(), (int) (node.getX() + add)/scale, (int) (node.getY() + 5)/scale);
             g.setColor(c);

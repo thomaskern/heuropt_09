@@ -15,6 +15,7 @@ public class AcoHBFTest {
     @BeforeMethod
     public void before_method() {
         graph = Fixtures.parse("mebp/mebp-06.dat");
+
     }
 
     @Test
@@ -33,6 +34,7 @@ public class AcoHBFTest {
         graph.setAlpha(0.4);
         graph.setBeta(0.6);
         
+
         AcoHBF aco = new AcoHBF(0.18);
         Trie t = aco.run(graph, 4);
         assert t.valid(20);

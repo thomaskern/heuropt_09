@@ -21,7 +21,7 @@ public class Aco {
     private static double p = 0.1; /* Evaporation rate between 0 and 1*/
 
     public Aco() {
-        this.phero_max = 1;
+        this.phero_max = 0.9999;
         this.phero_min = 0.001;
 
         trieVisualizer = new TrieVisualizer(0, 0);
@@ -46,7 +46,7 @@ public class Aco {
         }
 
         try {
-            Thread.sleep(5000);
+            Thread.sleep(0);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
