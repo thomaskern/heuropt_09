@@ -13,7 +13,7 @@ public class TrieVisualizer extends Frame {
 
     private void create(int i, int i1) {
         addPanel();
-        this.setBounds(i,i1,600,600);
+        this.setBounds(i,i1,1200,600);
         this.setVisible(true);
     }
 

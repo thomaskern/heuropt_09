@@ -166,7 +166,7 @@ public class Ant extends Thread {
             update_nh(add_edges(nh, find_edge_according_to_probability(nh)));
         }
 
-        Utility.print_time(time);
+//        Utility.print_time(time);
     }
 
     private void update_nh(NodeList edgeList) {
