@@ -96,6 +96,10 @@ public class TrieNode implements Comparable<TrieNode> {
         return Math.cbrt(costliest_edge());
     }
 
+    public double cost_to(TrieNode node){
+        return Math.pow(distance_to(node),3);
+    }
+
     public double distance_to(TrieNode worked_on_root_node) {
         return data_node.distance_to(worked_on_root_node.getDataNode());
     }
