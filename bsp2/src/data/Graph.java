@@ -97,6 +97,7 @@ public class Graph {
         return pheromone_limits;
     }
 
+
     public double getBeta() {
         return beta;
     }
@@ -105,6 +106,13 @@ public class Graph {
         return alpha;
     }
 
+    public void setBeta(double beta) {
+        this.beta = beta;
+    }
+
+    public void setAlpha(double alpha) {
+        this.alpha = alpha;
+    }
     public EdgeList getEdges() {
         return edges;
     }

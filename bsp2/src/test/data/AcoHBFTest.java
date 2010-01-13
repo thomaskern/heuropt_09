@@ -14,19 +14,25 @@ public class AcoHBFTest {
 
     @BeforeMethod
     public void before_method() {
-        graph = Fixtures.parse("mebp/mebp-01.dat");
+        graph = Fixtures.parse("mebp/mebp-06.dat");
     }
 
     @Test
     public void should_initiate_multiple_ants() {
         AcoHBF aco = new AcoHBF(0.1);
-        Trie t = aco.run(graph, 4);
+        graph.setAlpha(0.45);
+        graph.setBeta(0.55);
+
+        Trie t = aco.run(graph, 6);
         assert t.valid(20);
     }
 
     @Test
     public void should_initiate_multiple_ants_on_large_dataset() {
         graph = Fixtures.parse("mebp/mebp-12.dat");
+        graph.setAlpha(0.4);
+        graph.setBeta(0.6);
+        
         AcoHBF aco = new AcoHBF(0.18);
         Trie t = aco.run(graph, 4);
         assert t.valid(20);
