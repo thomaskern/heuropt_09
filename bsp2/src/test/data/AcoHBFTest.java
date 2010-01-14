@@ -20,12 +20,12 @@ public class AcoHBFTest {
 
     @Test
     public void should_initiate_multiple_ants() {
-        AcoHBF aco = new AcoHBF(0.1);
-        graph.setAlpha(0.45);
-        graph.setBeta(0.55);
+        AcoHBF aco = new AcoHBF(0.15);
+        graph.setAlpha(0.40);
+        graph.setBeta(0.60);
 
         Trie t = aco.run(graph, 6);
-        assert t.valid(20);
+        assert t.valid(50);
     }
 
     @Test
