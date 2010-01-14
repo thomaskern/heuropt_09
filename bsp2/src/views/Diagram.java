@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class Diagram extends Panel {
     private Trie trie;
-    private int scale = 1;
+    private int scale = 2;
 
     public void draw_list(Trie tree) {
         trie = tree;

@@ -5,6 +5,7 @@ import data.Graph;
 import data.Node;
 import data.tree.Trie;
 import logic.Aco;
+import logic.AcoHBF;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -72,7 +73,7 @@ public class AcoTest {
 
         for (int i = 0; i < 5; i++) {
             graph = Fixtures.parse("mebp/mebp-" + file + ".dat");
-            Aco aco = new Aco();
+            Aco aco = new AcoHBF(0.1);
             Trie t = aco.run(graph, 4);
             results[i] = t.cost();
 
