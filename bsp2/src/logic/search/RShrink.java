@@ -14,6 +14,7 @@ import java.util.Iterator;
 public class RShrink implements INeighborhood {
 
     private int r; /* the r-shrink r value */
+
     private final int max_level;
 
     /**
@@ -29,6 +30,33 @@ public class RShrink implements INeighborhood {
         this.max_level = 0;
     }
 
+//    private void rshrink(Trie best, TrieNode node) {
+//        sort_kids(node);
+//        int size = node.getChildren().size();
+//        int count = 0;
+//        TrieNode tdc = null; /* temporarily disconnected child*/
+//        TrieNodeList fosterParents = null;
+//        TrieNodeList children = new TrieNodeList();
+//        children.addAll(node.getChildren());
+//
+//        while ((size > 0) && (count < size) && (count < r)) {
+//            tdc = children.get(count);
+//            fosterParents = getFosterParents(best, tdc);
+//            TrieNode bestFP = null;
+//            for (TrieNode fp : fosterParents) {
+//
+//                if (incrementalCostAtK(fp, tdc) < decrementalCostAtJ(node, tdc)) {
+//                    if ((bestFP == null) || tdc.cost_to(bestFP) > tdc.cost_to(fp)) {
+//                        bestFP = fp;
+//                    }
+//                }
+//            }
+//            if (bestFP != null) {
+//                best.swap_node(tdc, bestFP);
+//            }
+//            count++;
+//        }
+//    }
     private void rshrink(Trie best, TrieNode node) {
         sort_kids(node);
         int size = node.getChildren().size();
@@ -42,13 +70,12 @@ public class RShrink implements INeighborhood {
             tdc = children.get(count);
             fosterParents = getFosterParents(best, tdc);
             TrieNode bestFP = null;
-            for (TrieNode fp : fosterParents) {
 
-                if (incrementalCostAtK(fp, tdc) < decrementalCostAtJ(node, tdc)) {
+            //disconnect r costliest nodes
+            for (TrieNode fp : fosterParents) {
                     if ((bestFP == null) || tdc.cost_to(bestFP) > tdc.cost_to(fp)) {
                         bestFP = fp;
                     }
-                }
             }
             if (bestFP != null) {
                 best.swap_node(tdc, bestFP);
@@ -82,7 +109,6 @@ public class RShrink implements INeighborhood {
     }
 
     /* returns the nondescendants of node, excluding its parent */
-
     private TrieNodeList getFosterParents(Trie best, TrieNode node) {
         Iterator<TrieNode> it = best.getTreeNodes().iterator();
         TrieNodeList fpa = getNonDescendants(best, node);
@@ -92,7 +118,6 @@ public class RShrink implements INeighborhood {
     }
 
     /* returns the nondescendants of node*/
-
     private TrieNodeList getNonDescendants(Trie best, TrieNode node) {
         TrieNodeList nd = new TrieNodeList();
         Iterator<TrieNode> it = null;

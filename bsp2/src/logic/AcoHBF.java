@@ -71,7 +71,7 @@ public class AcoHBF extends Aco {
             graph.update_pheromone_value(e.getStart().getId(), e.getEnd().getId(), 0.5);
         }
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 1500; i++) {
             /*Construct trees */
             run_ants();
 
