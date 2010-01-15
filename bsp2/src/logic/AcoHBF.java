@@ -2,17 +2,14 @@ package logic;
 
 import data.Edge;
 import data.Graph;
-import data.Node;
-import data.NodeList;
 import data.tree.Trie;
 import data.tree.TrieList;
 import data.tree.TrieNode;
 import data.tree.TrieNodeList;
+import logic.search.Vnd;
 import views.TrieVisualizer;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import logic.search.Vnd;
 
 public class AcoHBF extends Aco {
 
@@ -26,7 +23,7 @@ public class AcoHBF extends Aco {
 
     /*convergence factor*/
     private double cf;
-    
+
     private boolean bs_update;
     private Graph graph;
     private int ant_totals;
@@ -71,7 +68,7 @@ public class AcoHBF extends Aco {
             graph.update_pheromone_value(e.getStart().getId(), e.getEnd().getId(), 0.5);
         }
 
-        for (int i = 0; i < 200; i++) {
+        for (int i = 0; i < 1500; i++) {
             /*Construct trees */
             run_ants();
 
@@ -79,7 +76,7 @@ public class AcoHBF extends Aco {
             run_local_search();
 
 //            if (Tib == null || Tib.cost() > find_best_tree().cost()) {
-                Tib = find_best_tree();
+            Tib = find_best_tree();
 //            }
 
             Update();
@@ -103,7 +100,7 @@ public class AcoHBF extends Aco {
             }
 
             trieVisualizer.draw_trie(Tbs);
-            System.out.println("COST: " + Tbs.cost() + " (" + (int)Math.cbrt(Tbs.cost()) + ")");
+            System.out.println("COST: " + Tbs.cost() + " (" + (int) Math.cbrt(Tbs.cost()) + ")");
 //            Tbs.displayTree();
         }
 
