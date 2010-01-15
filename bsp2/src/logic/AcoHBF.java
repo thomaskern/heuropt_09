@@ -71,16 +71,16 @@ public class AcoHBF extends Aco {
             graph.update_pheromone_value(e.getStart().getId(), e.getEnd().getId(), 0.5);
         }
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 200; i++) {
             /*Construct trees */
             run_ants();
 
             /*run localsearch on them*/
             run_local_search();
 
-            if (Tib == null || Tib.cost() > find_best_tree().cost()) {
+//            if (Tib == null || Tib.cost() > find_best_tree().cost()) {
                 Tib = find_best_tree();
-            }
+//            }
 
             Update();
 
@@ -103,15 +103,16 @@ public class AcoHBF extends Aco {
             }
 
             trieVisualizer.draw_trie(Tbs);
-            Tbs.displayTree();
+            System.out.println("COST: " + Tbs.cost() + " (" + (int)Math.cbrt(Tbs.cost()) + ")");
+//            Tbs.displayTree();
         }
 
-        try {
-            Thread.sleep(50000);
+//        try {
+//            Thread.sleep(50000);
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         return Tbs;
     }

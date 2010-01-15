@@ -111,6 +111,7 @@ public class Ant extends Thread {
 
     private Double calculate_heuristic_value(Edge e, Graph graph) {
         return Math.pow(graph.get_pheromone_for_edge(e), graph.getAlpha()) * Math.pow(e.cost(), graph.getBeta());
+//        return graph.get_pheromone_for_edge(e) * e.cost();
     }
 
     /*  - total are the full costs of the whole neighborhood */

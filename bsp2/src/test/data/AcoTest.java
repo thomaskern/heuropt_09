@@ -27,7 +27,21 @@ public class AcoTest {
 
     @Test
     public void should_run_test_instance_6() {
-        run_instance_avg("06");
+        double[] results = new double[10];
+        String file = "06";
+//        run_instance_avg("06");
+        for (int i = 0; i < results.length; i++) {
+            graph = Fixtures.parse("mebp/mebp-" + file + ".dat");
+            Aco aco = new AcoHBF(0.1);
+            graph.setAlpha(0.1 * i);
+            graph.setBeta(1 - 0.1 * i);
+            Trie t = aco.run(graph, 4);
+            results[i] = t.cost();
+        }
+
+        for (Double d : results) {
+            System.out.println("Cost for Trie: " + Math.cbrt(d));
+        }
     }
 
     @Test
@@ -49,19 +63,19 @@ public class AcoTest {
         Node root = graph.getNodes().get(0);
         double d = 10000;
 
-        for(Node n : graph.getNodes()){
-            if(n == root)
+        for (Node n : graph.getNodes()) {
+            if (n == root)
                 continue;
 
-            if(d > root.distance_to(n))
-            d =root.distance_to(n);
+            if (d > root.distance_to(n))
+                d = root.distance_to(n);
 
             System.out.println(root.distance_to(n));
         }
 
         System.out.println("SHIT");
 
-        System.out.println(Math.cbrt(67371) );
+        System.out.println(Math.cbrt(67371));
         System.out.println(d);
 
 
@@ -70,7 +84,7 @@ public class AcoTest {
 
     private void run_instance_avg(String file) {
         double[] results = new double[5];
-
+//        System.out.println(Math.cbrt(68440173));
         for (int i = 0; i < 5; i++) {
             graph = Fixtures.parse("mebp/mebp-" + file + ".dat");
             Aco aco = new AcoHBF(0.1);
@@ -78,6 +92,7 @@ public class AcoTest {
             results[i] = t.cost();
 
         }
+
 
         for (Double d : results) {
             System.out.println("Cost for Trie: " + Math.cbrt(d));
