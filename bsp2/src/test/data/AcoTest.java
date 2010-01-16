@@ -32,7 +32,7 @@ public class AcoTest {
 //        run_instance_avg("06");
         for (int i = 0; i < results.length; i++) {
             graph = Fixtures.parse("mebp/mebp-" + file + ".dat");
-            Aco aco = new AcoHbf(0.1);
+            Aco aco = new AcoHbf(0.6);
             graph.setAlpha(0.1 * i);
             graph.setBeta(1 - 0.1 * i);
             Trie t = aco.run(graph, 4);
