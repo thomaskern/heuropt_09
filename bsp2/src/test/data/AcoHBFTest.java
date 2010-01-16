@@ -3,8 +3,7 @@ package test.data;
 import data.Fixtures;
 import data.Graph;
 import data.tree.Trie;
-import logic.Aco;
-import logic.AcoHBF;
+import logic.AcoHbf;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -20,7 +19,7 @@ public class AcoHBFTest {
 
     @Test
     public void should_initiate_multiple_ants() {
-        AcoHBF aco = new AcoHBF(0.09);
+        AcoHbf aco = new AcoHbf(0.09);
         graph.setAlpha(0.50);
         graph.setBeta(0.50);
 
@@ -35,7 +34,7 @@ public class AcoHBFTest {
         graph.setBeta(0.6);
         
 
-        AcoHBF aco = new AcoHBF(0.10);
+        AcoHbf aco = new AcoHbf(0.10);
         Trie t = aco.run(graph, 3);
         assert t.valid(20);
     }

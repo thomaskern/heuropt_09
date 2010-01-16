@@ -11,7 +11,7 @@ import views.TrieVisualizer;
 
 import java.util.ArrayList;
 
-public class AcoHBF extends Aco {
+public class AcoHbf extends Aco {
 
     private Trie Tib;
     private Trie Trb;
@@ -42,7 +42,7 @@ public class AcoHBF extends Aco {
      paper
      p is the learning rate
      */
-    public AcoHBF(double p) {
+    public AcoHbf(double p) {
         this.phero_max = 0.99;
         this.phero_min = 0.01;
         this.p = p;

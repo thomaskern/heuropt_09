@@ -5,7 +5,7 @@ import data.Graph;
 import data.Node;
 import data.tree.Trie;
 import logic.Aco;
-import logic.AcoHBF;
+import logic.AcoHbf;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -32,7 +32,7 @@ public class AcoTest {
 //        run_instance_avg("06");
         for (int i = 0; i < results.length; i++) {
             graph = Fixtures.parse("mebp/mebp-" + file + ".dat");
-            Aco aco = new AcoHBF(0.1);
+            Aco aco = new AcoHbf(0.1);
             graph.setAlpha(0.1 * i);
             graph.setBeta(1 - 0.1 * i);
             Trie t = aco.run(graph, 4);
@@ -87,7 +87,7 @@ public class AcoTest {
 //        System.out.println(Math.cbrt(68440173));
         for (int i = 0; i < 5; i++) {
             graph = Fixtures.parse("mebp/mebp-" + file + ".dat");
-            Aco aco = new AcoHBF(0.1);
+            Aco aco = new AcoHbf(0.1);
             Trie t = aco.run(graph, 4);
             results[i] = t.cost();
 
