@@ -73,7 +73,7 @@ public class RShrink implements INeighborhood {
 
             //disconnect r costliest nodes
             for (TrieNode fp : fosterParents) {
-                    if ((bestFP == null) || tdc.cost_to(bestFP) > tdc.cost_to(fp)) {
+                    if ((bestFP == null) || tdc.cost_to(bestFP) >= tdc.cost_to(fp)) {
                         bestFP = fp;
                     }
             }
