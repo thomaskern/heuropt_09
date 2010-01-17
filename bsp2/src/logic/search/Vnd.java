@@ -6,7 +6,7 @@ public class Vnd implements ISearch {
 
     public Trie run(Trie tree) {
         Trie best = tree;
-        int l_max = tree.size() - 2;
+        int l_max = 10;
         int l = 1;
 
         do {
