@@ -1,3 +1,6 @@
 .idea/
 *.class
 dist/
+*.aux
+*.gz
+*.log

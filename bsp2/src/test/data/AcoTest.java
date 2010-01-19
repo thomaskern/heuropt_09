@@ -9,6 +9,8 @@ import logic.AcoHbf;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+
 public class AcoTest {
 
     private Graph graph;
@@ -27,21 +29,29 @@ public class AcoTest {
 
     @Test
     public void should_run_test_instance_6() {
-        double[] results = new double[10];
+        run_instance_avg("06");
+    }
+
+    @Test
+    public void should_configure_alpha_beta() {
+
+        ArrayList<String> as = new ArrayList<String>();
         String file = "06";
-//        run_instance_avg("06");
-        for (int i = 0; i < results.length; i++) {
-            graph = Fixtures.parse("mebp/mebp-" + file + ".dat");
-            Aco aco = new AcoHbf(0.6);
-            graph.setAlpha(0.1 * i);
-            graph.setBeta(1 - 0.1 * i);
-            Trie t = aco.run(graph, 4);
-            results[i] = t.cost();
+
+        for (int i = 4; i < 6; i++) {
+            for (int b = 0; b < 10; b++) {
+                graph = Fixtures.parse("mebp/mebp-" + file + ".dat");
+                Aco aco = new AcoHbf(0.1);
+                graph.setAlpha(0.1 * i);
+                graph.setBeta(1 - 0.1 * b);
+                Trie t = aco.run(graph, 4);
+//                as.add("Alpha: " + (0.1 * i) + ", Beta: " + (1 - 0.1 * b) + ", Cost for Trie: " + Math.cbrt(t.cost()));
+                System.out.println("Alpha: " + (0.1 * i) + ", Beta: " + (1 - 0.1 * b) + ", Cost for Trie: " + Math.cbrt(t.cost()));
+            }
         }
 
-        for (Double d : results) {
-            System.out.println("Cost for Trie: " + Math.cbrt(d));
-        }
+        for(String s : as)
+            System.out.println(s);
     }
 
     @Test
@@ -82,11 +92,13 @@ public class AcoTest {
         run_instance_avg("10");
     }
 
+
     private void run_instance_avg(String file) {
         double[] results = new double[5];
 //        System.out.println(Math.cbrt(68440173));
         for (int i = 0; i < 5; i++) {
             graph = Fixtures.parse("mebp/mebp-" + file + ".dat");
+            graph.setBeta(0.8);
             Aco aco = new AcoHbf(0.1);
             Trie t = aco.run(graph, 4);
             results[i] = t.cost();

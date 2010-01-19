@@ -4,7 +4,7 @@
     <classes>
       <class name="test.data.AcoTest">
         <methods>
-          <include name="should_run_test_instance_6"/>
+          <include name="should_configure_alpha_beta"/>
           <include name="before_method"/>
         </methods>
       </class>

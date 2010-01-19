@@ -12,7 +12,7 @@ public class Graph {
     private EdgeList edges;
 
     public Graph() {
-        create(1, 0.1, 1, 1);
+        create(1, 0.1, 0.4, 0.9);
     }
 
     public Graph(double pheromone_init, double pheromone_evaporation, double alpha, double beta) {
