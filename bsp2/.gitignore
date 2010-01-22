@@ -4,3 +4,4 @@ dist/
 *.aux
 *.gz
 *.log
+*.txt

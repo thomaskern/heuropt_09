@@ -11,11 +11,15 @@ class FileLogger extends Logger {
         this.mask = mask;
     }
 
-    protected void writeMessage(String msg) {
+    protected void writeMessage(String msg, boolean b) {
         try {
             FileWriter fstream = new FileWriter("logs/" + filename, true);
             BufferedWriter out = new BufferedWriter(fstream);
-            out.write(msg + "\n");
+            
+            if (b)
+                out.write(msg + "\n");
+            else
+                out.write(msg);
             out.close();
         }
         catch (Exception e) {

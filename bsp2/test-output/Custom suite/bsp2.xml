@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="bsp2" failures="0" tests="1" time="98.144" errors="0">
+<testsuite name="bsp2" failures="0" tests="1" time="6.521" errors="0">
   <properties/>
-  <testcase name="should_configure_alpha_beta" time="98.122" classname="test.data.AcoTest"/>
+  <testcase name="should_run_test_instance_6" time="6.499" classname="test.data.AcoTest"/>
 </testsuite>

@@ -6,7 +6,10 @@ class StdoutLogger extends Logger {
         this.mask = mask;
     }
 
-    protected void writeMessage(String msg) {
-        System.out.println("Writing to stdout: " + msg);
+    protected void writeMessage(String msg, boolean b) {
+        if(b)
+            System.out.println("Writing to stdout: " + msg);
+        else
+            System.out.print("Writing to stdout: " + msg);
     }
 }

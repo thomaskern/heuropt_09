@@ -1,5 +1,8 @@
 package logic;
 
+import logic.logger.Logger;
+import logic.logger.LoggerFactory;
+
 import java.io.File;
 import java.util.Random;
 
@@ -26,7 +29,13 @@ public class Utility {
         return DEBUG ? 1 : c;
     }
 
-    public static void print_time(long time) {
-        System.out.println("Time used: " + (System.currentTimeMillis() - time));
+    public static void print_time(long start) {
+        print_time(start, System.currentTimeMillis());
+
+    }
+
+    public static void print_time(long start, long end) {
+        LoggerFactory.get().message("Time used: " + (end - start) / 1000.00);
+//        System.out.println();
     }
 }

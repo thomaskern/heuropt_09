@@ -3,6 +3,8 @@ package data.tree;
 import data.Edge;
 import data.Node;
 import data.NodeList;
+import logic.logger.Logger;
+import logic.logger.LoggerFactory;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -97,15 +99,20 @@ public class Trie {
 
     // returns the number of visited nodes
     public int displayTree(boolean show) {
+        Logger li = LoggerFactory.get();
         int nBlanks = 4;
-        if (show)
-            System.out.println("......................................................");
+        if (show){
+            li.message("......................................................");
+        }
+
         display_counter = 0;
         _displayTree(root, 0, nBlanks, show);
-        if (show)
-            System.out.println("...................................................... " + display_counter);
+        if (show){
+            li.message("...................................................... " + display_counter);
+        }
 
-        System.out.println("COST: " + cost() + " (" + (int)Math.cbrt(cost()) + ")");
+
+        li.message("COST: " + cost() + " (" + (int)Math.cbrt(cost()) + ")");
 
         if (!show)
             print_parents();
@@ -124,10 +131,14 @@ public class Trie {
     }
 
     private void _displayTree(TrieNode tn, int level, int nBlanks, boolean show) {
+        Logger li = LoggerFactory.get();
         if (show) {
-            for (int j = 0; j < nBlanks * level; j++)
-                System.out.print(' ');
-            System.out.print(tn.getId() + "(" + tn.getParent().getId() + "), (CTP: " + tn.getDataNode().distance_to(tn.getParent().getDataNode()) + "), (CE: " + (int) tn.costliest_edge() + ")\n");
+            for (int j = 0; j < nBlanks * level; j++){
+                li.message(" ", false);
+            }
+                
+            li.message(tn.getId() + "(" + tn.getParent().getId() + "), (CTP: " + tn.getDataNode().distance_to(tn.getParent().getDataNode()) + "), (CE: " + (int) tn.costliest_edge() + ")");
+//            System.out.print(tn.getId() + "(" + tn.getParent().getId() + "), (CTP: " + tn.getDataNode().distance_to(tn.getParent().getDataNode()) + "), (CE: " + (int) tn.costliest_edge() + ")\n");
         }
 
         display_counter++;

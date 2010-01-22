@@ -6,6 +6,9 @@ import data.Node;
 import data.tree.Trie;
 import logic.Aco;
 import logic.AcoHbf;
+import logic.Utility;
+import logic.logger.Logger;
+import logic.logger.LoggerFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -50,7 +53,7 @@ public class AcoTest {
             }
         }
 
-        for(String s : as)
+        for (String s : as)
             System.out.println(s);
     }
 
@@ -83,8 +86,6 @@ public class AcoTest {
             System.out.println(root.distance_to(n));
         }
 
-        System.out.println("SHIT");
-
         System.out.println(Math.cbrt(67371));
         System.out.println(d);
 
@@ -96,18 +97,28 @@ public class AcoTest {
     private void run_instance_avg(String file) {
         double[] results = new double[5];
 //        System.out.println(Math.cbrt(68440173));
-        for (int i = 0; i < 5; i++) {
-            graph = Fixtures.parse("mebp/mebp-" + file + ".dat");
-            graph.setBeta(0.8);
-            Aco aco = new AcoHbf(0.1);
-            Trie t = aco.run(graph, 4);
-            results[i] = t.cost();
 
+
+        for (int i = 0; i < 1; i++) {
+            graph = Fixtures.parse("mebp/mebp-" + file + ".dat");
+//            graph.setBeta(0.8);
+            Logger li = LoggerFactory.create("file_" + file + "_it_" + i, "file_" + file + "_it_" + i + ".txt");
+            Aco aco = new AcoHbf(0.1);
+
+            long start_time = System.currentTimeMillis();
+            Trie t = aco.run(graph, 4);
+            long end_time = System.currentTimeMillis();
+
+
+            results[i] = t.cost();
+            t.displayTree();
+            Utility.print_time(start_time, end_time);
         }
 
 
+        Logger li = LoggerFactory.create("file_06_analysis", "file_06_analysis.txt");
         for (Double d : results) {
-            System.out.println("Cost for Trie: " + Math.cbrt(d));
+            li.message("Cost for Trie: " + Math.cbrt(d));
         }
     }
 

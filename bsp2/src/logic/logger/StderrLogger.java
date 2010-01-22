@@ -6,7 +6,7 @@ class StderrLogger extends Logger {
         this.mask = mask;
     }
 
-    protected void writeMessage(String msg) {
+    protected void writeMessage(String msg, boolean b) {
         System.err.println("Sending to stderr: " + msg);
     }
 }

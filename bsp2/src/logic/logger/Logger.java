@@ -17,14 +17,14 @@ public abstract class Logger {
 
     public void message(String msg, int priority) {
         if (priority <= mask) {
-            writeMessage(msg);
+            writeMessage(msg, true);
         }
         if (next != null) {
             next.message(msg, priority);
         }
     }
 
-    abstract protected void writeMessage(String msg);
+    abstract protected void writeMessage(String msg, boolean b);
 
     public void message(String s) {
         message(s, 0);
@@ -34,6 +34,14 @@ public abstract class Logger {
         File dir = new File("logs/");
         for(File f : dir.listFiles()){
             f.delete();
+        }
+    }
+
+    public void message(String msg, boolean linebreak) {
+         writeMessage(msg,linebreak);
+
+        if (next != null) {
+            next.message(msg, 0);
         }
     }
 }

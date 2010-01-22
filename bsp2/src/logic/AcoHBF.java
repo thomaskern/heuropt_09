@@ -6,6 +6,8 @@ import data.tree.Trie;
 import data.tree.TrieList;
 import data.tree.TrieNode;
 import data.tree.TrieNodeList;
+import logic.logger.Logger;
+import logic.logger.LoggerFactory;
 import logic.search.Vnd;
 import views.TrieVisualizer;
 
@@ -63,6 +65,7 @@ public class AcoHbf extends Aco {
         this.Krb = 1;
         this.Kbs = 1;
 
+        Logger li = LoggerFactory.get();
         /*initializes pheromones on edges with 0.5*/
         for (Edge e : graph.getEdges()) {
             graph.update_pheromone_value(e.getStart().getId(), e.getEnd().getId(), 0.5);
@@ -82,6 +85,9 @@ public class AcoHbf extends Aco {
 //            if (Tib == null || Tib.cost() > find_best_tree().cost()) {
             Tib = find_best_tree();
 //            }
+
+
+            li.message("Best ant-result: " + Tib.cost());
 
             Update();
 
@@ -114,6 +120,9 @@ public class AcoHbf extends Aco {
 //            System.out.println("COST: " + Tbs.cost() + " (" + (int) Math.cbrt(Tbs.cost()) + ")");
 //            Tbs.displayTree();
         }
+
+        
+        li.message("Best and end result: " + Tbs.cost());
 
 //        try {
 //            Thread.sleep(50000);
