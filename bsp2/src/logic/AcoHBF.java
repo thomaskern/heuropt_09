@@ -73,9 +73,10 @@ public class AcoHbf extends Aco {
 
         double last_result = 0;
         int count_same_last_results = 0;
-        int acceptable_number_of_last_results = 15;
+        int acceptable_number_of_last_results = 20;
+        int count_same_result = 0;
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 700; i++) {
             /*Construct trees */
             run_ants();
 
@@ -94,12 +95,17 @@ public class AcoHbf extends Aco {
             ApplyPheromoneUpdate();
 
             cf = computeConvergenceFactor();
-//            System.out.println("Convergence Factor:" + Double.toString(cf));
+            System.out.println("Convergence Factor:" + Double.toString(cf));
 
-            if (last_result == Trb.cost())
+            if (last_result == Trb.cost()){
+                count_same_result++;
                 count_same_last_results++;
-            else
+            }
+            else{
                 last_result = Trb.cost();
+//                count_same_last_results=0;
+            }
+
 
             if (cf >= 0.99 || count_same_last_results > acceptable_number_of_last_results) {
                 if (bs_update == true || count_same_last_results > acceptable_number_of_last_results) {
@@ -116,8 +122,8 @@ public class AcoHbf extends Aco {
 
             }
 
-            trieVisualizer.draw_trie(Tbs);
-//            System.out.println("COST: " + Tbs.cost() + " (" + (int) Math.cbrt(Tbs.cost()) + ")");
+//            trieVisualizer.draw_trie(Tbs);
+            System.out.println("COST: " + Tbs.cost() + " (" + (int) Math.cbrt(Tbs.cost()) + ") "+i);
 //            Tbs.displayTree();
         }
 

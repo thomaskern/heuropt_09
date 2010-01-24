@@ -33,5 +33,24 @@ The \textbf{convergence factor} is used to determine how saturated the pheromone
 In addition to the CF reset we have a reset if the trie doesn't change for $n$ iterations. The $n$ can be set quite liberal. If it is between 10 and 100 the difference is almost unnoticeable.
 \\
 The ACO updates and evaporates the pheromones. The result is stored in a trie.
+\\
+\\
+
+\begin{table}
+\centering
+\begin{tabular}{rllll} 
+  \hline
+  Instance & best & avg & std & time (sec) \\
+  \hline \hline
+  	6 & 444 & 450 & 6 & 15 \\
+  \hline
+	8 & 346 & 356 & 2 & 36 \\
+  \hline
+	10 & 310 & 325 & 2 & 128 \\
+  \hline
+\end{tabular}
+\label{table:gammaSSE}
+\caption{Results of 100 runs}
+\end{table}
 
 \end{document}

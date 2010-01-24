@@ -2,7 +2,6 @@ package test.data;
 
 import data.Fixtures;
 import data.Graph;
-import data.Node;
 import data.tree.Trie;
 import logic.Aco;
 import logic.AcoHbf;
@@ -71,23 +70,6 @@ public class AcoTest {
 
     @Test
     public void should_run_test_instance_10() {
-        graph = Fixtures.parse("mebp/mebp-10.dat");
-
-        Node root = graph.getNodes().get(0);
-        double d = 10000;
-
-        for (Node n : graph.getNodes()) {
-            if (n == root)
-                continue;
-
-            if (d > root.distance_to(n))
-                d = root.distance_to(n);
-
-            System.out.println(root.distance_to(n));
-        }
-
-        System.out.println(Math.cbrt(67371));
-        System.out.println(d);
 
 
         run_instance_avg("10");
@@ -95,31 +77,50 @@ public class AcoTest {
 
 
     private void run_instance_avg(String file) {
-        double[] results = new double[5];
-//        System.out.println(Math.cbrt(68440173));
+        double[] results = new double[10];
+        long[] time_results = new long[results.length];
 
-
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < results.length; i++) {
             graph = Fixtures.parse("mebp/mebp-" + file + ".dat");
 //            graph.setBeta(0.8);
             Logger li = LoggerFactory.create("file_" + file + "_it_" + i, "file_" + file + "_it_" + i + ".txt");
             Aco aco = new AcoHbf(0.1);
 
             long start_time = System.currentTimeMillis();
-            Trie t = aco.run(graph, 4);
+            Trie t = aco.run(graph, 2);
             long end_time = System.currentTimeMillis();
 
 
             results[i] = t.cost();
             t.displayTree();
+            time_results[i] = end_time - start_time;
             Utility.print_time(start_time, end_time);
         }
 
 
-        Logger li = LoggerFactory.create("file_06_analysis", "file_06_analysis.txt");
-        for (Double d : results) {
-            li.message("Cost for Trie: " + Math.cbrt(d));
+        Logger li = LoggerFactory.create("file_" + file + "_analysis", "file_" + file + "_analysis.txt");
+        for (int i = 0; i < results.length; i++) {
+            li.message("Time for result: " + time_results[i] / 1000);
+            li.message("Cost for Trie: " + Math.cbrt(results[i]));
         }
+
+        double avg = avg(results);
+
+        double var = 0;
+        for (double r : results) {
+            var += Math.pow((Math.cbrt(r) - avg), 2);
+        }
+        System.out.println("VAR: " + var + ", avg: " + avg);
+        li.message("Std. " + (int) Math.sqrt(var / (results.length - 1)));
+        li.message("Avg. Cost: " + avg(results));
+
+    }
+
+    private double avg(double[] results) {
+        double sum = 0;
+        for (double res : results)
+            sum += Math.cbrt(res);
+        return sum / results.length;
     }
 
     @Test

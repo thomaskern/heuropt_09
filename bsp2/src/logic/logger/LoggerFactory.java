@@ -38,8 +38,10 @@ public class LoggerFactory {
     }
 
     public static Logger create(String key, String filename) {
-        Logger logger = new StdoutLogger(Logger.DEBUG);
-        logger.setNext(new FileLogger(filename, Logger.NOTICE));
+//        Logger logger = new StdoutLogger(Logger.DEBUG);
+//        logger.setNext(new FileLogger(filename, Logger.NOTICE));
+        loggers.clear();
+        Logger logger = new FileLogger(filename, Logger.NOTICE);
         loggers.put(key, logger);
         return logger;
     }

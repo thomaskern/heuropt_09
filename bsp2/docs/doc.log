@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.1415926-1.40.9 (Web2C 7.5.7) (format=pdflatex 2009.10.30)  19 JAN 2010 13:34
+This is pdfTeXk, Version 3.1415926-1.40.9 (Web2C 7.5.7) (format=pdflatex 2009.10.30)  23 JAN 2010 23:20
 entering extended mode
  file:line:error style messages enabled.
  %&-line parsing enabled.
@@ -175,7 +175,17 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 19.
 (/usr/local/texlive/2008/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2002/01/19 v2.2g AMS font definitions
 )
-Underfull \hbox (badness 10000) in paragraph at lines 21--36
+Underfull \hbox (badness 10000) in paragraph at lines 21--38
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--38
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--38
 
  []
 
@@ -184,18 +194,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 21--36
 {/usr/local/texlive/2008/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 [2] (./doc.aux) ) 
 Here is how much of TeX's memory you used:
- 2457 strings out of 493876
- 34229 string characters out of 1150567
- 89006 words of memory out of 3000000
- 5730 multiletter control sequences out of 10000+50000
+ 2459 strings out of 493876
+ 34251 string characters out of 1150567
+ 89013 words of memory out of 3000000
+ 5732 multiletter control sequences out of 10000+50000
  12135 words of font info for 51 fonts, out of 3000000 for 5000
  714 hyphenation exceptions out of 8191
- 26i,6n,32p,397b,219s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 26i,7n,32p,397b,219s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/local/texlive/2008/texmf-dist/fonts/type1/bluesky/cm/cmb
 x12.pfb></usr/local/texlive/2008/texmf-dist/fonts/type1/bluesky/cm/cmmi12.pfb><
 /usr/local/texlive/2008/texmf-dist/fonts/type1/bluesky/cm/cmr12.pfb></usr/local
 /texlive/2008/texmf-dist/fonts/type1/bluesky/cm/cmr17.pfb>
-Output written on doc.pdf (2 pages, 31996 bytes).
+Output written on doc.pdf (2 pages, 35070 bytes).
 PDF statistics:
  25 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 131072)
