@@ -76,7 +76,7 @@ public class AcoHbf extends Aco {
         int acceptable_number_of_last_results = 20;
         int count_same_result = 0;
 
-        for (int i = 0; i < 700; i++) {
+        for (int i = 0; i < 70000; i++) {
             /*Construct trees */
             run_ants();
 

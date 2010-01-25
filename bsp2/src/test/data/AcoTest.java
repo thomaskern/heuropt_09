@@ -77,7 +77,7 @@ public class AcoTest {
 
 
     private void run_instance_avg(String file) {
-        double[] results = new double[10];
+        double[] results = new double[1];
         long[] time_results = new long[results.length];
 
         for (int i = 0; i < results.length; i++) {
