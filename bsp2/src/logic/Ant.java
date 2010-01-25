@@ -110,7 +110,7 @@ public class Ant extends Thread {
     }
 
     private Double calculate_heuristic_value(Edge e, Graph graph) {
-        return Math.pow(graph.get_pheromone_for_edge(e), 3) * Math.pow(e.cost(), 0.8);
+        return Math.pow(graph.get_pheromone_for_edge(e), 0.5) * Math.pow(1/Math.cbrt(e.cost()), 0.5);
 //        return graph.get_pheromone_for_edge(e) * e.cost();
     }
 
