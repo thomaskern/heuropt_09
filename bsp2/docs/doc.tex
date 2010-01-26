@@ -1,24 +1,25 @@
 \documentclass[12pt]{article}
-\def\x#1#2{$\mathbb{#1}^#2$} 
+\def\x#1#2{$\mathbb{#1}^#2$}
 \def\n#1{\x#1}
-
+ 
 \usepackage{graphicx}
 \usepackage{latexsym}
 \usepackage{amsfonts}
 \usepackage{listings}
 \usepackage{subfigure}
 \usepackage{epic}
-
-
-\title{ADS - Heuropt - Abgabe 1} 
+ 
+ 
+\title{ADS - Heuropt - Abgabe 1}
 \author{Kern, Weichselbaum}
-
-
+ 
+ 
 \begin{document}
-	
+ 
 \maketitle
-
-We implemented the second exercise with an ACO. To be more specific, we decided to use a \textbf{MAX - MIN ACO}.\\
+ 
+We implemented the second exercise with an ACO. To be more specific, we decided to use a \textbf{MAX - MIN ACO} with a slight adaption. The adaption is based on a paper "Ant Colony Optimization for Energy-Efficient Broadcasting in Ad-Hoc Networks" \cite{1} This slight modification should prevent the ACO from converging towards some result.\\
+The reason why we chose the ACO was that we both shared interest in algorithms based on ant colony optimizations and their application.\\
 There are several MEB implementations using ACO's, therefor we followed their advice regarding pheromones and used a \textbf{lower bound} of 0.00001 and an \textbf{upper bound} of 0.9999. The \textbf{learning rate} is adjusted (based on the convergence factor discussed below) between 0.1 and 0.15, as this seems to yield the best results.\\
 \textbf{Pheromones} are \textbf{initiated} with 0.5.
 \\
@@ -26,31 +27,40 @@ There are several MEB implementations using ACO's, therefor we followed their ad
 One \textbf{ant} constructs a valid tree, starting with the root node. From that a neighborhood is calculated. The neighborhood includes all edges from all trienodes to all non-trienodes. The chosen edge is chosen based on the probability of the combination of global and local information.\\
 \textbf{Alpha} and \textbf{Beta} are chosen to be 0.4 and 0.7 respectively.\\
 On top of that we \textbf{sweep}. This means we take the costliest edge of each node and try to add it to another node, iff the new costs are lower than the old ones. This is done until no edge can be re-assigned, per node.\\
-After the sweep, we apply an \textbf{VND}. The function used for the VND is an \textbf{r-shrink}. Since we can change the $r$ dynamically, it is our only neighborhood for the $VND$. The $r$ goes from 1 to 15. No matter how many nodes the instance has, 15 seems to be the upper bound still yielding better results.\\
-The r-shrink uses every node which has equal or more than r children. It then removes those r children from the node and re-assigns them in the best possible way. If this yields a better trie than before the trie is used further and returned to the ant.\\
+After the sweep, we apply an \textbf{VND}. The function used for the VND is an \textbf{r-shrink} \cite{2}. Since we can change the $r$ dynamically, it is our only neighborhood for the $VND$. The $r$ goes from 1 to 15. No matter how many nodes the instance has, 15 seems to be the upper bound still yielding better results.\\
+The r-shrink uses every node which has equal or more than r children. It reduces the transmission power level by r notch. Which means that if k nodes are connected, k-r nodes are still connected and the other nodes are temporarily disconnected. Then these childs are taken and it is checked wheter they can be better acommodated by any of their foster parents. A foster parent is any node which is not the childs descendant or its current immediate parent. If a better parent is found the child is hooked to this parent, if not it is reconnected with its initial predecessor. If this yields a better trie than before the trie is used further and returned to the ant.\\
 \\
-The \textbf{convergence factor} is used to determine how saturated the pheromones are. The higher the pheromone on the edges of the currently best trie the higher the CF is. This is then used to determine whether or not a pheromone reset is due, to be more specific as soon as the CF hits 0.99 or above a reset is due. If this is the case all pheromones are set to 0.5.\\
-In addition to the CF reset we have a reset if the trie doesn't change for $n$ iterations. The $n$ can be set quite liberal. If it is between 10 and 100 the difference is almost unnoticeable.
+The \textbf{convergence factor} is used to determine how saturated the pheromones on the so far best results are. The higher the pheromone value on these, so far best, paths are the higher the convergence value. For this convergence factor a threshold of 0.99 is defined. This is then used to determine whether or not a pheromone reset is due, to be more specific as soon as the CF hits 0.99 or above a reset is performed, which in this case reinitializes all the pheromones in our pheromone matrix with a value of 0.5.\\
+In addition to the Convergence Factor reset we have a reset if the trie doesn't change for $n$ iterations, in order to force our algorithm to try some other ways. The $n$ can be set quite liberal. If it is between 10 and 100 the difference is almost unnoticeable.
 \\
-The ACO updates and evaporates the pheromones. The result is stored in a trie.
+The ACO updates and evaporates the pheromones with an evaporation rate of 10\%, which seemed to provide the best contribution to a performance gain. The solution of our ACO is stored in a trie, which we considered to be the best way.
 \\
+To check visually, whether our algorithm produced sound results, we depicted the broadcast of each node graphically during runtime and additionally printed a broadcast tree to a log. 
 \\
-
+ 
 \begin{table}
 \centering
-\begin{tabular}{rllll} 
+\begin{tabular}{rllll}
   \hline
   Instance & best & avg & std & time (sec) \\
   \hline \hline
-  	6 & 440 & 450 & 8 & 15 \\
+   6 & 85,184,000 (440) & 91,125,000 (450) & 8 & 15 \\
   \hline
-	8 & 346 & 356 & 2 & 39 \\
+8 & 41,421,736 (346) & 45,118,016 (356) & 3 & 39 \\
   \hline
-	10 & 310 & 325 & 2 & 128 \\
+10 & 29,791,000 (310) & 34,328,125 (325) & 3 & 128 \\
   \hline
 \end{tabular}
 \label{table:gammaSSE}
 \caption{Results of 100 runs}
 \end{table}
+ 
+\begin{thebibliography}{2}
 
+\bibitem{1}
+Ant Colony Optimization for Energy-Efficient Broadcasting in Ad-Hoc Networks - Hugo Hern´andez, Christian Blum, and Guillem Franc`es
+\bibitem{2}
+r-shrink: A Heuristic for Improving Minimum
+Power Broadcast Trees in Wireless Networks - Arindam K. Das, Robert J. Marks, Mohamed El-Sharkawi, Payman Arabshahi, Andrew Gray
+\end{thebibliography}
 \end{document}
